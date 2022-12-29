@@ -1,5 +1,5 @@
 import axios, { AxiosInstance } from "axios";
-import { AxiosCall, Product, Products } from "../models";
+import { Product, Products } from "../models";
 import { loadAbort } from "../utilities/load-abort-axios.utility";
 
 const products: AxiosInstance = axios.create({

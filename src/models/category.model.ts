@@ -16,4 +16,4 @@ export interface Categories {
     categories: Category[]
 }
 
-export const CategoriesEmptyState: Categories = { categories: [] } 
+export const CategoriesEmptyState: Category[] = []

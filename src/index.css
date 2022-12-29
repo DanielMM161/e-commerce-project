@@ -1,13 +1,10 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-html,
-body {
-  height: 100%;
-  width: 100%;
+.nav-ul {
+  align-items: center;
+  display: flex;
+  border-right: 1px solid white;
+  border-left: 1px solid white;
+  padding-left: 10px;
+  padding-right: 10px;
 }
 
 /*# sourceMappingURL=index.css.map */

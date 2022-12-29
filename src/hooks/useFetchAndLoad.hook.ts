@@ -1,11 +1,7 @@
 
-import axios, { AxiosInstance, AxiosResponse } from 'axios';
+import { AxiosResponse } from 'axios';
 import { useEffect, useState } from 'react';
-import { AxiosCall, Product } from '../models';
-
-const products: AxiosInstance = axios.create({
-  baseURL: "https://api.escuelajs.co/api/v1/products" 
-});
+import { AxiosCall } from '../models';
 
 const useFetchAndLoad = () => {
   const [loading, setLoading] = useState(false);

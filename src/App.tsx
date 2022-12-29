@@ -2,9 +2,12 @@ import { ThemeProvider } from '@mui/material'
 import React, { lazy } from 'react'
 import { Provider } from 'react-redux'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import { NavBar } from './components'
 import { store } from './redux/store'
 import GlobalStyle from './styled-component/global.styled.component'
 import { AppContainer } from './styled-component/layout.styled.component'
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 // Routes
 const HomePage = lazy(() => import('./pages/Home/Home'))
@@ -18,7 +21,8 @@ const App = () => {
   return (
     <React.StrictMode>
       <Provider store={store}>
-          <BrowserRouter>
+        <BrowserRouter>
+            <NavBar />
             <GlobalStyle />
             <AppContainer>
               <Routes>
