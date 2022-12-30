@@ -32,7 +32,7 @@ const HomePage = () => {
     }
     
     useEffect(() => {
-        fetchProducts()
+       // fetchProducts()
         fetchCategories()
     }, [])
 
