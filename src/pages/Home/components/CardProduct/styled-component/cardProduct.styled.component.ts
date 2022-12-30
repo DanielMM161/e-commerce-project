@@ -5,13 +5,14 @@ export const ItemCard = styled.div`
     margin: 10px;
     padding: 10px;
     width: 280px;
-    border-radius: 16px;
+    border-radius: 8px;
     flex: none;
 
     .image img {
         width: 100%;
         height: 100%;
         object-fit: cover;
+        border-radius: 8px;
     }
 
     .info {

@@ -1,8 +1,11 @@
+import { BreadCrumbs } from "../../components/BreadCrumbs"
 
 
 const ProductsPage = () => {
     return (
-        <div>Products Page</div>
+        <>
+            <BreadCrumbs links={[{path: "/Products",name: "Products"}]}/>
+        </>
     )
 }
 
