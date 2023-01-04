@@ -1,21 +1,14 @@
 import { useEffect, useState } from "react"
 import { BreadCrumbs } from "../../components/BreadCrumbs"
-import { useAppDispatch, useAppSelector, useCategories, useFetchAndLoad, useProduct } from "../../hooks"
+import { useAppDispatch, useAppSelector, useFetchAndLoad } from "../../hooks"
 import { CardProduct } from "../../components/CardProduct"
 import ButtonLoader from "./components/ButtonLoader/ButtonLoader"
 import { StyledProducts } from "./styled-component/products.styled.component"
 import { Filter, SideBar } from "../../components"
-import { fetchAllProducts, resetSortProduct, sortProductByCategories } from "../../redux/slices/products.slice"
-import { Category, Product } from "../../models"
-import { getAllCategory, getProductsByCategory, getProductsPagination } from "../../services"
-import { createCategoryAdapter, createProductAdapter } from "../../adapters"
-import { fetchAllCategories, getCategories } from "../../redux/slices/categories.slice"
+import { fetchAllProducts } from "../../redux/slices/products.slice"
+import { Product } from "../../models"
+import { fetchAllCategories } from "../../redux/slices/categories.slice"
 import { IFilter } from "../../components/Filter/Filter"
-
-interface PrevState {
-    prevState: Product[],
-    prevPagination: number
-}
 
 const ProductsPage = () => {
     
@@ -25,25 +18,11 @@ const ProductsPage = () => {
     const productState = useAppSelector(state => state.products)
     const categoriesState = useAppSelector(state => state.categories)
         
-    const [pagination, setPagination] = useState(10)
+    const [pagination, setPagination] = useState(1)
     
     // Filter
     const [openFilter, setOpenFilter] = useState(false)
-    const [valueSlider, setValueSlider] = useState<number[]>([0, 1000]);
-    const [maxPrice, setMaxPrice] = useState(50)
-
-    useEffect(() => {
-        
-        let max: number = 0
-        let min: number = 40
-        productState.products.forEach((product) => {
-            if (product.price > max) {
-                max = product.price
-            }
-        })
-        setMaxPrice(max)
-    
-    }, [productState.products])
+    const [filter, setFilter] = useState<IFilter | null>(null)
     
     useEffect(() => {        
         dispatch(fetchAllCategories())
@@ -64,31 +43,38 @@ const ProductsPage = () => {
             document.body.style.overflow = 'unset';
         }
     }
-    
-    function filterProdcuts(filter: IFilter) {
-        const { ids, prices } = filter
-        console.log("filter --> ", filter);
-
-        dispatch(resetSortProduct())
-        if (ids.length > 0 || prices.min > 0) {         
-            console.log("filterProducts --> ", filterProducts(productState.products, filter))            
-           // dispatch(sortProductByCategories(filter))  
-        } else {
-            dispatch(resetSortProduct())
-        }    
-    }
-    
-    function filterProducts(products: Product[], filter: IFilter): Product[] {
+        
+    function filterProducts(products: Product[], filter: IFilter) {
+        console.log("filterProducts --> ", filter);
+                        
         let newProducts: Product[] = []
         const {ids, prices} = filter
-           
-        ids.forEach(value => {
-            const filter = products.filter(product => product.category.id === value)            
-            newProducts = [...newProducts, ...filter]
-        })
-            
-        newProducts = newProducts.filter(product => ((product.price >= prices.min && product.price <= prices.max) || prices.max === 0))        
-        return newProducts
+
+        if(ids.length > 0) {
+            ids.forEach(value => {
+                const filter = products.filter(product => product.category.id === value)            
+                newProducts = [...newProducts, ...filter]
+            })
+            if(prices != null) {
+                newProducts = newProducts.filter(product => ((product.price >= prices.min && product.price <= prices.max) || prices.max === 0))
+            }
+        } else {
+            if(prices != null) {
+                newProducts = products.filter(product => ((product.price >= prices.min && product.price <= prices.max) || prices.max === 0))
+            }
+        }
+
+        if(newProducts.length > 0) {
+            return newProducts.map((product) => {
+                const { id, title, price, description, images } = product
+                return  <CardProduct id={id} title={title} price={price} image={images[0]} />
+            })
+        }
+
+        return (
+            <div>No product found</div>
+        )
+        
     }
     
     return (
@@ -98,28 +84,15 @@ const ProductsPage = () => {
             {categoriesState.length > 0 ? <button onClick={() => setOpenFilter(!openFilter)}>OPEN</button> : null}
             
             <StyledProducts>
-                
-                {productState.productsFiltered.length > 0 ? (
-                    productState.productsFiltered.map((product) => {
-                        const { id, title, price, description, images, category } = product
-                        return (
-                            <>
-                                <div>{ category.id}</div>
-                             <CardProduct id={id} title={title} price={price} image={images[0]} />
-                            </>
-                        )
-                    })
-                ): (
-                    productState.products.map((product) => {
-                        const { id, title, price, description, images, category } = product
-                        return (
-                            <>
-                                <div>{ category.id}</div>
-                             <CardProduct id={id} title={title} price={price} image={images[0]} />
-                            </>
-                        )
-                    })
-                )}                    
+
+            {filter === null ? (
+                productState.products.map((product) => {
+                    const { id, title, price, description, images, category } = product
+                    return <CardProduct id={id} title={title} price={price} image={images[0]}/>
+                })
+            ) : (
+                filterProducts(productState.products, filter)
+            )}
             </StyledProducts>
             
             <ButtonLoader loading={loading} onClick={() => setPagination(pagination + 10)} />
@@ -131,9 +104,8 @@ const ProductsPage = () => {
             >
                 {
                     <Filter
-                        sortProducts={(filter) => filterProdcuts(filter)}
-                        categories={categoriesState}
-                        maxPrice={maxPrice}                   
+                        sortProducts={(filter) => setFilter(filter)}
+                        categories={categoriesState}                                     
                     />
                 }
             </SideBar>

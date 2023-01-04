@@ -28,6 +28,10 @@ export const StyledFilter = styled.div`
     }
 
     .button-clicked {
+        padding: 0.5rem;
+        border: 1px solid;
+        font-size: 0.8rem;
+        background: transparent;
         background-color: black;
         color: white;
     }

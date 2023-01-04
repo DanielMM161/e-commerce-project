@@ -4,8 +4,7 @@ import { StyledFilter } from "./styled-component/filter.styled.component"
 
 interface IFilterProps {
     categories: Category[],
-    sortProducts: (filter: IFilter) => void,
-    maxPrice: number
+    sortProducts: (filter: IFilter | null) => void
 }
 
 interface IFilterPrices {
@@ -15,7 +14,7 @@ interface IFilterPrices {
 
 export interface IFilter {
     ids: number[],
-    prices: IFilterPrices
+    prices: IFilterPrices | null
 }
 
 const filterPrices: IFilterPrices[] = [
@@ -48,10 +47,6 @@ const Filter = ({
         
     const [clickCategory, setClickCategory] = useState<boolean[]>([])
     const [clickPrice, setClickPrice] = useState<boolean[]>([])
-    const [filter, setFilter] = useState<IFilter>({
-        ids: [],
-        prices: {min: 0, max: 0}   
-    })
         
     useEffect(() => {                
         categories.forEach((_, index) => {
@@ -65,40 +60,47 @@ const Filter = ({
         })
     }, [categories])
     
-    useEffect(() => {                        
-        sortProducts(filter)
-    }, [filter])
-    
     function clickFilterByCategory(index: number, id: number) {
         clickCategory[index] = !clickCategory[index]
-        setClickCategory(prev => ([...clickCategory]))        
-                
-        if (clickCategory[index]) {
-            setFilter((prevState) => ({
-                prices: {...prevState.prices},
-                ids: [...filter.ids, id]
-            }))
-        } else {
-            setFilter((prevState) => ({
-                prices: {...prevState.prices},
-                ids: [...prevState.ids.filter(value => value != id)]
-            }))   
-        }
+        setClickCategory(prev => ([...clickCategory]))
+        checkClicked()
     }
     
     function clickFilterPrice(index: number) {
         clickPrice[index] = !clickPrice[index]
-        setFilter((prevState) => ({
-            prices: clickPrice[index] ? filterPrices[index] : {min: 0, max: 0},
-            ids: [...prevState.ids]
-        }))
         const newClickPrice = clickPrice.map((item, i) => {
             if (index != i) {
                 item = false                
             }
             return item
-        })        
+        })
         setClickPrice(prev => ([...newClickPrice]))
+        checkClicked()
+       
+    }
+
+    function checkClicked() {
+        const filter: IFilter = {
+            ids: [],
+            prices: null
+        }
+        clickPrice.forEach((value, index) => {
+            if(value) {
+                filter.prices = filterPrices[index]
+            }
+        })
+
+        clickCategory.forEach((value, index) => {
+            if(value) {                
+                filter.ids.push(categories[index].id)
+            }
+        })
+
+        if(filter.ids.length > 0 || filter.prices != null) {
+            sortProducts(filter)
+        }  else {
+            sortProducts(null)
+        }
     }
     
     return (
@@ -125,7 +127,7 @@ const Filter = ({
                         )
                     })
                 }
-            </div>            
+            </div>          
         </StyledFilter>
     )
 }

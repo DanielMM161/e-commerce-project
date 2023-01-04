@@ -34,7 +34,6 @@ export interface Product {
 
 export interface ProductState {
     products: Product[],
-    productsFiltered: Product[],
     isLoading: boolean
 }
 
@@ -53,6 +52,5 @@ export const ProductEmptyState: Product = {
 
 export const ProductsEmptyState: ProductState = {
     products: [],
-    productsFiltered: [],
     isLoading: false
 }

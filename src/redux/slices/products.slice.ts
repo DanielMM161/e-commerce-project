@@ -19,13 +19,6 @@ export const productsSlice = createSlice({
         setEmptyState: (state) => {
             state = ProductsEmptyState
             return state
-        },
-        resetSortProduct: (state) => {
-            state.productsFiltered = []
-        },
-        sortProductByCategories: (state, action) => {
-                        
-            return state        
         }
     },
     extraReducers: (build) => {
@@ -49,6 +42,6 @@ export const productsSlice = createSlice({
     }
 });
 
-export const { setEmptyState, sortProductByCategories, resetSortProduct} = productsSlice.actions
+export const { setEmptyState} = productsSlice.actions
 
 export default productsSlice.reducer
