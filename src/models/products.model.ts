@@ -32,13 +32,15 @@ export interface Product {
     category: ProductCategory
 }
 
-export interface Products {
-    products: Product[]
+export interface ProductState {
+    products: Product[],
+    productsFiltered: Product[],
+    isLoading: boolean
 }
 
 export const ProductEmptyState: Product = {
     id: 0,
-    title: "",
+    title: "",  
     price: 0,
     description: "",
     images: [],
@@ -49,4 +51,8 @@ export const ProductEmptyState: Product = {
     }
 }
 
-export const ProductsEmptyState: Product[] = []
+export const ProductsEmptyState: ProductState = {
+    products: [],
+    productsFiltered: [],
+    isLoading: false
+}

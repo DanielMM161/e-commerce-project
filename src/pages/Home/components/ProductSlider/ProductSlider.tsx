@@ -1,6 +1,6 @@
 import { MutableRefObject, useRef } from "react";
 import { Product } from "../../../../models";
-import { CardProduct } from "../CardProduct";
+import { CardProduct } from "../../../../components/CardProduct";
 import { ArrowIcon, StyledButtons, StyledCarousel, StyledProductSlider } from "./styled-component/productSlider.styled.component";
 
 interface IProductSlider {

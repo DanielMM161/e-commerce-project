@@ -1,13 +1,16 @@
 import axios, { AxiosInstance } from "axios";
-import { Categories, Category, Product, Products } from "../models";
+import { Categories, Category } from "../models";
 import { loadAbort } from "../utilities/load-abort-axios.utility";
 
+const PLATZI_URL = "https://api.escuelajs.co/api/v1/categories"
+const FAKE_API_URL = "https://fakestoreapi.com/products/categories"
+
 const products: AxiosInstance = axios.create({
-  baseURL: "https://api.escuelajs.co/api/v1/categories" 
+  baseURL: PLATZI_URL
 });
 
 export const getAllCategory = () => {
-    const controller = loadAbort()
+  const controller = loadAbort()
     return {call: products.get<Categories>('', { signal: controller.signal }), controller };
 }
 

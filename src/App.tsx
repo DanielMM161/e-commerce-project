@@ -1,4 +1,3 @@
-import { ThemeProvider } from '@mui/material'
 import React, { lazy } from 'react'
 import { Provider } from 'react-redux'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'

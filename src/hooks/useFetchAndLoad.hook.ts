@@ -13,7 +13,8 @@ const useFetchAndLoad = () => {
     
     try {
       let result = {} as AxiosResponse<any>;
-      result =  await axiosCall.call;
+      result = await axiosCall.call;
+      
       if (result.status === 200) {
         setLoading(false);
         return result.data
@@ -22,8 +23,7 @@ const useFetchAndLoad = () => {
         setLoading(false);    
       
       }
-    } catch (error) {     
-      console.log("entro en error");
+    } catch (error) {
             
       setLoading(false);
       throw error
