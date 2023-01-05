@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { BreadCrumbs } from "../../components/BreadCrumbs"
-import { useAppDispatch, useAppSelector } from "../../hooks"
+import { useAppDispatch, useAppSelector, UseSideBar } from "../../hooks"
 import { CardProduct } from "../../components/CardProduct"
 import ButtonLoader from "./components/ButtonLoader/ButtonLoader"
 import { StyledProducts } from "./styled-component/products.styled.component"
@@ -19,7 +19,7 @@ const ProductsPage = () => {
     const [pagination, setPagination] = useState(1)
     
     // Filter
-    const [openFilter, setOpenFilter] = useState(false)
+    const {showSideBar, toggle} = UseSideBar()
     const [filter, setFilter] = useState<IFilter | null>(null)
     
     useEffect(() => {        
@@ -32,10 +32,10 @@ const ProductsPage = () => {
         
     useEffect(() => {             
         disableScrollBody()
-    }, [openFilter])
+    }, [showSideBar])
     
     function disableScrollBody() {
-        if (openFilter) {
+        if (showSideBar) {
             document.body.style.overflow = 'hidden';
         } else {
             document.body.style.overflow = 'unset';
@@ -77,7 +77,7 @@ const ProductsPage = () => {
         <>
             <BreadCrumbs links={[{ path: "/Products", name: "Products" }]} />
             
-            {categoriesState.length > 0 ? <button onClick={() => setOpenFilter(!openFilter)}>OPEN</button> : null}
+            {categoriesState.length > 0 ? <button onClick={() => toggle()}>OPEN</button> : null}
             
             <StyledProducts>
 
@@ -95,8 +95,8 @@ const ProductsPage = () => {
             
             <SideBar
                 title="Filter"
-                isOpen={openFilter}
-                closeSideBar={() => setOpenFilter(!openFilter)}
+                isOpen={showSideBar}
+                closeSideBar={() => toggle()}
             >
                 {
                     <Filter
