@@ -1,6 +1,7 @@
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-export const ItemCard = styled.div`
+export const ItemCard = styled(Link)`
     background-color: white;
     padding: 10px;
     border-radius: 8px;

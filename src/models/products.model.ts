@@ -32,25 +32,33 @@ export interface Product {
     category: ProductCategory
 }
 
-export interface ProductState {
+export interface ProductsState {
     products: Product[],
     isLoading: boolean
 }
 
-export const ProductEmptyState: Product = {
-    id: 0,
-    title: "",  
-    price: 0,
-    description: "",
-    images: [],
-    category: {
-        id: 0,
-        name: "",
-        image: ""
-    }
+interface ProductState {
+    product: Product
+    isLoading: boolean
 }
 
-export const ProductsEmptyState: ProductState = {
+export const singleProductEmptyState: ProductState = {
+    product: {
+        id: 0,
+        title: "",  
+        price: 0,
+        description: "",
+        images: [],
+        category: {
+            id: 0,
+            name: "",
+            image: ""
+        }
+    },
+    isLoading: false
+}
+
+export const ProductsEmptyState: ProductsState = {
     products: [],
     isLoading: false
 }

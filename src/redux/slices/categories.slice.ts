@@ -16,10 +16,6 @@ export const categoriesSlice = createSlice({
     name: 'categories',
     initialState: CategoriesEmptyState,
     reducers: {
-        getCategories: (state, action) => {
-            state = action.payload
-            return state
-        }
     },
     extraReducers: (build) => {
         build.addCase(fetchAllCategories.fulfilled, (state, action) => {
@@ -27,7 +23,7 @@ export const categoriesSlice = createSlice({
                 console.log('fetching products error')
                 return state
             }
-            state = [...state, ...action.payload]
+            state = action.payload
             return state
         })
         build.addCase(fetchAllCategories.rejected, (state ) => {
@@ -36,7 +32,5 @@ export const categoriesSlice = createSlice({
         })
     }
 })
-
-export const { getCategories } = categoriesSlice.actions
 
 export default categoriesSlice.reducer

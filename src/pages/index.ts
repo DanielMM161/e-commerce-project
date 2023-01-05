@@ -1,6 +1,6 @@
 export * from './Home';
 export * from './Login';
-export * from './ProductId';
+export * from './SingleProduct';
 export * from './Products';
 export * from './Profile';
 export * from './Register';

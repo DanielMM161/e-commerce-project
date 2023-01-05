@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { BreadCrumbs } from "../../components/BreadCrumbs"
-import { useAppDispatch, useAppSelector, useFetchAndLoad } from "../../hooks"
+import { useAppDispatch, useAppSelector } from "../../hooks"
 import { CardProduct } from "../../components/CardProduct"
 import ButtonLoader from "./components/ButtonLoader/ButtonLoader"
 import { StyledProducts } from "./styled-component/products.styled.component"
@@ -11,8 +11,6 @@ import { fetchAllCategories } from "../../redux/slices/categories.slice"
 import { IFilter } from "../../components/Filter/Filter"
 
 const ProductsPage = () => {
-    
-    const { loading, callEndpoint } = useFetchAndLoad()
     
     const dispatch = useAppDispatch()
     const productState = useAppSelector(state => state.products)
@@ -44,9 +42,7 @@ const ProductsPage = () => {
         }
     }
         
-    function filterProducts(products: Product[], filter: IFilter) {
-        console.log("filterProducts --> ", filter);
-                        
+    function filterProducts(products: Product[], filter: IFilter) {                
         let newProducts: Product[] = []
         const {ids, prices} = filter
 
@@ -87,7 +83,7 @@ const ProductsPage = () => {
 
             {filter === null ? (
                 productState.products.map((product) => {
-                    const { id, title, price, description, images, category } = product
+                    const { id, title, price, images } = product
                     return <CardProduct id={id} title={title} price={price} image={images[0]}/>
                 })
             ) : (
@@ -95,7 +91,7 @@ const ProductsPage = () => {
             )}
             </StyledProducts>
             
-            <ButtonLoader loading={loading} onClick={() => setPagination(pagination + 10)} />
+            <ButtonLoader loading={productState.isLoading} onClick={() => setPagination(pagination + 5)} />
             
             <SideBar
                 title="Filter"

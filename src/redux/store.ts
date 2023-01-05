@@ -1,19 +1,19 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
 import { Category, Product, User } from '../models';
-import { categoriesSlice } from './slices/categories.slice';
-import { productsSlice } from './slices/products.slice';
+import { categoriesSlice, productsSlice, singleProductSlice } from './slices';
 
 export interface AppStore {
   //user: User
   products: Product[]
   categories: Category[]
-  //product: Product
+ // product: Product
 }
 
 export const store = configureStore({
   reducer: {
     products: productsSlice.reducer,
     categories: categoriesSlice.reducer,
+    singleProduct: singleProductSlice.reducer
   }
 });
 
