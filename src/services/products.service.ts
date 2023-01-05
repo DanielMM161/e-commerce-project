@@ -1,5 +1,4 @@
 import axios, { AxiosInstance } from "axios";
-import { Product,  } from "../models";
 import { loadAbort } from "../utilities/load-abort-axios.utility";
 
 const PLATZI_URL = "https://api.escuelajs.co/api/v1/products"

@@ -17,20 +17,18 @@ const Modal = ({
       
     return (
         <>
-          {showModal ? (
-            <StyledModal>
-              <div className='overlay' onClick={() => closeDialog}></div>
-              <div className="modal">
-                  <header className="modal-header">
-                      <h3>{title}</h3>
-                      <button className='close-icon' aria-label='Close' onClick={closeDialog}></button>
-                  </header>
-                  <div className="modal-content">
-                      {children}
-                  </div>
-              </div>
-            </StyledModal>   
-          ) : null}
+            {showModal ? (
+                <StyledModal>
+                    <div className='overlay' onClick={() => closeDialog}></div>
+                    <div className="modal">
+                        <header className="modal-header">
+                            <h3>{title}</h3>
+                            <button className='close-icon' aria-label='Close' onClick={closeDialog}></button>
+                        </header>
+                        {children}                        
+                    </div>
+                </StyledModal>   
+            ) : null}
         </>
     )
 }

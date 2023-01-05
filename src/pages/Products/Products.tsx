@@ -9,12 +9,15 @@ import { fetchAllProducts } from "../../redux/slices/products.slice"
 import { Product } from "../../models"
 import { fetchAllCategories } from "../../redux/slices/categories.slice"
 import { IFilter } from "../../components/Filter/Filter"
+import UseUserSession from './../../hooks/useUserSession';
 
 const ProductsPage = () => {
     
     const dispatch = useAppDispatch()
     const productState = useAppSelector(state => state.products)
     const categoriesState = useAppSelector(state => state.categories)
+    const userState = useAppSelector(state => state.user)
+    UseUserSession()
         
     const [pagination, setPagination] = useState(1)
     
@@ -22,7 +25,7 @@ const ProductsPage = () => {
     const {showSideBar, toggle} = UseSideBar()
     const [filter, setFilter] = useState<IFilter | null>(null)
     
-    useEffect(() => {        
+    useEffect(() => {
         dispatch(fetchAllCategories())
     }, [])
     
@@ -75,6 +78,7 @@ const ProductsPage = () => {
     
     return (
         <>
+            {userState != null ? (<div>{userState.name}</div>) : (<div>user es null</div>)}
             <BreadCrumbs links={[{ path: "/Products", name: "Products" }]} />
             
             {categoriesState.length > 0 ? <button onClick={() => toggle()}>OPEN</button> : null}

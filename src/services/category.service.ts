@@ -3,7 +3,6 @@ import { Categories, Category } from "../models";
 import { loadAbort } from "../utilities/load-abort-axios.utility";
 
 const PLATZI_URL = "https://api.escuelajs.co/api/v1/categories"
-const FAKE_API_URL = "https://fakestoreapi.com/products/categories"
 
 const products: AxiosInstance = axios.create({
   baseURL: PLATZI_URL

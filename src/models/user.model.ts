@@ -10,13 +10,12 @@ export interface ApiUser {
 }
 
 export interface User {
-    name: string,
+    id: number,
     email: string,
-    status: string
+    password: string,
+    name: string,
+    role: string,
+    avatar: string,
 }
 
-export const UserEmptyState: User = {
-    name: '',
-    email: '',
-    status: ''
-}
+export const UserEmptyState: User | null = null

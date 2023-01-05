@@ -2,10 +2,11 @@ import { Logo, StyledNavBar } from "./styled-component/navBar.styled.component"
 import { Link } from "react-router-dom";
 import Modal from "../Modal/Modal";
 import { UseModal } from "../../hooks";
+import { Login, Register } from "../Forms";
 
 const NavBar = () => {
 
-    const {showModal, toggle} = UseModal()
+    const {showModal, toggle, showLogin, toggleLogin} = UseModal()
     
     return (
         <StyledNavBar>
@@ -30,7 +31,13 @@ const NavBar = () => {
                 </nav>
             </div>
 
-            <Modal title="Login" closeDialog={() => toggle()} showModal={showModal} children={<div></div>}/>
+            <Modal title="Login" closeDialog={() => toggle()} showModal={showModal} >
+                {showLogin ? (
+                    <Login register={() => toggleLogin()}/>
+                ) : (
+                    <Register goLogin={() => toggleLogin()} />
+                )}
+            </Modal>
 
         </StyledNavBar>
     )
