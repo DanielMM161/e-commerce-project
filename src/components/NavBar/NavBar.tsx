@@ -1,29 +1,37 @@
-import { DivContainer, Logo, Nav, NavLink, StyledNavBar } from "./styled-component/navBar.styled.component"
+import { Logo, StyledNavBar } from "./styled-component/navBar.styled.component"
+import { Link } from "react-router-dom";
+import Modal from "../Modal/Modal";
+import { UseModal } from "../../hooks";
 
 const NavBar = () => {
+
+    const {showModal, toggle} = UseModal()
     
     return (
         <StyledNavBar>
-            <DivContainer>
+            <div className="container">
                 <Logo to="/" >
                     LOGO HERE
                 </Logo>
-                <Nav>
+                <nav>
                     <ul className="nav-ul">
-                        <NavLink to="/login">
+                        <span onClick={() => toggle()}>
                             Login
-                        </NavLink>
+                        </span>
                         
-                        <NavLink to="/products">
+                        <Link to="/products">
                             Products
-                        </NavLink>
+                        </Link>
                             
-                        <NavLink to="/cart">
+                        <Link to="/cart">
                             Shopping Cart
-                        </NavLink>
+                        </Link>
                     </ul>
-                </Nav>
-            </DivContainer>
+                </nav>
+            </div>
+
+            <Modal title="Login" closeDialog={() => toggle()} showModal={showModal} children={<div></div>}/>
+
         </StyledNavBar>
     )
 

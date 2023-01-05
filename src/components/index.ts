@@ -3,3 +3,4 @@ export * from './BreadCrumbs';
 export * from './CardProduct';
 export * from './NavBar';
 export * from './SideBar';
+export * from './Modal';

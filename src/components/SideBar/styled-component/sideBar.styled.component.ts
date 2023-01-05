@@ -10,15 +10,6 @@ export const StyledSideBar = styled.div`
     width: 460px;    
     transition: all 0.4s;
 
-    .overlay {
-        position: fixed;
-        top: 0;    
-        left: 100%;
-        width: 100vw;
-        height: 100vh;
-        background-color: rgba(0, 0, 0, 0.37);
-    }
-
     .header {
         width: 100%;        
         display: flex;

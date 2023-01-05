@@ -1,2 +1,3 @@
 export * from './redux.hook';
-export { default as useFetchAndLoad } from './useFetchAndLoad.hook';
+export * from './useFetchAndLoad.hook';
+export * from './useModal.hook';
