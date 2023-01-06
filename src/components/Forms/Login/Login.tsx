@@ -1,21 +1,31 @@
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../../hooks';
 import { fetchUserSession, serviceLoginUser } from '../../../services';
 import { StyledLogin } from './styled-component/login.styled.component';
 
 interface ILoginProps {
   register: () => void
+  closeModal: () => void
 }
 
-const Login = ({ register } : ILoginProps) => {
+const Login = ({ 
+  register,
+  closeModal
+} : ILoginProps) => {
 
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const userState = useAppSelector(store => store.user)
   const dispatch = useAppDispatch()
 
-  function loginUser(e: any) {
+  useEffect(() => {
+    if(userState != null) {
+      closeModal()
+    }
+  }, [userState])
+
+  function loginUser(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
     if(email.trim() != "" && password.trim() != "") {
       serviceLoginUser(email, password)
@@ -33,11 +43,27 @@ const Login = ({ register } : ILoginProps) => {
 
   return(
     <StyledLogin onSubmit={(e) => loginUser(e)}>
-        <input type="text" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email Address"/>      
-        <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" />
-        <button type="submit" onClick={() => {}}>Login</button>  
-        <span onClick={() => register()}>Not Yet Account ? Register Now</span>
-        {userState != null ? (<div>{userState.name}</div>) : (<div>es null</div>)}
+        <input 
+          type="text" 
+          value={email} 
+          onChange={(e) => setEmail(e.target.value)} placeholder="Email Address"
+        />      
+
+        <input 
+          type="password" 
+          value={password} 
+          onChange={(e) => setPassword(e.target.value)} placeholder="Password" 
+        />
+
+        <button
+          className='main-button'
+          type="submit" 
+          onClick={() => {}}
+        >
+          Login
+        </button>
+
+        <span onClick={() => register()}>Not Yet Account ? Register Now</span>        
     </StyledLogin>
   )
 }

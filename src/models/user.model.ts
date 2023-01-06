@@ -18,4 +18,12 @@ export interface User {
     avatar: string,
 }
 
+export type UserRegistration = {
+    name: string,
+    email: string,
+    password: string,
+    avatar?: string
+}
+  
+
 export const UserEmptyState: User | null = null

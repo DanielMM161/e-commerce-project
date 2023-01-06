@@ -6,7 +6,7 @@ import { Login, Register } from "../Forms";
 
 const NavBar = () => {
 
-    const {showModal, toggle, showLogin, toggleLogin} = UseModal()
+    const {showModal, toggle, showLogin, toggleLogin, titleModal} = UseModal()
     
     return (
         <StyledNavBar>
@@ -31,11 +31,11 @@ const NavBar = () => {
                 </nav>
             </div>
 
-            <Modal title="Login" closeDialog={() => toggle()} showModal={showModal} >
+            <Modal title={titleModal} closeDialog={() => toggle()} showModal={showModal} >
                 {showLogin ? (
-                    <Login register={() => toggleLogin()}/>
+                    <Login register={() => toggleLogin()} closeModal={() => toggle()}/>
                 ) : (
-                    <Register goLogin={() => toggleLogin()} />
+                    <Register goLogin={() => toggleLogin()} closeModal={() => toggle()} />
                 )}
             </Modal>
 

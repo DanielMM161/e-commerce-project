@@ -89,15 +89,6 @@ export const StyledSingleProduct = styled.div`
       width: 10%;
       text-align: center;
     }
-
-    .button-add {
-      background-color: rgb(97 17 34 / 1);
-      padding: 1rem;
-      width: 50%;
-      color: white;
-      text-transform: uppercase;
-      font-weight: 700;
-    }
   }
 
   .garanties {

@@ -57,6 +57,20 @@ export const GlobalStyle = createGlobalStyle`
     .overlay.overlay-right {  
         right: 100%;
     }
+
+    button[disabled=disabled], button:disabled {
+        cursor: not-allowed;
+        background-color: rgb(229, 229, 229) !important;
+    }
+
+    .main-button {
+        background-color: rgb(97 17 34 / 1);
+        padding: 1rem;
+        width: 50%;
+        color: white;
+        text-transform: uppercase;
+        font-weight: 700;
+    }
 `;
 
 export default GlobalStyle;

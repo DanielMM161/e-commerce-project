@@ -20,18 +20,17 @@ export const productsSlice = createSlice({
         build.addCase(fetchAllProducts.pending , (state, action) => {
             state.isLoading = true
         }),
-        build.addCase(fetchAllProducts.fulfilled, (state, action) => {
-            if(action.payload && 'message' in action.payload) {
-                console.log('fetching products error')
+        build.addCase(fetchAllProducts.fulfilled, (state, action) => {            
+            state.isLoading = false    
+            if(action.payload === undefined) {
+
                 return state
-            }
-            state.isLoading = false
+            }            
             state.products = [...state.products, ...action.payload]
             return state
         })
         build.addCase(fetchAllProducts.rejected, (state) => {
-            state.isLoading = false
-            console.log('error in getting products');
+            state.isLoading = false            
             return state
         })
     }

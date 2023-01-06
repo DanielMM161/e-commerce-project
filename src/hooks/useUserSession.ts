@@ -10,7 +10,7 @@ const UseUserSession = () => {
   useEffect(() => {
     const token = localStorage.getItem('token')
     if(token != null) {
-      dispatch(fetchUserSession(JSON.parse(token)))
+      dispatch(fetchUserSession(token))
     }
   }, [])
 
