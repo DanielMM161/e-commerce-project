@@ -6,6 +6,11 @@ export const userSlice = createSlice({
     name: 'user',
     initialState: UserEmptyState,
     reducers: {
+        logOut: () => {
+            localStorage.removeItem('token')
+            localStorage.removeItem('user')
+            return null
+        }
     },
     extraReducers: (build) => {
         build.addCase(fetchUserSession.fulfilled, (state, action) => {

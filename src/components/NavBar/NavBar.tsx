@@ -1,12 +1,16 @@
 import { Logo, StyledNavBar } from "./styled-component/navBar.styled.component"
 import { Link } from "react-router-dom";
 import Modal from "../Modal/Modal";
-import { UseModal } from "../../hooks";
+import { useAppSelector, UseModal } from "../../hooks";
 import { Login, Register } from "../Forms";
+import UseUserSession from './../../hooks/useUserSession';
 
 const NavBar = () => {
 
+    const userState = useAppSelector(state => state.user)
     const {showModal, toggle, showLogin, toggleLogin, titleModal} = UseModal()
+    // Check user session
+    UseUserSession()
     
     return (
         <StyledNavBar>
@@ -16,9 +20,15 @@ const NavBar = () => {
                 </Logo>
                 <nav>
                     <ul className="nav-ul">
-                        <span onClick={() => toggle()}>
-                            Login
-                        </span>
+                        {userState != null ? (
+                            <Link to="/profile">
+                                My Account
+                            </Link>
+                        ) : (
+                            <span onClick={() => toggle()}>
+                                Login
+                            </span>
+                        )}
                         
                         <Link to="/products">
                             Products
