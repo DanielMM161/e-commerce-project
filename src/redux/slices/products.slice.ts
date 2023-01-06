@@ -23,7 +23,7 @@ export const productsSlice = createSlice({
         build.addCase(fetchAllProducts.fulfilled, (state, action) => {            
             state.isLoading = false    
             if(action.payload === undefined) {
-
+                console.log("error fetching products");                
                 return state
             }            
             state.products = [...state.products, ...action.payload]

@@ -48,9 +48,7 @@ const Filter = ({
     const [clickCategory, setClickCategory] = useState<boolean[]>([])
     const [clickPrice, setClickPrice] = useState<boolean[]>([])
         
-    useEffect(() => {
-        console.log("categories --> ", categories);
-        
+    useEffect(() => {        
         categories.forEach((_, index) => {
             clickCategory[index] = false           
             setClickCategory([...clickCategory])            
@@ -64,7 +62,7 @@ const Filter = ({
     
     function clickFilterByCategory(index: number, id: number) {
         clickCategory[index] = !clickCategory[index]
-        setClickCategory(prev => ([...clickCategory]))
+        setClickCategory([...clickCategory])
         checkClicked()
     }
     
@@ -76,7 +74,7 @@ const Filter = ({
             }
             return item
         })
-        setClickPrice(prev => ([...newClickPrice]))
+        setClickPrice([...newClickPrice])
         checkClicked()
        
     }

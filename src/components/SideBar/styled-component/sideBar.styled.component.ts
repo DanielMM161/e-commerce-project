@@ -5,10 +5,17 @@ export const StyledSideBar = styled.div`
     background-color: white;
     color: black;
     top: 0;
-    left: 0;
     height: 100vh;
     width: 460px;    
     transition: all 0.4s;
+
+    &.left {
+        left: 0;
+    }
+
+    &.right {
+        right: 0;
+    }
 
     .header {
         width: 100%;        

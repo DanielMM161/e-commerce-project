@@ -3,6 +3,7 @@ import { StyledSideBar } from "./styled-component/sideBar.styled.component"
 interface ISideBar {
     title: string
     isOpen: boolean
+    isLeft?: boolean
     closeSideBar: () => void
     children: React.ReactNode
 }
@@ -10,6 +11,7 @@ interface ISideBar {
 const SideBar = ({
     title,
     isOpen,
+    isLeft = true,
     closeSideBar,
     children
 }: ISideBar) => {
@@ -17,9 +19,9 @@ const SideBar = ({
     return (
         <>
             {isOpen ? (
-                <StyledSideBar style={isOpen ? { transform: "translateX(0%)" } : { transform: "translateX(-100%)" }}>                
+                <StyledSideBar className={isLeft ? "left" : "right"} style={isOpen ? { transform: "translateX(0%)" } : { transform: "translateX(-100%)" }}>                
                     <div
-                        className="overlay overlay-left"
+                        className={isLeft ? "overlay overlay-left" : "overlay overlay-right"}
                         style={isOpen ? { display: "block" } : { display: "none" }}
                         onClick={() => closeSideBar()}
                     >

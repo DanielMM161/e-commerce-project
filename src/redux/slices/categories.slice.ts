@@ -19,15 +19,15 @@ export const categoriesSlice = createSlice({
     },
     extraReducers: (build) => {
         build.addCase(fetchAllCategories.fulfilled, (state, action) => {
-            if(action.payload && 'message' in action.payload) {
-                console.log('fetching products error')
+            if(action.payload === undefined) {
+                console.log("error fetching categories");                
                 return state
-            }
+            }   
             state = action.payload
             return state
         })
         build.addCase(fetchAllCategories.rejected, (state ) => {
-            console.log('error in getting products');
+            console.log("error fetching categories");                
             return state
         })
     }
