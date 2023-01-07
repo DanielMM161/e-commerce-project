@@ -1,27 +1,17 @@
 import { Logo, StyledNavBar } from "./styled-component/navBar.styled.component"
 import { Link } from "react-router-dom";
-import Modal from "../Modal/Modal";
 import { useAppSelector, UseModal, UseSideBar } from "../../hooks";
-import { Login, Register } from "../Forms";
 import UseUserSession from './../../hooks/useUserSession';
-import { SideBar } from "../SideBar";
-import { useEffect } from "react";
+import { SideBar, Cart, Register, Login, Modal } from '../index'
 
 const NavBar = () => {
 
-    const userState = useAppSelector(state => state.user)
-    const cartState = useAppSelector(state => state.cart)
+    const userState = useAppSelector(state => state.user)    
 
     const {showModal, toggle, showLogin, toggleLogin, titleModal} = UseModal()
     const {showSideBar, toggle: toggleSideBar} = UseSideBar()
     // Check user session
     UseUserSession()
-    
-    useEffect(() => {
-        console.log("cart state se actualiza");
-        
-    
-    },[cartState])
     
     return (
         <StyledNavBar>
@@ -54,12 +44,11 @@ const NavBar = () => {
 
             <SideBar
                 title="Shoping Cart"
-                isLeft={false}
+                isLeftSide={false}
                 isOpen={showSideBar}
                 closeSideBar={() => toggleSideBar()}
             >
-                {cartState.map((value) => <div>{value.product.title}</div>)}
-
+                <Cart />
             </SideBar>
 
             <Modal title={titleModal} closeDialog={() => toggle()} showModal={showModal} >

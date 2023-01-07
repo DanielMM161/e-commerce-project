@@ -17,7 +17,7 @@ const CardProduct = ({
 }: ICardProduct) => {
     
     return (
-        <ItemCard to={`/product/${id}`} key={id}>
+        <ItemCard to={``} key={id}>
             <div className="image">
                 <img src={image} alt={title} />
             </div>
@@ -25,9 +25,9 @@ const CardProduct = ({
                 <span className="title">{title}</span>
                 <span className="price">${price}</span>
             </div>
-            <StyledButtonCart>
+            <StyledButtonCart onClick={() => addCart()}>
                 <IconCart />
-                <span onClick={() => addCart()}>Add To Cart</span>
+                <span >Add To Cart</span>
             </StyledButtonCart>
         </ItemCard>
     )
