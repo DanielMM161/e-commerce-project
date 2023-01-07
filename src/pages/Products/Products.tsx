@@ -10,12 +10,14 @@ import { Product } from "../../models"
 import { fetchAllCategories } from "../../redux/slices/categories.slice"
 import { IFilter } from "../../components/Filter/Filter"
 import UseUserSession from './../../hooks/useUserSession';
+import { addCartItem } from "../../redux/slices"
 
 const ProductsPage = () => {
     
     const dispatch = useAppDispatch()
     const productState = useAppSelector(state => state.products)
     const categoriesState = useAppSelector(state => state.categories)
+    const cartState = useAppSelector(state => state.cart)
     const userState = useAppSelector(state => state.user)
     UseUserSession()
         
@@ -66,7 +68,15 @@ const ProductsPage = () => {
         if(newProducts.length > 0) {
             return newProducts.map((product) => {
                 const { id, title, price, description, images } = product
-                return  <CardProduct id={id} title={title} price={price} image={images[0]} />
+                return (
+                    <CardProduct
+                        id={id}
+                        title={title}
+                        price={price}
+                        image={images[0]}
+                        addCart={() => dispatch(addCartItem({quantity: 1, product: product}))}
+                    />
+                )
             })
         }
 
@@ -88,7 +98,15 @@ const ProductsPage = () => {
             {filter === null ? (
                 productState.products.map((product) => {
                     const { id, title, price, images } = product
-                    return <CardProduct id={id} title={title} price={price} image={images[0]}/>
+                    return (
+                        <CardProduct
+                            id={id}
+                            title={title}
+                            price={price}
+                            image={images[0]}
+                            addCart={() => dispatch(addCartItem({quantity: 1, product: product}))}
+                        />
+                    )
                 })
             ) : (
                 filterProducts(productState.products, filter)

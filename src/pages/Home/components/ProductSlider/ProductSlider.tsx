@@ -34,6 +34,7 @@ const ProductSlider = ({
                             title={product.title}
                             image={product.images[0]}
                             price={product.price}
+                            addCart={() => {}}
                         />
                     )
                 }

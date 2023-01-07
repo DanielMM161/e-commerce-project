@@ -5,14 +5,23 @@ import { useAppSelector, UseModal, UseSideBar } from "../../hooks";
 import { Login, Register } from "../Forms";
 import UseUserSession from './../../hooks/useUserSession';
 import { SideBar } from "../SideBar";
+import { useEffect } from "react";
 
 const NavBar = () => {
 
     const userState = useAppSelector(state => state.user)
+    const cartState = useAppSelector(state => state.cart)
+
     const {showModal, toggle, showLogin, toggleLogin, titleModal} = UseModal()
     const {showSideBar, toggle: toggleSideBar} = UseSideBar()
     // Check user session
     UseUserSession()
+    
+    useEffect(() => {
+        console.log("cart state se actualiza");
+        
+    
+    },[cartState])
     
     return (
         <StyledNavBar>
@@ -49,6 +58,7 @@ const NavBar = () => {
                 isOpen={showSideBar}
                 closeSideBar={() => toggleSideBar()}
             >
+                {cartState.map((value) => <div>{value.product.title}</div>)}
 
             </SideBar>
 

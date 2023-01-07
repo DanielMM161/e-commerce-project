@@ -5,13 +5,15 @@ interface ICardProduct {
     title: string
     image: string
     price: number
+    addCart: () => void
 }
 
 const CardProduct = ({
     id,
     title,
     image,
-    price
+    price,
+    addCart
 }: ICardProduct) => {
     
     return (
@@ -25,7 +27,7 @@ const CardProduct = ({
             </div>
             <StyledButtonCart>
                 <IconCart />
-                <span>Add To Cart</span>
+                <span onClick={() => addCart()}>Add To Cart</span>
             </StyledButtonCart>
         </ItemCard>
     )

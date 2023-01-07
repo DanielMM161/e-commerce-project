@@ -5,7 +5,9 @@ export const cartSlice = createSlice({
   name: 'categories',
   initialState: CartEmptyState,
   reducers: {
-    addItem: (state, action) => {
+    addCartItem: (state, action) => {
+      console.log("add cart item --> ", [...state, action.payload]);
+      
       return [...state, action.payload]
     },
     deleteItem: (state, action) => {
@@ -24,6 +26,6 @@ export const cartSlice = createSlice({
   }
 })
 
-export const {addItem, deleteItem, updateQuantity} = cartSlice.actions
+export const {addCartItem, deleteItem, updateQuantity} = cartSlice.actions
 
 export default cartSlice.reducer
