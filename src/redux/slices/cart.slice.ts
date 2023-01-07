@@ -1,17 +1,18 @@
   import { createSlice } from "@reduxjs/toolkit";
 import { Product } from "../../models";
-import { CartEmptyState } from "../../models/cart.model";
+import { Cart, CartEmptyState } from "../../models/cart.model";
 
 export const cartSlice = createSlice({
   name: 'categories',
   initialState: CartEmptyState,
   reducers: {
-    addCartItem: (state, action: {payload: {quantity: number, product: Product}, type: string}) => {      
+    addCartItem: (state, action: {payload: {quantity: number, product: Product}, type: string}) => {
+      let newState: any
       const {product} = action.payload
       const index = state.findIndex(value => value.product.id === product.id)
 
-      if(index !== -1) {        
-        return state.map(item => {
+      if(index !== -1) {
+        newState = state.map(item => {
           if(item.product.id !== product.id) {
             return item
           }
@@ -20,17 +21,20 @@ export const cartSlice = createSlice({
             quantity: item.quantity + 1
           }
         })        
+      } else {
+        newState = [...state, action.payload]
       }
-
-      return [...state, action.payload]
+      localStorage.setItem('cart', JSON.stringify(newState))
+      return newState
     },
     deleteItem: (state, action) => {
-      return state.filter(element => element.product.id !== action.payload)
+      let newState = state.filter(element => element.product.id !== action.payload)
+      localStorage.setItem('cart', JSON.stringify(newState))
+      return newState
     },
     updateQuantity: (state, action: {payload: {newQuantity: number, idProduct: number}, type: string}) => {
       const {newQuantity, idProduct} = action.payload
-
-      return state.map(item => {
+      let newState = state.map(item => {
         if(item.product.id !== idProduct) {
           return item
         }
@@ -39,10 +43,20 @@ export const cartSlice = createSlice({
           quantity: newQuantity
         }
       })      
+
+      localStorage.setItem('cart', JSON.stringify(newState))
+      return newState  
+    },
+    getCart: (state) => {
+      const newState = JSON.parse(localStorage.getItem('cart') ?? "null")
+      if(newState != null) {
+        return newState
+      }
+      return state
     }
   }
 })
 
-export const {addCartItem, deleteItem, updateQuantity} = cartSlice.actions
+export const {addCartItem, deleteItem, updateQuantity, getCart} = cartSlice.actions
 
 export default cartSlice.reducer

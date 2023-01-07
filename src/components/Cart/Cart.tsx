@@ -1,12 +1,16 @@
 import { useEffect, useState } from "react"
 import { useAppDispatch, useAppSelector } from "../../hooks"
-import { deleteItem, updateQuantity } from "../../redux/slices"
+import { deleteItem, updateQuantity, getCart } from "../../redux/slices"
 
 const Cart = () => {
 
   const cartState = useAppSelector(state => state.cart)
   const dispatch = useAppDispatch()
   const [total, setTotal] = useState(0)
+
+  useEffect(() => {
+    dispatch(getCart())
+  }, [])
 
   useEffect(() => {
     calculateTotal()
