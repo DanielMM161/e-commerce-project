@@ -2,9 +2,9 @@ import { useEffect, useState } from 'react';
 import { useParams } from "react-router"
 import { Link } from "react-router-dom";
 import { BreadCrumbs } from '../../components';
-import { useAppSelector, useAppDispatch} from "../../hooks";
+import { useAppSelector} from "../../hooks";
 import { StyledSingleProduct } from './styled-component/singleProduct.styled.component';
-import { fetchSingleProduct, getSingleProduct } from "../../services";
+import { getSingleProduct } from "../../services";
 import { ROLE_ADMIN } from '../../utilities/constants';
 import { UserAdmin } from './components';
 import { Product } from '../../models';
@@ -12,18 +12,12 @@ import { Product } from '../../models';
 const SingleProductPage = () => {
 
     const { id } = useParams()
-
-    const dispatch = useAppDispatch()
-    const singleProductState = useAppSelector(state => state.singleProduct)
+        
+    const userState = useAppSelector(state => state.user)
     const [singleProduct, setSingleProduct] = useState<Product | null>()
     const [isLoading, setIsLoading] = useState(true)
-    //const {isLoading, product} = singleProductState
-
-
-    const userState = useAppSelector(state => state.user)
-
     const [amount, setAmount] = useState(0)
-
+    
     useEffect(() => {        
         if(id != undefined) {
             getSingleProduct(id)

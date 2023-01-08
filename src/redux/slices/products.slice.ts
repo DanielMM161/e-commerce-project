@@ -15,20 +15,30 @@ export const productsSlice = createSlice({
     },
     extraReducers: (build) => {
         build.addCase(fetchAllProducts.pending , (state, action) => {
-            state.isLoading = true
-        }),
-        build.addCase(fetchAllProducts.fulfilled, (state, action) => {            
-            state.isLoading = false    
+            return {
+                ...state,
+                isLoading: true
+            }
+        })
+        build.addCase(fetchAllProducts.fulfilled, (state, action) => {                        
             if(action.payload === undefined) {
                 console.log("error fetching products");                
-                return state
+                return {
+                    ...state,
+                    isLoading: false
+                }
+            }            
+            return {
+                ...state,
+                isLoading: false,
+                products: [...action.payload]
             }
-            state.products = [...state.products, ...action.payload]
-            return state
         })
-        build.addCase(fetchAllProducts.rejected, (state) => {
-            state.isLoading = false            
-            return state
+        build.addCase(fetchAllProducts.rejected, (state) => {            
+            return {
+                ...state,
+                isLoading: false
+            }
         })
     }
 });

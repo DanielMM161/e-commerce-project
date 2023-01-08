@@ -33,7 +33,7 @@ const ProductsPage = () => {
     const {showModal, toggle} = UseModal()
     UseUserSession()
         
-    const [pagination, setPagination] = useState(1)
+    const [pagination, setPagination] = useState(10)
     
     // Filter
     const {showSideBar, toggle: toggleSideBar} = UseSideBar()
@@ -125,7 +125,7 @@ const ProductsPage = () => {
                 )}
             </StyledProducts>
             
-            <ButtonLoader loading={productState.isLoading} onClick={() => setPagination(pagination + 5)} />
+            <ButtonLoader loading={productState.isLoading} onClick={() => setPagination((prev) => prev + 5)} />
 
             <Modal
                 title="Create Product"

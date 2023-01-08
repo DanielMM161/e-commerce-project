@@ -23,7 +23,7 @@ const CardProduct = ({
             </div>
             <div className="info">
                 <span className="title">{title}</span>
-                <span className="price">${price}</span>
+                <span className="price">${price}</span>                
             </div>
             <StyledButtonCart onClick={() => addCart()}>
                 <IconCart />
