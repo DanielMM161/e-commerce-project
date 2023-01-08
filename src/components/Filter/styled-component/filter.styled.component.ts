@@ -2,11 +2,16 @@ import styled from "styled-components";
 
 export const StyledFilter = styled.div`
     width: 100%;
-    padding-right: 0.5rem;
-    padding-left: 0.5rem;
+    padding-right: 0.75rem;
+    padding-left: 0.75rem;
     padding-bottom: 0.5rem;
     padding-top: 1rem;
     height: 100%;
+
+    & h5 {
+        font-weight: inherit;
+        margin-bottom: .75rem
+    }
 
     .buttons-container {
         width: 100%;
@@ -42,10 +47,10 @@ export const StyledFilter = styled.div`
         flex-direction: column;
     }
 
-    .prices-item {
+    .button-prices {
         padding-top: 1rem;
-        padding-bottom: 1rem;
-        border-top: 1px solid;
+        padding-bottom: 0.75rem;
+        padding-left: 0.75rem;    
         border-bottom: 1px solid;
         background: transparent;
         display: flex;

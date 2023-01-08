@@ -1,10 +1,11 @@
-import { MutableRefObject, useEffect, useRef, useState } from "react"
+import { useEffect, useState } from "react"
 import { Category } from "../../models"
 import { StyledFilter } from "./styled-component/filter.styled.component"
 
 interface IFilterProps {
     categories: Category[],
-    sortProducts: (filter: IFilter | null) => void
+    sortProducts: (filter: IFilter | null) => void,
+    prevFilterState: IFilter | null
 }
 
 interface IFilterPrices {
@@ -43,21 +44,32 @@ const filterPrices: IFilterPrices[] = [
 export const Filter = ({
     categories,
     sortProducts,
+    prevFilterState
 }: IFilterProps) => {
         
     const [clickCategory, setClickCategory] = useState<boolean[]>([])
     const [clickPrice, setClickPrice] = useState<boolean[]>([])
         
-    useEffect(() => {        
-        categories.forEach((_, index) => {
-            clickCategory[index] = false           
-            setClickCategory([...clickCategory])            
-        })
-        
-        filterPrices.forEach((_, index )=> {
-            clickPrice[index] = false
-            setClickPrice([...clickPrice])
-        })
+    useEffect(() => {       
+        if(prevFilterState != null) {
+            categories.forEach((value, index) => {
+                if(prevFilterState.ids.includes(value.id)) {
+                    clickCategory[index] = true           
+                } else {
+                    clickCategory[index] = false           
+                }
+                setClickCategory([...clickCategory])            
+            })
+
+            filterPrices.forEach((value, index )=> {
+                if(prevFilterState.prices === value) {
+                    clickPrice[index] = true
+                } else {
+                    clickPrice[index] = false
+                }
+                setClickPrice([...clickPrice])
+            })
+        }                
     }, [categories])
     
     function clickFilterByCategory(index: number, id: number) {
@@ -105,24 +117,28 @@ export const Filter = ({
     
     return (
         <StyledFilter>
-            <div className="buttons-container">
-                <div className="buttons-grid">
-                    {categories
-                        .map(({ name, id }: Category, index) => {                        
-                            return (
-                                <button className={clickCategory[index] ? 'button-clicked' : 'button-category'} onClick={() => clickFilterByCategory(index, id)} key={index}>{name}</button>
-                            )
-                        })
-                    }
+            {categories.length > 0 ? (
+                <div className="buttons-container">
+                    <h5>Categories</h5>
+                    <div className="buttons-grid">
+                        {categories
+                            .map(({ name, id }: Category, index) => {                        
+                                return (
+                                    <button className={clickCategory[index] ? 'button-clicked' : 'button-category'} onClick={() => clickFilterByCategory(index, id)} key={index}>{name}</button>
+                                )
+                            })
+                        }
+                    </div>
                 </div>
-            </div>
+            ) : null}
             <div className="prices-container">
+                <h5>Prices</h5>
                 {filterPrices
                     .map((price, index) => {
                         return (
-                            <button onClick={() => clickFilterPrice(index)} className="prices-item ">
+                            <button onClick={() => clickFilterPrice(index)} className="button-prices">
                                 {price.min} $ - {price.max} $
-                                {clickPrice[index] && <i className="check-icon"></i>}                                
+                                <i className="check-icon" style={clickPrice[index] ? {visibility: "visible"} : {visibility: "hidden"}}></i>                                                      
                             </button>
                         )
                     })

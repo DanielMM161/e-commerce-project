@@ -10,7 +10,7 @@ export const cartSlice = createSlice({
       let newState: any
       const {product} = action.payload
       const index = state.findIndex(value => value.product.id === product.id)
-
+      
       if(index !== -1) {
         newState = state.map(item => {
           if(item.product.id !== product.id) {

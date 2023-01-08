@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { BreadCrumbs } from "../../components/BreadCrumbs"
 import { ButtonLoader } from "./components/ButtonLoader"
-import { StyledProducts } from "./styled-component/products.styled.component"
+import { StyledButtonContainer, StyledProducts } from "./styled-component/products.styled.component"
 import { Product } from "../../models"
 import { 
     addCartItem, 
@@ -39,7 +39,7 @@ const ProductsPage = () => {
     const {showSideBar, toggle: toggleSideBar} = UseSideBar()
     const [filter, setFilter] = useState<IFilter | null>(null)
     
-    useEffect(() => {
+    useEffect(() => {        
         dispatch(fetchAllCategories())
     }, [])
     
@@ -89,8 +89,16 @@ const ProductsPage = () => {
         <>            
             <BreadCrumbs links={[{ path: "/Products", name: "Products" }]} />
             
-            <button onClick={() => toggle()}>CREATE PRODUCT</button>
-            {categoriesState.length > 0 ? <button onClick={() => toggleSideBar()}>OPEN</button> : null}
+
+            <StyledButtonContainer>
+                <button  className="button-filter" onClick={() => toggleSideBar()}>
+                    Filters
+                    <i className="filter-icon"></i>
+                </button>
+                <button onClick={() => toggle()}>
+                    <i className="add-icon"></i>
+                </button>
+            </StyledButtonContainer>
             
             <StyledProducts>
                 {filter === null ? (
@@ -131,7 +139,8 @@ const ProductsPage = () => {
             >
                 <Filter
                     sortProducts={(filter) => setFilter(filter)}
-                    categories={categoriesState}                                     
+                    categories={categoriesState}
+                    prevFilterState={filter}                              
                 />
             </SideBar>
         </>
