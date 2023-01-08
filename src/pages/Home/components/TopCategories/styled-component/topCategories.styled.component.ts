@@ -3,8 +3,7 @@ import styled from "styled-components";
 
 export const StyledTopCategories = styled.div`
     display: flex;
-    width: 100%;
-    flex-wrap: wrap;
+    flex-direction: column;
     padding-bottom: 1rem;
     padding-top: 1rem;
 
@@ -23,16 +22,13 @@ export const StyledTopCategories = styled.div`
     }
 
     .categories-container {
-        width: 100%;
-        flex-wrap: wrap;
-        gap: 4px;
-        display: inline-flex;
+        display: grid;
+        grid-template-columns: repeat(auto-fill,minmax(min(100%, 15rem), 1fr));        
+        gap: 10px;
         margin-top: 2%;
     }
 
     .categories-container div {
-        width: 24%;
-        height: 34px;
         display: flex;
         margin-bottom: 1rem;
         justify-content: center;

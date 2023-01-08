@@ -1,7 +1,7 @@
 import { MutableRefObject, useRef } from "react";
 import { Product } from "../../../../models";
-import { CardProduct } from "../../../../components/CardProduct";
-import { ArrowIcon, StyledButtons, StyledCarousel, StyledProductSlider } from "./styled-component/productSlider.styled.component";
+import { CardProduct } from "../../../../components";
+import { ArrowIcon, StyledProductSlider } from "./styled-component/productSlider.styled.component";
 
 interface IProductSlider {
     topProducts: Product[],
@@ -26,7 +26,7 @@ const ProductSlider = ({
     return (
         
         <StyledProductSlider>
-            <StyledCarousel ref={carousel}>
+            <div className="carrousel-container" ref={carousel}>
                 {topProducts
                     .map((product) =>
                         <CardProduct
@@ -38,15 +38,13 @@ const ProductSlider = ({
                         />
                     )
                 }
-            </StyledCarousel>
-            <StyledButtons>
-                <button onClick={leftClick}>
-                    <ArrowIcon />
-                </button>
-                <button onClick={rightClick}>
-                    <ArrowIcon />
-                </button>                                        
-            </StyledButtons>            
+            </div>
+            <button className="button-carrousel left" onClick={leftClick}>
+                <ArrowIcon />
+            </button>
+            <button className="button-carrousel right" onClick={rightClick}>
+                <ArrowIcon />
+            </button>               
         </StyledProductSlider>
     
     )

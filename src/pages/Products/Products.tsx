@@ -44,22 +44,8 @@ const ProductsPage = () => {
     }, [])
     
     useEffect(() => {     
-        console.log("useEffect de pagination");
-                  
           dispatch(fetchAllProducts(pagination))
     }, [pagination])
-        
-    useEffect(() => {             
-        disableScrollBody()
-    }, [showSideBar])
-    
-    function disableScrollBody() {
-        if (showSideBar) {
-            document.body.style.overflow = 'hidden';
-        } else {
-            document.body.style.overflow = 'unset';
-        }
-    }
         
     function filterProducts(products: Product[], filter: IFilter) {                
         let newProducts: Product[] = []
