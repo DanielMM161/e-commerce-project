@@ -50,7 +50,9 @@ export const Filter = ({
     const [clickCategory, setClickCategory] = useState<boolean[]>([])
     const [clickPrice, setClickPrice] = useState<boolean[]>([])
         
-    useEffect(() => {       
+    useEffect(() => {
+        console.log("prevFilterState --->", prevFilterState);
+          
         if(prevFilterState != null) {
             categories.forEach((value, index) => {
                 if(prevFilterState.ids.includes(value.id)) {
@@ -75,7 +77,7 @@ export const Filter = ({
     function clickFilterByCategory(index: number, id: number) {
         clickCategory[index] = !clickCategory[index]
         setClickCategory([...clickCategory])
-        checkClicked()
+        checkClicked(clickPrice, clickCategory)
     }
     
     function clickFilterPrice(index: number) {
@@ -87,28 +89,28 @@ export const Filter = ({
             return item
         })
         setClickPrice([...newClickPrice])
-        checkClicked()
+        checkClicked(newClickPrice, clickCategory)
        
     }
 
-    function checkClicked() {
+    function checkClicked(pricesClicked: boolean[], categoriesClicked: boolean[]) {
         const filter: IFilter = {
             ids: [],
             prices: null
         }
-        clickPrice.forEach((value, index) => {
+        pricesClicked.forEach((value, index) => {
             if(value) {
                 filter.prices = filterPrices[index]
             }
         })
 
-        clickCategory.forEach((value, index) => {
+        categoriesClicked.forEach((value, index) => {
             if(value) {                
                 filter.ids.push(categories[index].id)
             }
         })
 
-        if(filter.ids.length > 0 || filter.prices != null) {
+        if(filter.ids.length > 0 || filter.prices != null) {            
             sortProducts(filter)
         }  else {
             sortProducts(null)
