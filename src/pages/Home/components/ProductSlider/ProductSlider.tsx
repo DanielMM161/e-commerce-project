@@ -1,4 +1,4 @@
-import { MutableRefObject, useRef } from "react";
+import { MutableRefObject, useEffect, useRef, useState } from "react";
 import { Product } from "../../../../models";
 import { CardProduct } from "../../../../components";
 import { ArrowIcon, StyledProductSlider } from "./styled-component/productSlider.styled.component";
@@ -11,16 +11,26 @@ const ProductSlider = ({
     topProducts
 }: IProductSlider) => {
     
+    const [hideLeftButton, set] = useState(true)
+    const [scrollLeft, setScrollLeft] = useState(0)
     const carousel = useRef() as MutableRefObject<HTMLDivElement>;
+
+    useEffect(() => {
+        if(scrollLeft === 0) {
+            set(true)
+        } else {
+            set(false)
+        }
+    }, [scrollLeft])
     
     const leftClick = (e: any) => {
-        e.preventDefault()
-        carousel.current.scrollLeft -= carousel.current.offsetWidth        
+        e.preventDefault()       
+        setScrollLeft(carousel.current.scrollLeft -= carousel.current.offsetWidth)
     }
     
     const rightClick = (e: any) => {
         e.preventDefault()
-        carousel.current.scrollLeft += carousel.current.offsetWidth        
+        setScrollLeft(carousel.current.scrollLeft += carousel.current.offsetWidth)
     }
         
     return (
@@ -39,7 +49,11 @@ const ProductSlider = ({
                     )
                 }
             </div>
-            <button className="button-carrousel left" onClick={leftClick}>
+            <button 
+                className="button-carrousel left" 
+                onClick={leftClick}
+                style={hideLeftButton ? {visibility: "hidden"} : {visibility: "visible"}}
+            >
                 <ArrowIcon />
             </button>
             <button className="button-carrousel right" onClick={rightClick}>
