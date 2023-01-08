@@ -1,37 +1,51 @@
 import { useEffect, useState } from "react"
 import { BreadCrumbs } from "../../components/BreadCrumbs"
-import { useAppDispatch, useAppSelector, UseSideBar } from "../../hooks"
-import { CardProduct } from "../../components/CardProduct"
-import ButtonLoader from "./components/ButtonLoader/ButtonLoader"
+import { ButtonLoader } from "./components/ButtonLoader"
 import { StyledProducts } from "./styled-component/products.styled.component"
-import { Filter, SideBar } from "../../components"
-import { fetchAllProducts } from "../../redux/slices/products.slice"
 import { Product } from "../../models"
-import { fetchAllCategories } from "../../redux/slices/categories.slice"
-import { IFilter } from "../../components/Filter/Filter"
-import UseUserSession from './../../hooks/useUserSession';
-import { addCartItem } from "../../redux/slices"
+import { 
+    addCartItem, 
+    addNewItem, 
+    fetchAllCategories,
+} from "../../redux/slices"
+import { 
+    useAppDispatch, 
+    useAppSelector, 
+    UseModal, 
+    UseSideBar, 
+    UseUserSession 
+} from "../../hooks"
+import { 
+    CardProduct, 
+    CreateProduct, 
+    Filter, 
+    IFilter, 
+    Modal, 
+    SideBar  
+} from "../../components"
+import { fetchAllProducts } from "../../services"
 
 const ProductsPage = () => {
     
     const dispatch = useAppDispatch()
     const productState = useAppSelector(state => state.products)
     const categoriesState = useAppSelector(state => state.categories)
-    const cartState = useAppSelector(state => state.cart)
-    const userState = useAppSelector(state => state.user)
+    const {showModal, toggle} = UseModal()
     UseUserSession()
         
     const [pagination, setPagination] = useState(1)
     
     // Filter
-    const {showSideBar, toggle} = UseSideBar()
+    const {showSideBar, toggle: toggleSideBar} = UseSideBar()
     const [filter, setFilter] = useState<IFilter | null>(null)
     
     useEffect(() => {
         dispatch(fetchAllCategories())
     }, [])
     
-    useEffect(() => {       
+    useEffect(() => {     
+        console.log("useEffect de pagination");
+                  
           dispatch(fetchAllProducts(pagination))
     }, [pagination])
         
@@ -82,50 +96,57 @@ const ProductsPage = () => {
 
         return (
             <div>No product found</div>
-        )
-        
+        )        
     }
     
     return (
-        <>
-            {userState != null ? (<div>{userState.name}</div>) : (<div>user es null</div>)}
+        <>            
             <BreadCrumbs links={[{ path: "/Products", name: "Products" }]} />
             
-            {categoriesState.length > 0 ? <button onClick={() => toggle()}>OPEN</button> : null}
+            <button onClick={() => toggle()}>CREATE PRODUCT</button>
+            {categoriesState.length > 0 ? <button onClick={() => toggleSideBar()}>OPEN</button> : null}
             
             <StyledProducts>
-
-            {filter === null ? (
-                productState.products.map((product) => {
-                    const { id, title, price, images } = product
-                    return (
-                        <CardProduct
-                            id={id}
-                            title={title}
-                            price={price}
-                            image={images[0]}
-                            addCart={() => dispatch(addCartItem({quantity: 1, product: product}))}
-                        />
-                    )
-                })
-            ) : (
-                filterProducts(productState.products, filter)
-            )}
+                {filter === null ? (
+                    productState.products.map((product) => {
+                        const { id, title, price, images } = product
+                        return (
+                            <CardProduct
+                                id={id}
+                                title={title}
+                                price={price}
+                                image={images[0]}
+                                addCart={() => dispatch(addCartItem({quantity: 1, product: product}))}
+                            />
+                        )
+                    })
+                ) : (
+                    filterProducts(productState.products, filter)
+                )}
             </StyledProducts>
             
             <ButtonLoader loading={productState.isLoading} onClick={() => setPagination(pagination + 5)} />
+
+            <Modal
+                title="Create Product"
+                showModal={showModal}
+                closeDialog={() => toggle()}
+            >
+                <CreateProduct categories={categoriesState} productCreated={(product) => {
+                    toggle()
+                    //TODO SHOW A SNACKBAR
+                }}/>
+            </Modal>
             
             <SideBar
                 title="Filter"
                 isOpen={showSideBar}
-                closeSideBar={() => toggle()}
+                closeSideBar={() => toggleSideBar()}
             >
-                {
-                    <Filter
-                        sortProducts={(filter) => setFilter(filter)}
-                        categories={categoriesState}                                     
-                    />
-                }
+                <Filter
+                    sortProducts={(filter) => setFilter(filter)}
+                    categories={categoriesState}                                     
+                />
             </SideBar>
         </>
     )

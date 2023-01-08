@@ -40,7 +40,7 @@ const filterPrices: IFilterPrices[] = [
     }
 ]
 
-const Filter = ({
+export const Filter = ({
     categories,
     sortProducts,
 }: IFilterProps) => {
@@ -131,5 +131,3 @@ const Filter = ({
         </StyledFilter>
     )
 }
-
-export default Filter

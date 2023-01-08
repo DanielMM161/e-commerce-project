@@ -1,16 +1,6 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
+import { createSlice } from "@reduxjs/toolkit";
 import { singleProductEmptyState } from "../../models";
-
-export const fetchSingleProduct = createAsyncThunk('fetchSingleProduct',
-    async (productId: string) => {
-    try {
-        const response = await axios.get(`https://api.escuelajs.co/api/v1/products/${productId}`);
-        return response.data
-    } catch (error) {
-        console.log(error);
-    }
-});
+import { fetchSingleProduct } from "../../services";
 
 export const singleProductSlice = createSlice({
     name: 'product',

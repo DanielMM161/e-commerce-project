@@ -1,7 +1,6 @@
 import { Logo, StyledNavBar } from "./styled-component/navBar.styled.component"
 import { Link } from "react-router-dom";
-import { useAppSelector, UseModal, UseSideBar } from "../../hooks";
-import UseUserSession from './../../hooks/useUserSession';
+import { useAppSelector, UseModal, UseSideBar, UseUserSession } from "../../hooks";
 import { SideBar, Cart, Register, Login, Modal } from '../index'
 
 const NavBar = () => {

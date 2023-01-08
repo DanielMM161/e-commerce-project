@@ -17,7 +17,7 @@ const CardProduct = ({
 }: ICardProduct) => {
     
     return (
-        <ItemCard to={``} key={id}>
+        <ItemCard to={`/product/${id}`} key={id}>
             <div className="image">
                 <img src={image} alt={title} />
             </div>

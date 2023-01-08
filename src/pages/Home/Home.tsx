@@ -1,6 +1,7 @@
 import { useEffect } from "react"
 import { useAppDispatch, useAppSelector } from "../../hooks"
-import { fetchAllCategories, fetchAllProducts } from "../../redux/slices"
+import { fetchAllCategories } from "../../redux/slices"
+import { fetchAllProducts } from "../../services"
 import { TopCategories, ProductSlider } from "./components"
 
 

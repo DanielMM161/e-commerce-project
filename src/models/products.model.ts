@@ -32,6 +32,20 @@ export interface Product {
     category: ProductCategory
 }
 
+export interface IProductUpdate {
+    id: number
+    title: string
+    price: number
+    description: string
+}
+
+export interface IProductPost {
+    title: string
+    price: number
+    description: string    
+    categoryId: number
+}
+
 export interface ProductsState {
     products: Product[],
     isLoading: boolean

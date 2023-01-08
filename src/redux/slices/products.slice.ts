@@ -1,21 +1,18 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
+import {createSlice } from "@reduxjs/toolkit";
 import { ProductsEmptyState } from "../../models";
-
-export const fetchAllProducts = createAsyncThunk('fetchAllProducts',
-    async (offset: number) => {
-    try {
-        const response = await axios.get(`https://api.escuelajs.co/api/v1/products?offset=${offset}&limit=10`);
-        return response.data
-    } catch (error) {
-        console.log(error);
-    }
-});
+import { fetchAllProducts } from "../../services";
 
 export const productsSlice = createSlice({
     name: 'products',
     initialState: ProductsEmptyState,
-    reducers: {},
+    reducers: {
+        addNewItem: (state, action) => {            
+            return {
+                ...state,
+                products: [...state.products, action.payload]
+            }
+        }
+    },
     extraReducers: (build) => {
         build.addCase(fetchAllProducts.pending , (state, action) => {
             state.isLoading = true
@@ -25,7 +22,7 @@ export const productsSlice = createSlice({
             if(action.payload === undefined) {
                 console.log("error fetching products");                
                 return state
-            }            
+            }
             state.products = [...state.products, ...action.payload]
             return state
         })
@@ -35,5 +32,7 @@ export const productsSlice = createSlice({
         })
     }
 });
+
+export const { addNewItem } = productsSlice.actions
 
 export default productsSlice.reducer

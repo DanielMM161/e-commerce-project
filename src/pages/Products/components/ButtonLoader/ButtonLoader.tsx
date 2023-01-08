@@ -5,7 +5,7 @@ interface IButtonLoader {
     onClick: () => void
 }
 
-const ButtonLoader = ({
+export const ButtonLoader = ({
     loading,
     onClick
 }: IButtonLoader) => {
@@ -23,7 +23,4 @@ const ButtonLoader = ({
             </StyledButtonLoader>
         </StyledButtonWrapper>
     )
-
 }
-
-export default ButtonLoader

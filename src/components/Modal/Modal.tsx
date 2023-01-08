@@ -19,7 +19,7 @@ const Modal = ({
         <>
             {showModal ? (
                 <StyledModal>
-                    <div className='overlay' onClick={() => closeDialog}></div>
+                    <div className='overlay' onClick={closeDialog}></div>
                     <div className="modal">
                         <header className="modal-header">
                             <h3>{title}</h3>
