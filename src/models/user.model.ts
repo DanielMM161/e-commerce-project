@@ -25,5 +25,4 @@ export type UserRegistration = {
     avatar?: string
 }
   
-
 export const UserEmptyState: User | null = null
