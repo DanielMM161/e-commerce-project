@@ -22,5 +22,4 @@ export const StyledLogin = styled.form`
   span {
     cursor: pointer;
   }
-  
 `

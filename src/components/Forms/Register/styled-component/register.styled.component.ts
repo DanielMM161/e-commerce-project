@@ -5,17 +5,35 @@ export const StyledRegister = styled.form`
   padding: 2rem;
   background-color: white;
   display: flex;
-  flex-wrap: wrap;
-  gap: 20px 0;
+  flex-direction: column;
+  align-items: center;
 
   input {
     padding: .75rem;
   }
 
+  .input-container {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding-top: .75rem;
+  }
+
   .input-email {
     width: 100%;
   }
+
   .input {
-    width: 50%;
+    width: 48%;
+  }
+
+  & .main-button {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  & span {
+    cursor: pointer;
   }
 `

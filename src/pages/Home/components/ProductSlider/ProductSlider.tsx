@@ -16,7 +16,7 @@ const ProductSlider = ({
     const carousel = useRef() as MutableRefObject<HTMLDivElement>;
 
     useEffect(() => {
-        if(scrollLeft === 0) {
+        if(scrollLeft <= 0) {
             set(true)
         } else {
             set(false)

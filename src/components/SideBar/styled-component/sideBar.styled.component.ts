@@ -8,6 +8,7 @@ export const StyledSideBar = styled.div`
     height: 100vh;
     width: 460px;    
     transition: all 0.4s;
+    z-index: 1;
 
     &.left {
         left: 0;
@@ -57,5 +58,5 @@ export const StyledSideBar = styled.div`
 
     .close-icon:after {
         transform: rotate(-45deg)
-    }    
+    }
 `

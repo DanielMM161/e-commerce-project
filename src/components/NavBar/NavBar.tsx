@@ -6,12 +6,14 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import PersonIcon from '@mui/icons-material/Person';
 import ListAltIcon from '@mui/icons-material/ListAlt';
 import LoginIcon from '@mui/icons-material/Login';
+import { useState } from "react";
 
 const NavBar = () => {
 
     const userState = useAppSelector(state => state.user)    
 
-    const {showModal, toggle, showLogin, toggleLogin, titleModal} = UseModal()
+    const [titleModal, setTitleModal] = useState("Login")
+    const {showModal, toggle, showLogin, toggleLogin} = UseModal()
     const {showSideBar, toggle: toggleSideBar} = UseSideBar()
     // Check user session
     UseUserSession()
@@ -60,9 +62,18 @@ const NavBar = () => {
 
             <Modal title={titleModal} closeDialog={() => toggle()} showModal={showModal} >
                 {showLogin ? (
-                    <Login register={() => toggleLogin()} closeModal={() => toggle()}/>
+                    <Login register={() => {
+                        setTitleModal("Register")
+                        toggleLogin()
+                    }} closeModal={() => toggle()}/>
                 ) : (
-                    <Register goLogin={() => toggleLogin()} closeModal={() => toggle()} />
+                    <Register 
+                        closeModal={() => toggle()} 
+                        goLogin={() => {
+                            setTitleModal("Login")
+                            toggleLogin()
+                        }} 
+                    />
                 )}
             </Modal>
 

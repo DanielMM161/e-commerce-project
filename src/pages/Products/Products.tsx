@@ -30,7 +30,7 @@ const ProductsPage = () => {
     const dispatch = useAppDispatch()
     const productState = useAppSelector(state => state.products)
     const categoriesState = useAppSelector(state => state.categories)
-    const {showModal, toggle} = UseModal()
+    const {showModal, toggle} = UseModal()    
     UseUserSession()
         
     const [pagination, setPagination] = useState(10)
@@ -63,9 +63,8 @@ const ProductsPage = () => {
             if(prices != null) {
                 newProducts = products.filter(product => ((product.price >= prices.min && product.price <= prices.max) || prices.max === 0))
             }
-        }
-
-        if(newProducts.length > 0) {
+        }        
+        if(newProducts.length > 0) { 
             return newProducts.map((product) => {
                 const { id, title, price, description, images } = product
                 return (
@@ -79,7 +78,7 @@ const ProductsPage = () => {
                 )
             })
         }
-
+        
         return (
             <div>No product found</div>
         )        

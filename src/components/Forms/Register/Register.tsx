@@ -25,11 +25,11 @@ const Register = ({
   const [repeatPass, setRepeatPass] = useState("")
 
   useEffect(() => {
-      if(userState != null) {
-        closeModal()
+      if(userState != null) {        
         serviceLoginUser(userState.email, userState.password)
         .then((value) => {                 
-            localStorage.setItem('token', value as string)            
+            localStorage.setItem('token', value as string)
+            closeModal()   
         })
       }
   }, [userState])
@@ -64,37 +64,41 @@ const Register = ({
           placeholder="Email Address"
         />
 
-        <input
-          className="input"
-          type="text" 
-          value={firstName} 
-          onChange={(e) => setFirstName(e.target.value)}
-          placeholder="First Name"
-        />
-        
-        <input
-          className="input"
-          type="text" 
-          value={secondName} 
-          onChange={(e) => setSecondName(e.target.value)}
-          placeholder="Second Name"
-        />
+        <div className="input-container">
+          <input
+              className="input"
+              type="text" 
+              value={firstName} 
+              onChange={(e) => setFirstName(e.target.value)}
+              placeholder="First Name"
+            />
+            
+            <input
+              className="input"
+              type="text" 
+              value={secondName} 
+              onChange={(e) => setSecondName(e.target.value)}
+              placeholder="Second Name"
+            />
+        </div>
 
-        <input
-          className="input"
-          type="password" 
-          value={password} 
-          onChange={(e) => setPassword(e.target.value)}
-          placeholder="Password"
-        />
+        <div className="input-container">
+          <input
+            className="input"
+            type="password" 
+            value={password} 
+            onChange={(e) => setPassword(e.target.value)}
+            placeholder="Password"
+          />
 
-        <input
-          className="input"
-          type="password" 
-          value={repeatPass} 
-          onChange={(e) => setRepeatPass(e.target.value)}
-          placeholder="Repeat Password"
-        />
+          <input
+            className="input"
+            type="password" 
+            value={repeatPass} 
+            onChange={(e) => setRepeatPass(e.target.value)}
+            placeholder="Repeat Password"
+          />
+        </div>
 
         <button className='main-button' onClick={() => {console.log("hey");
         } } disabled={checkUserInputs()}>Register</button>

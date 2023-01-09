@@ -2,21 +2,23 @@ import { useEffect, useState } from 'react';
 import { useParams } from "react-router"
 import { Link } from "react-router-dom";
 import { BreadCrumbs } from '../../components';
-import { useAppSelector} from "../../hooks";
+import { useAppDispatch, useAppSelector} from "../../hooks";
 import { StyledSingleProduct } from './styled-component/singleProduct.styled.component';
 import { getSingleProduct } from "../../services";
 import { ROLE_ADMIN } from '../../utilities/constants';
 import { UserAdmin } from './components';
 import { Product } from '../../models';
+import { addCartItem } from '../../redux/slices';
 
 const SingleProductPage = () => {
 
     const { id } = useParams()
-        
+    
+    const dispatch = useAppDispatch()
     const userState = useAppSelector(state => state.user)
     const [singleProduct, setSingleProduct] = useState<Product | null>()
     const [isLoading, setIsLoading] = useState(true)
-    const [amount, setAmount] = useState(0)
+    const [amount, setAmount] = useState(1)
     
     useEffect(() => {        
         if(id != undefined) {
@@ -30,7 +32,6 @@ const SingleProductPage = () => {
                 .catch(() => {
                     setIsLoading(false)
                 })
-           // dispatch(fetchSingleProduct(id))
         }
     }, [])
 
@@ -61,8 +62,8 @@ const SingleProductPage = () => {
                                 </div>
 
                                 <div className="cart-section">
-                                    <input value={amount} onChange={(evt) => setAmount(Number(evt.target.value))} type="number" min={0} max={100} />
-                                    <button className="main-button">Add to cart</button>                              
+                                    <input value={amount} onChange={(evt) => setAmount(Number(evt.target.value))} type="number" min={1} max={100} />
+                                    <button className="main-button" onClick={() => dispatch(addCartItem({quantity: 1, product: singleProduct}))}>Add to cart</button>                              
                                 </div>
 
                                 <ul className="garanties">

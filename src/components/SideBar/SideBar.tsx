@@ -30,7 +30,7 @@ const SideBar = ({
                         <h2>{title}</h2>
                         <i onClick={() => closeSideBar()} className="close-icon" />
                     </header>
-                    {children}
+                    {children}                    
                 </StyledSideBar>
             ) : null}
         </>

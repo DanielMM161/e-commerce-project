@@ -6,7 +6,6 @@ export const UseModal = () => {
 
   const [showModal, setShowModal] = useState(false)
   const [showLogin, setShowLogin] = useState(true)
-  const [titleModal, setTitleModal] = useState("Login")
 
   function toggle() {
     setShowModal(!showModal)
@@ -14,11 +13,6 @@ export const UseModal = () => {
 
   function toggleLogin() {
     setShowLogin(!showLogin)
-    if(showLogin) {
-      setTitleModal("Login")
-    } else {
-      setTitleModal("Register")
-    }
   }
 
   useEffect(() => {
@@ -33,8 +27,7 @@ export const UseModal = () => {
     showModal,
     toggle,
     showLogin, 
-    toggleLogin,
-    titleModal
+    toggleLogin    
   }
 
 }
