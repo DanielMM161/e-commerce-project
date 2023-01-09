@@ -2,6 +2,10 @@ import { Logo, StyledNavBar } from "./styled-component/navBar.styled.component"
 import { Link } from "react-router-dom";
 import { useAppSelector, UseModal, UseSideBar, UseUserSession } from "../../hooks";
 import { SideBar, Cart, Register, Login, Modal } from '../index'
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import PersonIcon from '@mui/icons-material/Person';
+import ListAltIcon from '@mui/icons-material/ListAlt';
+import LoginIcon from '@mui/icons-material/Login';
 
 const NavBar = () => {
 
@@ -22,19 +26,23 @@ const NavBar = () => {
                     <ul className="nav-ul">
                         {userState != null ? (
                             <Link to="/profile">
+                                <PersonIcon />
                                 My Account
                             </Link>
                         ) : (
                             <span onClick={() => toggle()}>
+                                <LoginIcon />
                                 Login
                             </span>
                         )}
                         
                         <Link to="/products">
+                            <ListAltIcon />
                             Products
                         </Link>
 
                         <span onClick={() => toggleSideBar()}>
+                            <ShoppingCartIcon />
                             Shopping Cart
                         </span>
                     </ul>

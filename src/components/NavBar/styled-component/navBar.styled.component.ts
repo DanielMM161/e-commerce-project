@@ -34,11 +34,15 @@ export const StyledNavBar = styled.header`
             padding-left: 10px;
             padding-right: 10px;
         }
-    }
 
-    nav a, span{
-        cursor: pointer;
-        margin-right: 10px;
+        a, span {
+            cursor: pointer;
+            margin-right: 10px;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 8px
+        }
     }
 `
 
