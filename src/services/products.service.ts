@@ -1,9 +1,10 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios, { AxiosInstance } from "axios";
 import { IProductPost, IProductUpdate, Product } from "../models";
+import { BASE_URL } from "../utilities/constants";
 
 const products: AxiosInstance = axios.create({
-  baseURL: "https://api.escuelajs.co/api/v1"
+  baseURL: BASE_URL
 });
 
 export const fetchAllProducts = createAsyncThunk('fetchAllProducts',

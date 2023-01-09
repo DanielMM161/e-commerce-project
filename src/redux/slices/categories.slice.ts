@@ -1,34 +1,16 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
-import { CategoriesEmptyState } from "../../models";
+import { createSlice, current } from "@reduxjs/toolkit";
+import { emptyState } from "../../models";
+import { fetchAllCategories } from "../../services";
 
-export const fetchAllCategories = createAsyncThunk('fetchAllCategories',
-    async () => {
-    try {
-        const response = await axios.get(`https://api.escuelajs.co/api/v1/categories`);
-        return response.data
-    } catch (error) {
-        console.log(error);
-    }
-});
 
 export const categoriesSlice = createSlice({
     name: 'categories',
-    initialState: CategoriesEmptyState,
+    initialState: emptyState,
     reducers: {
     },
     extraReducers: (build) => {
-        build.addCase(fetchAllCategories.fulfilled, (state, action) => {
-            if(action.payload === undefined) {
-                console.log("error fetching categories");                
-                return state
-            }   
-            state = action.payload
-            return state
-        })
-        build.addCase(fetchAllCategories.rejected, (state ) => {
-            console.log("error fetching categories");                
-            return state
+        build.addCase(fetchAllCategories.fulfilled, (state, action) => {                        
+            state.categories = [...action.payload]            
         })
     }
 })

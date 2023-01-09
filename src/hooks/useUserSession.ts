@@ -1,6 +1,6 @@
 
 import { useEffect } from 'react';
-import { fetchUserSession } from '../services/user.service';
+import { fetchUserSession } from '../services';
 import { useAppDispatch } from './redux.hook';
 
 export const UseUserSession = () => {

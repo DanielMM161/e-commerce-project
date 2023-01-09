@@ -1,8 +1,18 @@
+import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios, { AxiosInstance } from "axios";
-import { Categories, Category } from "../models";
+import { BASE_URL } from "../utilities/constants";
 
-const PLATZI_URL = "https://api.escuelajs.co/api/v1/categories"
+const category: AxiosInstance = axios.create({
+  baseURL: BASE_URL
+});
 
-const products: AxiosInstance = axios.create({
-  baseURL: PLATZI_URL
+export const fetchAllCategories = createAsyncThunk('fetchAllCategories',
+    async () => {
+    try {
+        const response = await category.get(`/categories`);
+        return response.data
+    } catch (error: any) {
+        // manage error
+        
+    }
 });

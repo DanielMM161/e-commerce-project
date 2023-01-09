@@ -5,8 +5,7 @@ import { StyledButtonContainer, StyledProducts } from "./styled-component/produc
 import { Product } from "../../models"
 import { 
     addCartItem, 
-    addNewItem, 
-    fetchAllCategories,
+    addNewItem,
 } from "../../redux/slices"
 import { 
     useAppDispatch, 
@@ -23,13 +22,14 @@ import {
     Modal, 
     SideBar  
 } from "../../components"
-import { fetchAllProducts } from "../../services"
+import { fetchAllProducts, fetchAllCategories} from "../../services"
 
 const ProductsPage = () => {
     
     const dispatch = useAppDispatch()
     const productState = useAppSelector(state => state.products)
     const categoriesState = useAppSelector(state => state.categories)
+    const {categories} = categoriesState
     const {showModal, toggle} = UseModal()    
     UseUserSession()
         
@@ -40,7 +40,7 @@ const ProductsPage = () => {
     const [filter, setFilter] = useState<IFilter | null>(null)
     
     useEffect(() => {        
-        //dispatch(fetchAllCategories())
+        dispatch(fetchAllCategories())
     }, [])
     
     useEffect(() => {     
@@ -125,7 +125,7 @@ const ProductsPage = () => {
                 showModal={showModal}
                 closeDialog={() => toggle()}
             >
-                <CreateProduct categories={categoriesState} productCreated={(product) => {
+                <CreateProduct categories={categories} productCreated={(product) => {
                     toggle()
                     //TODO SHOW A SNACKBAR
                 }}/>
@@ -138,7 +138,7 @@ const ProductsPage = () => {
             >
                 <Filter
                     sortProducts={(filter) => setFilter(filter)}
-                    categories={categoriesState}
+                    categories={categories}
                     prevFilterState={filter}                              
                 />
             </SideBar>
