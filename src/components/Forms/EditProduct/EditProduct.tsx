@@ -1,19 +1,18 @@
 import { useState } from "react"
-import { Category, Product } from "../../../models"
+import { Product } from "../../../models"
 import { StyledEditProduct } from "./styled-component/editProduct-styled"
 import { IProductUpdate } from './../../../models/products.model';
-import { updateProduct } from "../../../services";
 
 interface IEditProductProps {
   product: Product  
-  productEdited: (productEdited: Product) => void
+  editProduct: (productEdited: IProductUpdate) => void
 }
 
 export const EditProduct = ({
   product,  
-  productEdited
+  editProduct
 }: IEditProductProps) => {
-
+  
   const [title, setTitle] = useState(product.title)
   const [description, setDescription] = useState(product.description)
   const [price, setPrice] = useState(product.price)
@@ -26,17 +25,7 @@ export const EditProduct = ({
       price: price,
       title: title
     }
-    updateProduct(newFields)
-      .then(value => {
-        console.log("value --> ", value);
-        if(value.status === 200) {
-          productEdited(value.data as Product)
-        }
-        
-      })
-      .catch((err) => {
-        // TODO GIVE USER FEEDBACK
-      })
+    editProduct(newFields)    
   }
 
   return (

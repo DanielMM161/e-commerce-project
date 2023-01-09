@@ -1,26 +1,7 @@
-interface ApiProductCategory {
-    id: number
-    name: string
-    image: string
-    creationAt: string
-    updatedAt: string
-}
-
 interface ProductCategory {
     id: number
     name: string
     image: string
-}
-
-export interface ApiProduct {
-    id: number
-    title: string
-    price: number
-    description: string
-    images: string[]
-    creationAt: string
-    updatedAt: string
-    category: ApiProductCategory
 }
 
 export interface Product {
@@ -46,33 +27,16 @@ export interface IProductPost {
     categoryId: number
 }
 
-export interface ProductsState {
+export interface StateProductSlice {
     products: Product[],
+    product: Product | null
     isLoading: boolean
+    error: any
 }
 
-interface ProductState {
-    product: Product
-    isLoading: boolean
-}
-
-export const singleProductEmptyState: ProductState = {
-    product: {
-        id: 0,
-        title: "",  
-        price: 0,
-        description: "",
-        images: [],
-        category: {
-            id: 0,
-            name: "",
-            image: ""
-        }
-    },
-    isLoading: false
-}
-
-export const ProductsEmptyState: ProductsState = {
+export const initialState: StateProductSlice = {
     products: [],
-    isLoading: false
+    product: null,
+    isLoading: false,
+    error: null
 }

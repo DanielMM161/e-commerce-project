@@ -1,6 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import { UserRegistration } from "../../models";
+import { UserRegistration } from "../models";
 
 const userServices = axios.create({
   baseURL: "https://api.escuelajs.co/api/v1"

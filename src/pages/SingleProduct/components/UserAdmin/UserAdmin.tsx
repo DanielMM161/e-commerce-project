@@ -2,12 +2,12 @@ import { EditProduct, Modal } from "../../../../components"
 import { UseModal } from "../../../../hooks"
 import { Product } from "../../../../models"
 import { useState } from 'react';
-import { deleteProduct } from "../../../../services";
-import { Navigate, useNavigate } from "react-router";
+import { deleteProduct, updateProduct } from "../../../../services";
+import { useNavigate } from "react-router";
+import { useAppDispatch } from './../../../../hooks/redux.hook';
 
 interface IUserAdminProps {
   product: Product
-  productEdited: (productEdited: Product) => void
 }
 
 const FORMS = {
@@ -18,9 +18,9 @@ const FORMS = {
 
 const UserAdmin = ({
   product,
-  productEdited
 }: IUserAdminProps) => {
 
+  const dispatch = useAppDispatch()
   const navigate = useNavigate()
   const {showModal, toggle} = UseModal()
   const [typeForm, setTypeForm] = useState({
@@ -28,7 +28,7 @@ const UserAdmin = ({
     forms: FORMS.NONE
   })
 
-  function editProduct() {
+  function showEditProduct() {
     setTypeForm({
       title: "Edit Product",
       forms: FORMS.EDIT_PRODUCT
@@ -45,24 +45,13 @@ const UserAdmin = ({
   }
 
   function handleDeleteProduct() {
-    deleteProduct(product.id)
-      .then((value) => {
-        if(value.status === 200) {
-          if(value.data) {
-            //TODO SHOW SNACK BAR
-            toggle()
-            navigate('/products')            
-          }
-        }
-      })
-      .catch((err) => {
-        //TODO MANAGE ERROR
-      })
+    navigate("/products")
+    dispatch(deleteProduct(product.id))
   }
 
   return (
     <div>
-      <button onClick={() => editProduct()}>EDIT PRODUCT</button>
+      <button onClick={() => showEditProduct()}>EDIT PRODUCT</button>
       <button onClick={() => showDeleteProduct()}>DELETE PRODUCT</button>
 
       <Modal
@@ -73,9 +62,9 @@ const UserAdmin = ({
         {typeForm.forms === FORMS.EDIT_PRODUCT ? (
           <EditProduct 
             product={product} 
-            productEdited={(product) => {
+            editProduct={(product) => {
+              dispatch(updateProduct(product))
               toggle()
-              productEdited(product)
             }}
           />
         ) : null}

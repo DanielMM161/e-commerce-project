@@ -27,17 +27,17 @@ export const CreateProduct = ({
       categoryId: category
     }
 
-    createProduct(newProduct)
-      .then(value => {
-        if(value.status === 201) {
-          productCreated(value.data as Product)
-        }        
-      })
-      .catch(error => {
-        console.log("error --> ", error);
+    // createProduct(newProduct)
+    //   .then(value => {
+    //     if(value.status === 201) {
+    //       productCreated(value.data as Product)
+    //     }        
+    //   })
+    //   .catch(error => {
+    //     console.log("error --> ", error);
         
-        //TODO give error feedback to the user
-      })
+    //     //TODO give error feedback to the user
+    //   })
   }
 
   function checkUserInputs(): boolean {

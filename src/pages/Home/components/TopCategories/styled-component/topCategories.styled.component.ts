@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 
@@ -28,18 +29,11 @@ export const StyledTopCategories = styled.div`
         margin-top: 2%;
     }
 
-    .categories-container div {
+    .categories-container div {        
         display: flex;
-        margin-bottom: 1rem;
-        justify-content: center;
-        align-items: center;    
-
-        a {
-            font-size: .875rem;
-            line-height: 1.25rem;
-            padding: 1rem;
+        flex-direction: column;
+        a img {
             width: 100%;
-            background-color: #FFFFFF;
         }
     }
 `

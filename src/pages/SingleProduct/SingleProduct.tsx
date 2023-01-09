@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { BreadCrumbs } from '../../components';
 import { useAppDispatch, useAppSelector} from "../../hooks";
 import { StyledSingleProduct } from './styled-component/singleProduct.styled.component';
-import { getSingleProduct } from "../../services";
+import { fetchSingleProduct } from "../../services";
 import { ROLE_ADMIN } from '../../utilities/constants';
 import { UserAdmin } from './components';
 import { Product } from '../../models';
@@ -16,33 +16,25 @@ const SingleProductPage = () => {
     
     const dispatch = useAppDispatch()
     const userState = useAppSelector(state => state.user)
-    const [singleProduct, setSingleProduct] = useState<Product | null>()
-    const [isLoading, setIsLoading] = useState(true)
+    const productState = useAppSelector(state => state.products)
+    const {product, isLoading} = productState
+    
     const [amount, setAmount] = useState(1)
     
     useEffect(() => {        
         if(id != undefined) {
-            getSingleProduct(id)
-                .then(value => {      
-                    setIsLoading(false)              
-                    if(value.status === 200) {
-                        setSingleProduct(value.data as Product)
-                    }
-                })
-                .catch(() => {
-                    setIsLoading(false)
-                })
+            dispatch(fetchSingleProduct(id))
         }
     }, [])
 
     const showProduct = () => {
-        if(singleProduct != null) {
-            const {title, category, description, price} = singleProduct
+        if(product != null) {
+            const {title, category, description, price, images} = product
             return (
                 <>
                     <StyledSingleProduct>
                         <div className="image-container">
-                            <img src={singleProduct.images[0]} />
+                            <img src={images[0]} />
                         </div>
 
                         <div className="info-container">
@@ -63,7 +55,7 @@ const SingleProductPage = () => {
 
                                 <div className="cart-section">
                                     <input value={amount} onChange={(evt) => setAmount(Number(evt.target.value))} type="number" min={1} max={100} />
-                                    <button className="main-button" onClick={() => dispatch(addCartItem({quantity: 1, product: singleProduct}))}>Add to cart</button>                              
+                                    <button className="main-button" onClick={() => dispatch(addCartItem({quantity: 1, product: product}))}>Add to cart</button>                              
                                 </div>
 
                                 <ul className="garanties">
@@ -85,7 +77,7 @@ const SingleProductPage = () => {
                     </StyledSingleProduct>
 
                     {userState != null && userState.role.toLowerCase() === ROLE_ADMIN ? (
-                        <UserAdmin product={singleProduct} productEdited={(product) => {setSingleProduct(product)} }/>
+                        <UserAdmin product={product} />
                     ) : null}
                 </>
             )

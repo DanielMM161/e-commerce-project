@@ -40,7 +40,7 @@ const ProductsPage = () => {
     const [filter, setFilter] = useState<IFilter | null>(null)
     
     useEffect(() => {        
-        dispatch(fetchAllCategories())
+        //dispatch(fetchAllCategories())
     }, [])
     
     useEffect(() => {     

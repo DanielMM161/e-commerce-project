@@ -1,5 +1,6 @@
 import { useEffect } from "react"
 import { useAppDispatch, useAppSelector } from "../../hooks"
+import { Category } from "../../models"
 import { fetchAllCategories } from "../../redux/slices"
 import { fetchAllProducts } from "../../services"
 import { TopCategories, ProductSlider } from "./components"
@@ -29,10 +30,10 @@ const HomePage = () => {
             ) : (
                 <>                   
                     <MainImage height={640} src="https://api.lorem.space/image/furniture?w=640&h=480&r=3289"/>
-                    <TopCategories categories={categoriesState.slice(0, 4)} />
+                    <TopCategories categories={categoriesState.slice(0,4)} />
                     <ProductSlider topProducts={products.slice(0,10)}/>
                 </>
-            )}
+            )}            
         </>
     )
 }
