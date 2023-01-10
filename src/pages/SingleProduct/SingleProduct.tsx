@@ -16,6 +16,7 @@ const SingleProductPage = () => {
     
     const dispatch = useAppDispatch()
     const userState = useAppSelector(state => state.user)
+    const {user} = userState
     const productState = useAppSelector(state => state.products)
     const {product, isLoading} = productState
     
@@ -76,7 +77,7 @@ const SingleProductPage = () => {
                         </div>
                     </StyledSingleProduct>
 
-                    {userState != null && userState.role.toLowerCase() === ROLE_ADMIN ? (
+                    {user != null && user.role.toLowerCase() === ROLE_ADMIN ? (
                         <UserAdmin product={product} />
                     ) : null}
                 </>

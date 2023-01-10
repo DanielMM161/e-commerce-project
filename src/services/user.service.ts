@@ -7,36 +7,62 @@ const userServices = axios.create({
   baseURL: BASE_URL
 })
 
-export const fetchUserSession = createAsyncThunk('authUser',
-  async (token: string) => {
-  try {      
+export const fetchUserSession = createAsyncThunk('fetchUserSession',
+  async (_, thunkAPI) => {
+  try {
+    const token = localStorage.getItem('access_token')
+    if(token != null) {
+      thunkAPI.dispatch(fetchUserProfile(JSON.parse(token)))
+    }
+    //TODO MANAGE ERROR
+    return null
+  } catch (error: any) {    
+    //TODO MANAGE ERROR
+    return null
+  }
+})
+
+export const fetchUserProfile = createAsyncThunk('fetchUserProfile',
+  async (token?: string) => {
+  try {            
       const response = await userServices.get('/auth/profile', {
         headers: {
             Authorization : `Bearer ${token}`
         }
     })
-    return response
-  } catch (error: any) {
-    console.log("error fetchUserSession -> ", error)
+    if(response.status === 200) {
+      return response.data
+    }
+    //TODO MANAGE ERROR
+    return null
+  } catch (error: any) {    
       //TODO MANAGE ERROR
-      return error.response
+      return null
   }
 })
 
 
 export const createUser = createAsyncThunk('createUser',
-  async (userRegistration: IUserRegister) => {
+  async (userRegistration: IUserRegister, thunkAPI) => {
   try {      
       const response = await userServices.post('/users', {
         name: userRegistration.name,
         email: userRegistration.email,
         password: userRegistration.password,
         avatar: "https://api.lorem.space/image/face?w=640&h=480&r=867",
-      })        
-      return response
+      })
+      if(response.status === 201) {
+        thunkAPI.dispatch(loginUser({
+          email: userRegistration.email,
+          password: userRegistration.password
+        }))
+        return
+      }
+      //TODO MANAGE ERROR
+      return null
   } catch (error: any) {
       //TODO MANAGE ERROR
-      return error.response
+      return null
   }
 })
 
@@ -49,8 +75,8 @@ export const loginUser = createAsyncThunk('loginUser',
     })
     if (response.status === 201) {
       const value = response.data
-      thunkAPI.dispatch(fetchUserSession(value['access_token']))
-      return value['refresh_token']
+      thunkAPI.dispatch(fetchUserProfile(value['access_token']))
+      return value['access_token']
     }    
     return null
   } catch (error: any) {

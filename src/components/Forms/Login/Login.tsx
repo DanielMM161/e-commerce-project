@@ -17,10 +17,11 @@ const Login = ({
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const userState = useAppSelector(store => store.user)
+  const { user } = userState 
   const dispatch = useAppDispatch()
 
   useEffect(() => {
-    if(userState != null) {
+    if(user != null) {
       closeModal()
     }
   }, [userState])

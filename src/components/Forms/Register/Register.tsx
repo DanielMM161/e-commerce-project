@@ -1,7 +1,7 @@
 import { StyledRegister } from "./styled-component/register.styled.component"
 import { useState } from 'react';
 import { useAppDispatch, useAppSelector } from './../../../hooks/redux.hook';
-import { createUser, fetchUserSession } from "../../../services";
+import { createUser } from "../../../services";
 import { IUserRegister } from "../../../models";
 import { useEffect } from 'react';
 
@@ -17,6 +17,7 @@ const Register = ({
 
   const dispatch = useAppDispatch()
   const userState = useAppSelector(state => state.user)
+  const { user } = userState
 
   const [email, setEmail] = useState("")
   const [firstName, setFirstName] = useState("")
@@ -25,25 +26,21 @@ const Register = ({
   const [repeatPass, setRepeatPass] = useState("")
 
   useEffect(() => {
-      if(userState != null) {        
-      //   serviceLoginUser(userState.email, userState.password)
-      //   .then((value) => {                 
-      //       localStorage.setItem('token', value as string)
-      //       closeModal()   
-      //   })
-      }
-  }, [userState])
+    if(user != null) {        
+      closeModal()   
+    }
+  }, [user])
   
   function handleRegister(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
 
-    // const userRegistration: UserRegistration = {
-    //   name: `${firstName} ${secondName}`,
-    //   email: email,
-    //   password: password
-    // }
+    const userRegistration: IUserRegister = {
+      name: `${firstName} ${secondName}`,
+      email: email,
+      password: password
+    }
 
-    // dispatch(createUser(userRegistration))    
+    dispatch(createUser(userRegistration))    
   }
 
   function checkUserInputs(): boolean {

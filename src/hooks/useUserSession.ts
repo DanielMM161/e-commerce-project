@@ -8,10 +8,10 @@ export const UseUserSession = () => {
   const dispatch = useAppDispatch()
 
   useEffect(() => {
-    const token = localStorage.getItem('token')
-    if(token != null) {
-      dispatch(fetchUserSession(token))
-    }
+    // const token = localStorage.getItem('token')
+    // if(token != null) {
+    //   dispatch(fetchUserSession(token))
+    // }
   }, [])
 
 }

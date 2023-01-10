@@ -1,22 +1,30 @@
 import { Logo, StyledNavBar } from "./styled-component/navBar.styled.component"
 import { Link } from "react-router-dom";
-import { useAppSelector, UseModal, UseSideBar, UseUserSession } from "../../hooks";
+import { useAppDispatch, useAppSelector, UseModal, UseSideBar, UseUserSession } from "../../hooks";
 import { SideBar, Cart, Register, Login, Modal } from '../index'
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import PersonIcon from '@mui/icons-material/Person';
 import ListAltIcon from '@mui/icons-material/ListAlt';
 import LoginIcon from '@mui/icons-material/Login';
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { fetchUserSession } from './../../services/user.service';
 
 const NavBar = () => {
 
-    const userState = useAppSelector(state => state.user)    
+    const dispatch = useAppDispatch()
+    const userState = useAppSelector(state => state.user)
+    const { user } = userState 
 
     const [titleModal, setTitleModal] = useState("Login")
     const {showModal, toggle, showLogin, toggleLogin} = UseModal()
     const {showSideBar, toggle: toggleSideBar} = UseSideBar()
     // Check user session
-    UseUserSession()
+    //UseUserSession()
+
+    useEffect(() => {
+        console.log("useEffect --> NavBar");
+        dispatch(fetchUserSession())        
+    }, [])
     
     return (
         <StyledNavBar>
@@ -26,7 +34,7 @@ const NavBar = () => {
                 </Logo>
                 <nav>
                     <ul className="nav-ul">
-                        {userState != null ? (
+                        {user != null ? (
                             <Link to="/profile">
                                 <PersonIcon />
                                 My Account

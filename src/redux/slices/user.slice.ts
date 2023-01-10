@@ -1,6 +1,6 @@
 import { createSlice, current } from "@reduxjs/toolkit";
 import { userEmptyState } from "../../models";
-import { createUser, fetchUserSession, loginUser } from "../../services";
+import { createUser, fetchUserProfile, loginUser, fetchUserSession } from "../../services";
 
 // MANAGE USER STATUS HERE TODO
 
@@ -9,7 +9,7 @@ export const userSlice = createSlice({
     initialState: userEmptyState,
     reducers: {
         logOut: (state, action) => {
-            localStorage.removeItem('token')
+            localStorage.removeItem('access_token')
             localStorage.removeItem('user')
             state.user = null
         }
@@ -19,24 +19,37 @@ export const userSlice = createSlice({
         build.addCase(loginUser.pending, (state, action) => {            
             state.isLoading = true           
         })
+        build.addCase(fetchUserProfile.pending, (state, action) => {            
+            state.isLoading = true           
+        })
         /** fulfilled */
         build.addCase(fetchUserSession.fulfilled, (state, action) => {
-            console.log("fetchUserSession --> ", action.payload)
-            //return action.payload
+            if(action.payload === null) {
+                state.isError = true
+            }            
+            state.user = action.payload            
+        })
+        build.addCase(fetchUserProfile.fulfilled, (state, action) => {
+            state.isLoading = false
+            if(action.payload === null) {
+                state.isError = true
+            }            
+            state.user = action.payload            
         })
         build.addCase(createUser.fulfilled, (state, action) => {
-            localStorage.setItem('user', JSON.stringify(action.payload))
-            return action.payload
+            state.isLoading = false
+            if(action.payload === null) {
+                state.isError = true
+            }            
         })
         build.addCase(loginUser.fulfilled, (state, action) => {            
             state.isLoading = false
             if(action.payload === null) {
-                state.isError = true
-                console.log(" state ", current(state))
-                return
+                state.isError = true               
             }
-            localStorage.setItem('refresh_token', JSON.stringify(action.payload))
-            console.log(" state ", current(state))            
+            state.isError = false
+            state.user = action.payload
+            localStorage.setItem('access_token', JSON.stringify(action.payload))         
         })
     }
 });
