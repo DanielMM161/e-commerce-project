@@ -1,16 +1,16 @@
 
 import { useState, useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../../hooks';
-import { fetchUserSession, serviceLoginUser } from '../../../services';
+import { loginUser } from '../../../services';
 import { StyledLogin } from './styled-component/login.styled.component';
 
 interface ILoginProps {
-  register: () => void
+  goRegister: () => void
   closeModal: () => void
 }
 
 const Login = ({ 
-  register,
+  goRegister,
   closeModal
 } : ILoginProps) => {
 
@@ -25,24 +25,17 @@ const Login = ({
     }
   }, [userState])
 
-  function loginUser(e: React.FormEvent<HTMLFormElement>) {
+  function handleLoginUser(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
-    if(email.trim() != "" && password.trim() != "") {
-      serviceLoginUser(email, password)
-        .then((value) => {                 
-            localStorage.setItem('token', value as string)
-            dispatch(fetchUserSession(value))
-        })
-        .catch((value) => {
-           // TODO: SET SHOW ERROR MESSAGE
-        })
+    if (email.trim() != "" && password.trim() != "") {
+      dispatch(loginUser({email: email, password: password}))
     } else {
       // TODO: SET SHOW ERROR MESSAGE
     }
   }
 
   return(
-    <StyledLogin onSubmit={(e) => loginUser(e)}>
+    <StyledLogin onSubmit={(e) => handleLoginUser(e)}>
         <input 
           type="text" 
           value={email} 
@@ -63,7 +56,7 @@ const Login = ({
           Login
         </button>
 
-        <span onClick={() => register()}>Not Yet Account ? Register Now</span>        
+        <span onClick={() => goRegister()}>Not Yet Account ? Register Now</span>        
     </StyledLogin>
   )
 }

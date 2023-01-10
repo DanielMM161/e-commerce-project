@@ -8,14 +8,14 @@ const products: AxiosInstance = axios.create({
 });
 
 export const fetchAllProducts = createAsyncThunk('fetchAllProducts',
-    async (offset: number, thunkAPI) => {
-    try {
-        const response = await products.get(`/products?offset=0&limit=${offset}`);
-        return response
-    } catch (error: any) {
-      //SET ERROR AND SET NOTIFICATION ERROR
-        return error.response
-    }
+  async (offset: number, thunkAPI) => {
+  try {
+      const response = await products.get(`/products?offset=0&limit=${offset}`);
+      return response
+  } catch (error: any) {
+    //SET ERROR AND SET NOTIFICATION ERROR
+      return error.response
+  }
 });
 
 export const fetchSingleProduct = createAsyncThunk('fetchSingleProduct',

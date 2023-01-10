@@ -62,7 +62,7 @@ const NavBar = () => {
 
             <Modal title={titleModal} closeDialog={() => toggle()} showModal={showModal} >
                 {showLogin ? (
-                    <Login register={() => {
+                    <Login goRegister={() => {
                         setTitleModal("Register")
                         toggleLogin()
                     }} closeModal={() => toggle()}/>

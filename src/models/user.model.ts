@@ -18,11 +18,24 @@ export interface User {
     avatar: string,
 }
 
-export type UserRegistration = {
-    name: string,
-    email: string,
-    password: string,
+export interface IUserAuth {
+    email: string
+    password: string
+}
+
+export interface IUserRegister extends IUserAuth {
+    name: string
     avatar?: string
 }
+
+interface IUserSliceState {
+    user: User | null
+    isLoading: boolean
+    isError: boolean
+}
   
-export const UserEmptyState: User | null = null
+export const userEmptyState: IUserSliceState = {
+    user: null,
+    isLoading: false,
+    isError: false
+}
