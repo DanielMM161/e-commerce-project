@@ -4,6 +4,7 @@ export const StyledCartItem = styled.div`
   display: flex;
   flex-direction: row;
   width: 100%;
+  padding-bottom: 1rem;
 
   .image-container {
     width: 40%;

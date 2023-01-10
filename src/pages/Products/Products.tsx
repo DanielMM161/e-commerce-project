@@ -11,8 +11,7 @@ import {
     useAppDispatch, 
     useAppSelector, 
     UseModal, 
-    UseSideBar, 
-    UseUserSession 
+    useSideBar
 } from "../../hooks"
 import { 
     CardProduct, 
@@ -23,31 +22,20 @@ import {
     SideBar  
 } from "../../components"
 import { fetchAllProducts, fetchAllCategories, createProduct} from "../../services"
-import { useNavigate } from "react-router"
-import { SnackBar } from './../../components/SnackBar/SnackBar';
 import { LoadingPulsating } from "../../components/LoadingPulsating/LoadingPulsating"
 
 const ProductsPage = () => {
     
     const dispatch = useAppDispatch()
-
     const productState = useAppSelector(state => state.products)
-    const {products, isLoading} = productState
-
+    const { products, isLoading } = productState
     const categoriesState = useAppSelector(state => state.categories)
-    const {categories} = categoriesState
-
-    const notificationState = useAppSelector(state => state.notifications)
-    const {show} = notificationState
-        
-    const {showModal, toggle} = UseModal()    
-    UseUserSession()
-        
-    const [pagination, setPagination] = useState(10)
-    
+    const { categories } = categoriesState
+    const { showModal, toggle } = UseModal()    
+    const [ pagination, setPagination ] = useState(10) 
     // Filter
-    const {showSideBar, toggle: toggleSideBar} = UseSideBar()
-    const [filter, setFilter] = useState<IFilter | null>(null)
+    const { showSideBar, toggle: toggleSideBar } = useSideBar()
+    const [ filter, setFilter ] = useState<IFilter | null>(null)
     
     useEffect(() => {        
         dispatch(fetchAllCategories())
@@ -156,8 +144,6 @@ const ProductsPage = () => {
                     prevFilterState={filter}                              
                 />
             </SideBar>
-
-           <SnackBar show={show} />
 
            <LoadingPulsating show={isLoading} />
         </>

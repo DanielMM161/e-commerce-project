@@ -18,7 +18,7 @@ export const StyledModal = styled.div`
     max-width: 100vw;
     overflow: auto;
     width: 945px;
-    z-index: 21;
+    z-index: 2;
     width: 400px;
   }
 

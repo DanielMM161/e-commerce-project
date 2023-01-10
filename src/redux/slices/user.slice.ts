@@ -1,8 +1,6 @@
-import { createSlice, current } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 import { userEmptyState } from "../../models";
-import { createUser, fetchUserProfile, loginUser, fetchUserSession } from "../../services";
-
-// MANAGE USER STATUS HERE TODO
+import { createUser, fetchUserProfile, loginUser, updateUser, fetchUserSession } from "../../services";
 
 export const userSlice = createSlice({
     name: 'user',
@@ -21,35 +19,29 @@ export const userSlice = createSlice({
         build.addCase(fetchUserProfile.pending, (state) => {            
             state.isLoading = true           
         })
+        build.addCase(updateUser.pending, (state) => {            
+            state.isLoading = true        
+        })
+        build.addCase(createUser.pending, (state) => {            
+            state.isLoading = true        
+        })
         /** fulfilled */
-        build.addCase(fetchUserSession.fulfilled, (state, action) => {
-            if(action.payload === null) {
-                state.isLoading = false    
-                state.isError = true
-            }            
-            state.user = action.payload            
-        })
         build.addCase(fetchUserProfile.fulfilled, (state, action) => {
-            state.isLoading = false
-            if(action.payload === null) {
-                state.isError = true
-            }            
+            state.isLoading = false     
             state.user = action.payload            
         })
-        build.addCase(createUser.fulfilled, (state, action) => {
-            state.isLoading = false
-            if(action.payload === null) {
-                state.isError = true
-            }            
+        build.addCase(createUser.fulfilled, (state) => {
+            state.isLoading = false        
         })
-        build.addCase(loginUser.fulfilled, (state, action) => {            
+        build.addCase(updateUser.fulfilled, (state) => {
+            state.isLoading = false          
+        })
+        build.addCase(loginUser.fulfilled, (state) => {            
+            state.isLoading = false        
+        })
+        build.addCase(fetchUserSession.fulfilled, (state, action) => {            
             state.isLoading = false
-            if(action.payload === null) {
-                state.isError = true               
-            }
-            state.isError = false
-            state.user = action.payload
-            localStorage.setItem('access_token', JSON.stringify(action.payload))         
+            state.user = action.payload  
         })
     }
 });

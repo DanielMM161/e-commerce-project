@@ -60,7 +60,7 @@ export const createProduct = createAsyncThunk('createProduct',
         }
       )
       if(response.status === 201) {
-        thunkAPI.dispatch(showNotification())
+        thunkAPI.dispatch(showNotification({error: false, message: "Your Product Was Succesfully Created"}))
         return response.data
       }
       return null

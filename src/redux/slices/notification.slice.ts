@@ -1,17 +1,17 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { INotificationPayload, notificationInitialState } from "../../models/notification.model";
 
 export const notificationSlice = createSlice({
     name: 'categories',
-    initialState: {
-      show: false,
-      message: ""
-    },
+    initialState: notificationInitialState,
     reducers: {
-      showNotification: (state) => {
-        state.show = true        
+      showNotification: (state, action: {payload: INotificationPayload, type: string}) => {
+        state.show = true  
+        state.error = action.payload.error
+        state.message = action.payload.message
       },
       hiddeNotification: (state) => {
-        state.show = false
+        state.show = false        
       }
     },
 })

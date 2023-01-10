@@ -2,17 +2,15 @@ import { StyledSnackBar } from "./styled-component/snackBar.styled"
 import { useState, useEffect } from 'react';
 import { useDispatch } from "react-redux";
 import { hiddeNotification } from "../../redux/slices";
-
-interface ISnackBarProps {
-  show: boolean
-}
+import { INotification } from "../../models/notification.model";
 
 export const SnackBar = ({
-  show
-}: ISnackBarProps) => {
+  show,
+  message,
+  error
+}: INotification) => {
 
   const dispatch = useDispatch()
-
 
   useEffect(() => {
     if(show) {
@@ -20,14 +18,14 @@ export const SnackBar = ({
         dispatch(hiddeNotification())
       }, 5000)
     }
-  }, [show
-  ])
+  }, [show])
 
   return (
     <>
       {show ? (
-        <StyledSnackBar>
-          <h3>SNACK BAR</h3>
+        <StyledSnackBar error={error}>
+          <h3 className="message-snack">{message}</h3>
+          <button className="button-snack" onClick={() => dispatch(hiddeNotification())}>Ok</button>
         </StyledSnackBar>
       ) : null}
     </>

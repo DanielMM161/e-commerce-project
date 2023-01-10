@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 
-export const UseSideBar = () => {
+export const useSideBar = () => {
 
   const [showSideBar, setShowSideBar] = useState(false)
 
@@ -20,5 +20,4 @@ export const UseSideBar = () => {
     showSideBar,
     toggle
   }
-
 }

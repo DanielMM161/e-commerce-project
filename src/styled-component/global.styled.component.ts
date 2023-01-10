@@ -5,11 +5,9 @@ export const GlobalStyle = createGlobalStyle`
         box-sizing: border-box;
         margin: 0;
         padding: 0;
-
         outline: none;
         /* -webkit-appearance: none; */
         -webkit-tap-highlight-color: transparent;
-
     }
 
     a {
