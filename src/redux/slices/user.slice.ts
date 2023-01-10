@@ -15,15 +15,16 @@ export const userSlice = createSlice({
     },
     extraReducers: (build) => {
         /** pending */
-        build.addCase(loginUser.pending, (state, action) => {            
-            state.isLoading = true           
+        build.addCase(loginUser.pending, (state) => {            
+            state.isLoading = true        
         })
-        build.addCase(fetchUserProfile.pending, (state, action) => {            
+        build.addCase(fetchUserProfile.pending, (state) => {            
             state.isLoading = true           
         })
         /** fulfilled */
         build.addCase(fetchUserSession.fulfilled, (state, action) => {
             if(action.payload === null) {
+                state.isLoading = false    
                 state.isError = true
             }            
             state.user = action.payload            

@@ -8,7 +8,7 @@ export const UseSideBar = () => {
     setShowSideBar(!showSideBar)
   }
 
-  useEffect(() => {
+  useEffect(() => {    
     if (showSideBar) {
       document.body.style.overflow = 'hidden';
     } else {

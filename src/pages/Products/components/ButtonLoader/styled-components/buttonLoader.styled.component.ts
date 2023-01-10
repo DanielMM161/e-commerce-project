@@ -9,7 +9,7 @@ const loadAnimation = keyframes`
 export const StyledButtonWrapper = styled.div`
     display: flex;
     justify-content: center;
-    align-item: center;
+    align-items: center;
     margin-bottom: 1.5rem;
     margin-top: 1.5rem;
 `

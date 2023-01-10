@@ -5,6 +5,9 @@ import { useState } from 'react';
 import { deleteProduct, updateProduct } from "../../../../services";
 import { useNavigate } from "react-router";
 import { useAppDispatch } from './../../../../hooks/redux.hook';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
+import { DeleteProduct } from "../../../../components/Forms/DeleteProduct/DeleteProduct";
 
 interface IUserAdminProps {
   product: Product
@@ -50,9 +53,16 @@ const UserAdmin = ({
   }
 
   return (
-    <div>
-      <button onClick={() => showEditProduct()}>EDIT PRODUCT</button>
-      <button onClick={() => showDeleteProduct()}>DELETE PRODUCT</button>
+    <>
+      <button className="button-admin" onClick={() => showEditProduct()}>
+        EDIT PRODUCT
+        <EditIcon />
+      </button>
+
+      <button className="button-admin delete-button" onClick={() => showDeleteProduct()}>
+        DELETE PRODUCT
+        <DeleteIcon />
+      </button>
 
       <Modal
         title={typeForm.title}
@@ -70,15 +80,11 @@ const UserAdmin = ({
         ) : null}
 
         {typeForm.forms === FORMS.DELETE_PRODUCT ? (
-          <>            
-              <button onClick={() => handleDeleteProduct()}>DELETE</button>
-              <button onClick={() =>  toggle()}>CANCEL</button>
-          </>
+          <DeleteProduct deleteProduct={() => handleDeleteProduct()} cancel={() =>  toggle()}/>
         ) : null}
       </Modal>
-    </div>
+    </>
   )
-
 }
 
 export default UserAdmin

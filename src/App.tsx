@@ -14,7 +14,9 @@ const App = () => {
       <Provider store={store}>
         <BrowserRouter>
             <NavBar />
+            
             <GlobalStyle />
+
             <AppContainer>
               <Routes>
                 <Route path="/" element={<Home />} />
@@ -27,6 +29,7 @@ const App = () => {
                 </Route>             
               </Routes>          
             </AppContainer>
+            
           </BrowserRouter>        
       </Provider>
     </React.StrictMode>

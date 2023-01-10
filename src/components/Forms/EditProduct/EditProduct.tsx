@@ -17,7 +17,7 @@ export const EditProduct = ({
   const [description, setDescription] = useState(product.description)
   const [price, setPrice] = useState(product.price)
 
-  function SubmitForm(e: React.FormEvent<HTMLFormElement>) {
+  function submitForm(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
     const newFields: IProductUpdate = {
       id: product.id,
@@ -29,13 +29,15 @@ export const EditProduct = ({
   }
 
   return (
-    <StyledEditProduct onSubmit={SubmitForm}>
+    <StyledEditProduct onSubmit={submitForm}>
+        <h5>Title</h5>
         <input 
           type="text"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
         />
 
+        <h5>Description</h5>
         <textarea        
           value={description}
           onChange={(e) => setDescription(e.target.value)}
@@ -43,6 +45,7 @@ export const EditProduct = ({
           cols={50}
         />
 
+        <h5>Price</h5>
         <input 
           type="number"
           value={price}

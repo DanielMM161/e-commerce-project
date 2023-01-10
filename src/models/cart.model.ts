@@ -1,8 +1,13 @@
 import { Product } from "./products.model";
 
+export interface IAddCart {
+  quantity: number,
+  product: Product
+}
+
 export interface Cart {
   quantity: number,
   product: Product
 }
 
-export const CartEmptyState: Cart[] = []
+export const cartEmptyState: Cart[] = []

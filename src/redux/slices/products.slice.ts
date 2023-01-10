@@ -25,6 +25,13 @@ export const productsSlice = createSlice({
         build.addCase(fetchAllProducts.pending , (state, action) => {
             state.isLoading = true
         })
+        build.addCase(createProduct.pending , (state, action) => {
+            state.isLoading = true
+        })
+        build.addCase(fetchSingleProduct.pending , (state, action) => {
+            state.isLoading = true
+        })
+        /** fulfilled */
         build.addCase(fetchAllProducts.fulfilled, (state, action) => {
             if(action.payload != undefined) {
                 const {data, status} = action.payload                                  
@@ -41,7 +48,6 @@ export const productsSlice = createSlice({
             }
             
         })
-        /** fulfilled */
         build.addCase(fetchSingleProduct.fulfilled, (state, action) => {
             if(action.payload != undefined) {
                 const {data, status} = action.payload as AxiosResponse<any, any>    

@@ -1,26 +1,26 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useParams } from "react-router"
-import { Link } from "react-router-dom";
 import { BreadCrumbs } from '../../components';
 import { useAppDispatch, useAppSelector} from "../../hooks";
-import { StyledSingleProduct } from './styled-component/singleProduct.styled.component';
+import { StyledSingleProduct, StyledUserAdmin } from './styled-component/singleProduct.styled.component';
 import { fetchSingleProduct } from "../../services";
 import { ROLE_ADMIN } from '../../utilities/constants';
-import { UserAdmin } from './components';
-import { Product } from '../../models';
+import { SingleComponentCard, UserAdmin } from './components';
 import { addCartItem } from '../../redux/slices';
+import { LoadingPulsating } from '../../components/LoadingPulsating/LoadingPulsating';
+import { IAddCart } from '../../models/cart.model';
+
 
 const SingleProductPage = () => {
 
-    const { id } = useParams()
-    
-    const dispatch = useAppDispatch()
+    const { id } = useParams()    
+    const dispatch = useAppDispatch()    
+
     const userState = useAppSelector(state => state.user)
     const {user} = userState
+
     const productState = useAppSelector(state => state.products)
-    const {product, isLoading} = productState
-    
-    const [amount, setAmount] = useState(1)
+    const {product, isLoading} = productState    
     
     useEffect(() => {        
         if(id != undefined) {
@@ -28,72 +28,33 @@ const SingleProductPage = () => {
         }
     }, [])
 
-    const showProduct = () => {
-        if(product != null) {
-            const {title, category, description, price, images} = product
-            return (
-                <>
-                    <StyledSingleProduct>
-                        <div className="image-container">
-                            <img src={images[0]} />
-                        </div>
-
-                        <div className="info-container">
-                            <div className="info-title-category">
-                                <h3>{title}</h3>
-                                <Link to={`/category/${category.name}`}>{category.name}</Link>
-                            </div>
-                            <p className="description">{description}</p>
-
-                            <div className="price-section">
-                                <div className="price-info">
-                                    <span>
-                                        <span className="text-price">as low as </span>
-                                        {price} $
-                                    </span>
-                                    <div>incl. VAT, Excl. shipping</div>
-                                </div>
-
-                                <div className="cart-section">
-                                    <input value={amount} onChange={(evt) => setAmount(Number(evt.target.value))} type="number" min={1} max={100} />
-                                    <button className="main-button" onClick={() => dispatch(addCartItem({quantity: 1, product: product}))}>Add to cart</button>                              
-                                </div>
-
-                                <ul className="garanties">
-                                    <li>
-                                        <i className="check-icon"></i> 
-                                        Insured shipping and tracking
-                                    </li>
-                                    <li>
-                                        <i className="check-icon"></i> 
-                                        International Delivery available
-                                    </li>
-                                    <li>
-                                        <i className="check-icon"></i> 
-                                        30 days return
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </StyledSingleProduct>
-
-                    {user != null && user.role.toLowerCase() === ROLE_ADMIN ? (
-                        <UserAdmin product={product} />
-                    ) : null}
-                </>
-            )
-        }
-        return null
+    function handleAddCartItem(item: IAddCart) {
+        dispatch(addCartItem(item))        
     }
 
     return (
         <>
-            <BreadCrumbs links={[{ path: "/products", name: "Products" }, { path: `/product/${id}`, name: `${id}` }]} />
-            {isLoading ? (
-                <div>Loading...</div>
-            ) : (
-                showProduct()                
-            )}            
+            {product != null ? (
+                <>
+                    <BreadCrumbs links={[{ path: "/products", name: "Products" }, { path: `/product/${id}`, name: "Product Detail" }]} />
+
+                    {user != null && user.role.toLowerCase() === ROLE_ADMIN ? (
+                        <StyledUserAdmin>
+                            <UserAdmin product={product} />
+                        </StyledUserAdmin>
+                    ) : null}
+
+                    <StyledUserAdmin>
+                        <UserAdmin product={product} />
+                    </StyledUserAdmin>
+
+                    <StyledSingleProduct>
+                        <SingleComponentCard product={product} addToCart={(item) => handleAddCartItem(item)} />
+                    </StyledSingleProduct>                 
+                </>
+
+            ) : null}
+            <LoadingPulsating show={isLoading}/>
         </>
     )
 }

@@ -24,18 +24,22 @@ import {
 } from "../../components"
 import { fetchAllProducts, fetchAllCategories, createProduct} from "../../services"
 import { useNavigate } from "react-router"
+import { SnackBar } from './../../components/SnackBar/SnackBar';
+import { LoadingPulsating } from "../../components/LoadingPulsating/LoadingPulsating"
 
 const ProductsPage = () => {
     
     const dispatch = useAppDispatch()
 
     const productState = useAppSelector(state => state.products)
-    const {product} = productState
+    const {products, isLoading} = productState
 
     const categoriesState = useAppSelector(state => state.categories)
     const {categories} = categoriesState
-    
-    const navigate = useNavigate()
+
+    const notificationState = useAppSelector(state => state.notifications)
+    const {show} = notificationState
+        
     const {showModal, toggle} = UseModal()    
     UseUserSession()
         
@@ -55,9 +59,10 @@ const ProductsPage = () => {
 
     function handleCreateProduct(product: IProductPost) {
         dispatch(createProduct(product))
+        toggle()
     }
         
-    function filterProducts(products: Product[], filter: IFilter) {                
+    function filterProducts(products: Product[], filter: IFilter) {
         let newProducts: Product[] = []
         const {ids, prices} = filter
 
@@ -110,7 +115,7 @@ const ProductsPage = () => {
             
             <StyledProducts>
                 {filter === null ? (
-                    productState.products.map((product) => {
+                    products.map((product) => {
                         const { id, title, price, images } = product
                         return (
                             <CardProduct
@@ -123,11 +128,11 @@ const ProductsPage = () => {
                         )
                     })
                 ) : (
-                    filterProducts(productState.products, filter)
+                    filterProducts(products, filter)
                 )}
             </StyledProducts>
             
-            <ButtonLoader loading={productState.isLoading} onClick={() => setPagination((prev) => prev + 5)} />
+            <ButtonLoader loading={isLoading} onClick={() => setPagination((prev) => prev + 5)} />
 
             <Modal
                 title="Create Product"
@@ -151,6 +156,10 @@ const ProductsPage = () => {
                     prevFilterState={filter}                              
                 />
             </SideBar>
+
+           <SnackBar show={show} />
+
+           <LoadingPulsating show={isLoading} />
         </>
     )
 }

@@ -1,9 +1,6 @@
 import styled from "styled-components";
 
 export const StyledCreateProduct = styled.form`
-  color: black;
-  padding: 2rem;
-  background-color: white;
   display: flex;
   flex-direction: column;
 

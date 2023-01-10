@@ -1,12 +1,11 @@
   import { createSlice } from "@reduxjs/toolkit";
-import { Product } from "../../models";
-import { Cart, CartEmptyState } from "../../models/cart.model";
+import { cartEmptyState, IAddCart } from "../../models/cart.model";
 
 export const cartSlice = createSlice({
   name: 'categories',
-  initialState: CartEmptyState,
+  initialState: cartEmptyState,
   reducers: {
-    addCartItem: (state, action: {payload: {quantity: number, product: Product}, type: string}) => {
+    addCartItem: (state, action: {payload: IAddCart, type: string}) => {
       let newState: any
       const {product} = action.payload
       const index = state.findIndex(value => value.product.id === product.id)

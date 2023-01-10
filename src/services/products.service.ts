@@ -1,6 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios, { AxiosInstance } from "axios";
 import { IProductPost, IProductUpdate, Product } from "../models";
+import { showNotification } from "../redux/slices";
 import { BASE_URL } from "../utilities/constants";
 
 const products: AxiosInstance = axios.create({
@@ -59,6 +60,7 @@ export const createProduct = createAsyncThunk('createProduct',
         }
       )
       if(response.status === 201) {
+        thunkAPI.dispatch(showNotification())
         return response.data
       }
       return null

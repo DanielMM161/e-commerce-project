@@ -1,12 +1,14 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
 import { categoriesSlice, productsSlice, userSlice, cartSlice } from './slices';
+import { notificationSlice } from './slices/notification.slice';
 
 export const store = configureStore({
   reducer: {
     products: productsSlice.reducer,
     categories: categoriesSlice.reducer,    
     user: userSlice.reducer,
-    cart: cartSlice.reducer
+    cart: cartSlice.reducer,
+    notifications: notificationSlice.reducer
   }
 });
 

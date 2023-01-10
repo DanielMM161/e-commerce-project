@@ -1,16 +1,16 @@
 import styled from "styled-components";
 
 export const StyledModal = styled.div`
-    align-items: center;
-    bottom: 0;
-    display: flex;
-    justify-content: center;
-    left: 0;
-    overflow: auto;
-    position: fixed;
-    right: 0;
-    top: 0;
-    z-index: 20;
+  align-items: center;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  left: 0;
+  overflow: auto;
+  position: fixed;
+  right: 0;
+  top: 0;
+  z-index: 1;
 
   .modal {
     margin: 0 auto;
@@ -33,6 +33,10 @@ export const StyledModal = styled.div`
     flex-shrink: 0;
     justify-content: space-between;
     padding: 1rem 1rem;
+
+    .button-close {
+      background: transparent;
+    }
   }
 
   .modal-content {
@@ -41,35 +45,9 @@ export const StyledModal = styled.div`
     padding: 2rem;
   }
 
-  .close-icon {
-    cursor: pointer;
-    box-sizing: border-box;
-    position: relative;
-    display: block;
-    transform: scale(var(--ggs,1));
-    width: 22px;
-    height: 22px;
-    border: 2px solid;
-    border-radius: 40px;
-    background: transparent;
-  }
-
-  .close-icon::after,
-  .close-icon::before {
-      content: "";
-      display: block;
-      box-sizing: border-box;
-      position: absolute;
-      width: 12px;
-      height: 2px;
-      background: currentColor;
-      transform: rotate(45deg);
-      border-radius: 5px;
-      top: 8px;
-      left: 3px
-  }
-
-  .close-icon::after {
-      transform: rotate(-45deg)
+  .children-container {
+    color: black;
+    padding: 2rem;
+    background-color: white;
   }
 `
