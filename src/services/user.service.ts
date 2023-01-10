@@ -1,6 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import { IUserAuth, IUserRegister } from "../models";
+import { IUpdateUser, IUserAuth, IUserRegister } from "../models";
 import { BASE_URL } from "../utilities/constants";
 
 const userServices = axios.create({
@@ -85,3 +85,18 @@ export const loginUser = createAsyncThunk('loginUser',
     return null
   }
 })
+
+export const updateUser = createAsyncThunk('updateUser',
+  async (newFields: IUpdateUser) => {
+    try {
+      const response = await userServices.put(`/users/${newFields.id}`, {
+        email: newFields.email,
+        name: newFields.fullName,
+      })
+      console.log("response --< ", response);
+      
+    } catch (error: any) {
+      
+    }
+  }
+)

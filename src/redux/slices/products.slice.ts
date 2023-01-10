@@ -65,14 +65,13 @@ export const productsSlice = createSlice({
             state.isLoading = false
             state.product = null                    
         })
-        build.addCase(createProduct.fulfilled, (state, action) => {
-            const {data, status} = action.payload as AxiosResponse<any, any>                          
-            if(status === 400 || status === 404 || status === 500) {
-                state.isLoading = false
+        build.addCase(createProduct.fulfilled, (state, action) => {            
+            state.isLoading = false
+            if(action.payload === null) {
                 state.error = true             
             }
             state.isLoading = false
-            state.product = data
+            state.product = action.payload
         })
         build.addCase(updateProduct.fulfilled, (state, action) => {
             const {data, status} = action.payload as AxiosResponse<any, any>                          

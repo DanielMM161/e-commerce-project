@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import { BreadCrumbs } from "../../components/BreadCrumbs"
 import { ButtonLoader } from "./components/ButtonLoader"
 import { StyledButtonContainer, StyledProducts } from "./styled-component/products.styled.component"
-import { Product } from "../../models"
+import { IProductPost, Product } from "../../models"
 import { 
     addCartItem, 
     addNewItem,
@@ -22,14 +22,20 @@ import {
     Modal, 
     SideBar  
 } from "../../components"
-import { fetchAllProducts, fetchAllCategories} from "../../services"
+import { fetchAllProducts, fetchAllCategories, createProduct} from "../../services"
+import { useNavigate } from "react-router"
 
 const ProductsPage = () => {
     
     const dispatch = useAppDispatch()
+
     const productState = useAppSelector(state => state.products)
+    const {product} = productState
+
     const categoriesState = useAppSelector(state => state.categories)
     const {categories} = categoriesState
+    
+    const navigate = useNavigate()
     const {showModal, toggle} = UseModal()    
     UseUserSession()
         
@@ -46,6 +52,10 @@ const ProductsPage = () => {
     useEffect(() => {     
           dispatch(fetchAllProducts(pagination))
     }, [pagination])
+
+    function handleCreateProduct(product: IProductPost) {
+        dispatch(createProduct(product))
+    }
         
     function filterProducts(products: Product[], filter: IFilter) {                
         let newProducts: Product[] = []
@@ -88,7 +98,6 @@ const ProductsPage = () => {
         <>            
             <BreadCrumbs links={[{ path: "/Products", name: "Products" }]} />
             
-
             <StyledButtonContainer>
                 <button  className="button-filter" onClick={() => toggleSideBar()}>
                     Filters
@@ -125,10 +134,10 @@ const ProductsPage = () => {
                 showModal={showModal}
                 closeDialog={() => toggle()}
             >
-                <CreateProduct categories={categories} productCreated={(product) => {
-                    toggle()
-                    //TODO SHOW A SNACKBAR
-                }}/>
+                <CreateProduct 
+                    categories={categories} 
+                    productCreated={(product) => handleCreateProduct(product)}
+                />
             </Modal>
             
             <SideBar

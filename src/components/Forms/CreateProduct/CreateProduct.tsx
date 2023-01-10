@@ -5,7 +5,7 @@ import { StyledCreateProduct } from "./styled-component/createProduct-styled"
 
 interface ICreateProductProps {
   categories: Category[]
-  productCreated: (newProduct: Product) => void
+  productCreated: (newProduct: IProductPost) => void
 }
 
 export const CreateProduct = ({
@@ -26,18 +26,7 @@ export const CreateProduct = ({
       price: price,
       categoryId: category
     }
-
-    // createProduct(newProduct)
-    //   .then(value => {
-    //     if(value.status === 201) {
-    //       productCreated(value.data as Product)
-    //     }        
-    //   })
-    //   .catch(error => {
-    //     console.log("error --> ", error);
-        
-    //     //TODO give error feedback to the user
-    //   })
+    productCreated(newProduct)
   }
 
   function checkUserInputs(): boolean {

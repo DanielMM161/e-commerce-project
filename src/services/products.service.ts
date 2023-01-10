@@ -58,11 +58,13 @@ export const createProduct = createAsyncThunk('createProduct',
           ]
         }
       )
-      return response
+      if(response.status === 201) {
+        return response.data
+      }
+      return null
     } catch (error: any) {
-      console.log("Error en createProduct",error);
        //SET ERROR AND SET NOTIFICATION ERROR
-      return error.response
+      return null
     }
   }
 )

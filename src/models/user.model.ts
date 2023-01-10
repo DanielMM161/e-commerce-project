@@ -1,14 +1,3 @@
-export interface ApiUser {
-    id: number
-    email: string
-    password: string
-    name: string
-    role: string
-    avatar: string
-    creationAt: string
-    updatedAt: string
-}
-
 export interface User {
     id: number,
     email: string,
@@ -16,6 +5,13 @@ export interface User {
     name: string,
     role: string,
     avatar: string,
+    creationAt: string
+}
+
+export interface IUpdateUser {
+    id: number
+    email: string
+    fullName: string
 }
 
 export interface IUserAuth {

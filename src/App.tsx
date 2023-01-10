@@ -6,6 +6,7 @@ import { store } from './redux/store'
 import GlobalStyle from './styled-component/global.styled.component'
 import { AppContainer } from './styled-component/layout.styled.component'
 import {Home, Products, Profile, SingleProduct} from './pages'
+import { UserValidation } from './components/UserValidation/UserValidation';
 
 const App = () => {
   return (
@@ -19,8 +20,11 @@ const App = () => {
                 <Route path="/" element={<Home />} />
                 <Route path="/home" element={<Home />} />
                 <Route path="/products" element={<Products />} />
-                <Route path="/product/:id" element={<SingleProduct />} />                
-                <Route path="/profile" element={<Profile />} />
+                <Route path="/product/:id" element={<SingleProduct />} />
+                /** Private Route */
+                <Route element={<UserValidation />}>
+                  <Route path="/profile" element={<Profile />} /> 
+                </Route>             
               </Routes>          
             </AppContainer>
           </BrowserRouter>        

@@ -1,4 +1,6 @@
-import { IconCart, ItemCard, StyledButtonCart } from "./styled-component/cardProduct.styled.component"
+import ShoppingCart from "@mui/icons-material/ShoppingCart"
+import { Link } from "react-router-dom"
+import { StyledCardProduct } from "./styled-component/cardProduct.styled.component"
 
 interface ICardProduct {
     id: number
@@ -17,19 +19,20 @@ const CardProduct = ({
 }: ICardProduct) => {
     
     return (
-        <ItemCard to={`/product/${id}`} key={id}>
-            <div className="image">
-                <img src={image} alt={title} />
+        <StyledCardProduct>
+            <div className="image-container">
+                <Link  to={`/product/${id}`}>
+                    <img src={image} />
+                </Link>
+                <div className="icon-container" onClick={() => addCart()}>
+                    <ShoppingCart />
+                </div>
             </div>
-            <div className="info">
+            <Link to={`/product/${id}`} className="info-container">
                 <span className="title">{title}</span>
-                <span className="price">${price}</span>                
-            </div>
-            <StyledButtonCart onClick={() => addCart()}>
-                <IconCart />
-                <span >Add To Cart</span>
-            </StyledButtonCart>
-        </ItemCard>
+                <span className="price">${price}</span> 
+            </Link>
+        </StyledCardProduct>
     )
 }
 
