@@ -11,11 +11,15 @@ const Cart = () => {
   const [total, setTotal] = useState(0)
 
   useEffect(() => {
+    console.log("useEffect Cart");
+    
     dispatch(getCart())
   }, [])
 
   useEffect(() => {
     calculateTotal()
+    console.log("cartState useEffect");
+    
   }, [cartState])
 
   function calculateTotal() {
@@ -28,12 +32,10 @@ const Cart = () => {
   }
 
   return (
-    <>
-      <StyledCart>
-        {cartState.map((value) => <CartItem cart={value}/>)}
-        <div>total: {total} </div>
-      </StyledCart>
-    </>
+    <StyledCart>
+      {cartState.map((value) => <CartItem cart={value}/>)}
+      <div>total: {total} </div>
+    </StyledCart>
   )
 }
 
