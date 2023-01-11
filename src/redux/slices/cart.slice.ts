@@ -21,8 +21,9 @@ export const cartSlice = createSlice({
       localStorage.setItem('cart', JSON.stringify(state))      
     },
     deleteItem: (state, action) => {      
-      state = state.filter(element => element.product.id !== action.payload)
-      localStorage.setItem('cart', JSON.stringify(state))      
+      const newState = state.filter(element => element.product.id !== action.payload)
+      localStorage.setItem('cart', JSON.stringify(newState))
+      return newState   
     },
     updateQuantity: (state, action: {payload: {newQuantity: number, idProduct: number}, type: string}) => {
       const {newQuantity, idProduct} = action.payload

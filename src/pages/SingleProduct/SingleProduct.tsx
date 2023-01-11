@@ -40,7 +40,7 @@ const SingleProductPage = () => {
     }, [product])
 
     function handleAddCartItem(item: IAddCart) {
-        dispatch(addCartItem(item))        
+        dispatch(addCartItem({quantity: item.quantity, product: item.product}))
     }
 
     return (

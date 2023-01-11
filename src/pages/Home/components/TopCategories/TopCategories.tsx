@@ -35,14 +35,10 @@ const TopCategories = ({ categories }: ITopCategories) => {
     
     return (
         <StyledTopCategories>
-            <h4>
-                Top Categories
-                <span>View all</span>
-            </h4>
+            <h4>Top Categories</h4>
             <div className="categories-container">
                 {categories.map((category) => <CategoryItem id={category.id} name={category.name} image={category.image}/>)}
             </div>
-
         </StyledTopCategories>
     )
 

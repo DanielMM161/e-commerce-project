@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 
 export const StyledProductSlider = styled.div`
+    padding-top: 1rem;
     max-width: 75vw;
     position: relative;
 

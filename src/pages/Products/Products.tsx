@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react"
 import { BreadCrumbs } from "../../components/BreadCrumbs"
-import { ButtonLoader } from "./components/ButtonLoader"
 import { StyledButtonContainer, StyledProducts } from "./styled-component/products.styled.component"
 import { IProductPost, Product } from "../../models"
 import { 
@@ -14,6 +13,7 @@ import {
     useSideBar
 } from "../../hooks"
 import { 
+    ButtonLoader,
     CardProduct, 
     CreateProduct, 
     Filter, 
@@ -24,6 +24,7 @@ import {
 import { fetchAllProducts, fetchAllCategories, createProduct} from "../../services"
 import { LoadingPulsating } from "../../components/LoadingPulsating/LoadingPulsating"
 import { useNavigate } from 'react-router';
+import { NoProductFound } from "../../components/NoProductFound"
 
 const ProductsPage = () => {
     
@@ -70,22 +71,26 @@ const ProductsPage = () => {
             }
         }        
         if(newProducts.length > 0) { 
-            return newProducts.map((product) => {
-                const { id, title, price, description, images } = product
-                return (
-                    <CardProduct
-                        id={id}
-                        title={title}
-                        price={price}
-                        image={images[0]}
-                        addCart={() => dispatch(addCartItem({quantity: 1, product: product}))}
-                    />
-                )
-            })
+            return (
+                <StyledProducts>
+                    {products.map((product) => {
+                        const { id, title, price, images } = product
+                        return (
+                            <CardProduct
+                                id={id}
+                                title={title}
+                                price={price}
+                                image={images[0]}
+                                addCart={() => dispatch(addCartItem({quantity: 1, product: product}))}
+                            />
+                        )
+                    })}
+                </StyledProducts>
+            )
         }
         
         return (
-            <div>No product found</div>
+            <NoProductFound />
         )        
     }
     
@@ -103,24 +108,27 @@ const ProductsPage = () => {
                 </button>
             </StyledButtonContainer>
             
-            <StyledProducts>
-                {filter === null ? (
-                    products.map((product) => {
-                        const { id, title, price, images } = product
-                        return (
-                            <CardProduct
-                                id={id}
-                                title={title}
-                                price={price}
-                                image={images[0]}
-                                addCart={() => dispatch(addCartItem({quantity: 1, product: product}))}
-                            />
-                        )
-                    })
-                ) : (
-                    filterProducts(products, filter)
-                )}
-            </StyledProducts>
+            {filter === null ? (
+                <StyledProducts>
+                    {
+                        products.map((product) => {
+                            const { id, title, price, images } = product
+                            return (
+                                <CardProduct
+                                    id={id}
+                                    title={title}
+                                    price={price}
+                                    image={images[0]}
+                                    addCart={() => dispatch(addCartItem({quantity: 1, product: product}))}
+                                />
+                            )
+                        })
+                    }
+                </StyledProducts>
+
+            ) : (
+                filterProducts(products, filter)
+            )}
             
             <ButtonLoader loading={isLoading} onClick={() => setPagination((prev) => prev + 5)} />
 

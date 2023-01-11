@@ -10,16 +10,12 @@ const Cart = () => {
   const dispatch = useAppDispatch()
   const [total, setTotal] = useState(0)
 
-  useEffect(() => {
-    console.log("useEffect Cart");
-    
+  useEffect(() => {    
     dispatch(getCart())
   }, [])
 
   useEffect(() => {
-    calculateTotal()
-    console.log("cartState useEffect");
-    
+    calculateTotal()    
   }, [cartState])
 
   function calculateTotal() {

@@ -2,6 +2,8 @@ import { MutableRefObject, useEffect, useRef, useState } from "react";
 import { Product } from "../../models";
 import { CardProduct } from "../CardProduct";
 import { ArrowIcon, StyledProductSlider } from "./styled-component/productSlider.styled.component";
+import { useDispatch } from 'react-redux';
+import { addCartItem } from "../../redux/slices";
 
 interface IProductSlider {
     topProducts: Product[],
@@ -13,6 +15,7 @@ const ProductSlider = ({
     
     const [hideLeftButton, set] = useState(true)
     const [scrollLeft, setScrollLeft] = useState(0)
+    const dispatch = useDispatch()
     const carousel = useRef() as MutableRefObject<HTMLDivElement>;
 
     useEffect(() => {
@@ -44,7 +47,7 @@ const ProductSlider = ({
                             title={product.title}
                             image={product.images[0]}
                             price={product.price}
-                            addCart={() => {}}
+                            addCart={() => dispatch(addCartItem({quantity: 1, product: product}))}
                         />
                     )
                 }

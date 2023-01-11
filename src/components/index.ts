@@ -1,4 +1,5 @@
 export * from './BreadCrumbs';
+export * from './ButtonLoader';
 export * from './CardProduct';
 export * from './Cart';
 export * from './Filter';

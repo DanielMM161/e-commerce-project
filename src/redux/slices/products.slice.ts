@@ -37,6 +37,9 @@ export const productsSlice = createSlice({
         build.addCase(updateProduct.pending , (state) => {
             state.isLoading = true            
         })
+        build.addCase(fetchProductsByCategory.pending, (state, action) => {
+            state.isLoading = true
+        })
         /** fulfilled */
         build.addCase(fetchAllProducts.fulfilled, (state, action) => {            
             state.isLoading = false
