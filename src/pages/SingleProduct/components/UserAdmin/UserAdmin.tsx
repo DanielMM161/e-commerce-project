@@ -8,6 +8,7 @@ import { useAppDispatch } from './../../../../hooks/redux.hook';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { DeleteProduct } from "../../../../components/Forms/DeleteProduct/DeleteProduct";
+import { StyledUserAdmin } from "./styled-component/userAdmin.styled";
 
 interface IUserAdminProps {
   product: Product
@@ -53,7 +54,7 @@ const UserAdmin = ({
   }
 
   return (
-    <>
+    <StyledUserAdmin>
       <button className="button-admin" onClick={() => showEditProduct()}>
         EDIT PRODUCT
         <EditIcon />
@@ -83,7 +84,7 @@ const UserAdmin = ({
           <DeleteProduct deleteProduct={() => handleDeleteProduct()} cancel={() =>  toggle()}/>
         ) : null}
       </Modal>
-    </>
+    </StyledUserAdmin>
   )
 }
 

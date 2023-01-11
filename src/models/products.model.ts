@@ -20,6 +20,11 @@ export interface IProductUpdate {
     description: string
 }
 
+export interface IFetchProductCategoryProps {
+    categoryId: number,
+    limit: number,
+}
+
 export interface IProductPost {
     title: string
     price: number

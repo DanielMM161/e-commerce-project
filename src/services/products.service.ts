@@ -1,6 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios, { AxiosInstance } from "axios";
-import { IProductPost, IProductUpdate } from "../models";
+import { IFetchProductCategoryProps, IProductPost, IProductUpdate } from "../models";
 import { showNotification } from "../redux/slices";
 import { BASE_URL } from "../utilities/constants";
 import { CREATE_PRODUCT_MESSAGE, DELETE_PRODUCT_MESSAGE, UPDATE_PRODUCT_MESSAGE } from "../utilities/products.actions.messages";
@@ -9,10 +9,24 @@ const products: AxiosInstance = axios.create({
   baseURL: BASE_URL
 });
 
-export const fetchAllProducts = createAsyncThunk('fetchAllProducts',
-  async (offset: number) => {
+export const fetchProductsByCategory = createAsyncThunk('fetchProductByCategory',
+  async (props: IFetchProductCategoryProps) => {
   try {
-      const response = await products.get(`/products?offset=0&limit=${offset}`);
+      const response = await products.get(`/categories/${props.categoryId}/products?offset=0&limit=${props.limit}`);
+      if(response.status === 200) {        
+        return response.data
+      }
+      return []
+  } catch (error: any) {
+      console.error("Some problems in fetchAllProducts", error.response)
+      return []
+  }
+});
+
+export const fetchAllProducts = createAsyncThunk('fetchAllProducts',
+  async (limit: number) => {
+  try {
+      const response = await products.get(`/products?offset=0&limit=${limit}`);
       if(response.status === 200) {        
         return response.data
       }

@@ -1,8 +1,9 @@
 import { useEffect } from "react"
+import { ProductSlider } from "../../components"
 import { useAppDispatch, useAppSelector } from "../../hooks"
 import { Category } from "../../models"
 import { fetchAllProducts, fetchAllCategories } from "../../services"
-import { TopCategories, ProductSlider } from "./components"
+import { TopCategories } from "./components"
 
 
 import { MainImage } from "./styled-components/main-image.styled.component"

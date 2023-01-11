@@ -6,7 +6,8 @@ import {
     fetchSingleProduct, 
     deleteProduct, 
     createProduct, 
-    updateProduct 
+    updateProduct, 
+    fetchProductsByCategory
 } from "../../services";
 
 export const productsSlice = createSlice({
@@ -37,10 +38,9 @@ export const productsSlice = createSlice({
             state.isLoading = true            
         })
         /** fulfilled */
-        build.addCase(fetchAllProducts.fulfilled, (state, action) => {
-            const { payload } = action
+        build.addCase(fetchAllProducts.fulfilled, (state, action) => {            
             state.isLoading = false
-            state.products = payload    
+            state.products = action.payload    
         })
         build.addCase(fetchSingleProduct.fulfilled, (state, action) => {            
             state.isLoading = false
@@ -65,6 +65,10 @@ export const productsSlice = createSlice({
             if(action.payload != null) {
                 state.product = action.payload
             }
+        })
+        build.addCase(fetchProductsByCategory.fulfilled, (state, action) => {
+            state.isLoading = false            
+            state.products = action.payload
         })
     }
 });
