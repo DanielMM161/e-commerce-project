@@ -1,6 +1,6 @@
 import {createSlice, current } from "@reduxjs/toolkit";
 import { AxiosResponse } from "axios";
-import { initialState, Product } from "../../models";
+import { productsInitialState, Product } from "../../models";
 import { 
     fetchAllProducts, 
     fetchSingleProduct, 
@@ -11,7 +11,7 @@ import {
 
 export const productsSlice = createSlice({
     name: 'products',
-    initialState: initialState,
+    initialState: productsInitialState,
     reducers: {
         addNewItem: (state, action) => {            
             return {
@@ -22,78 +22,49 @@ export const productsSlice = createSlice({
     },
     extraReducers: (build) => {
          /** pending */
-        build.addCase(fetchAllProducts.pending , (state, action) => {
+        build.addCase(fetchAllProducts.pending , (state) => {
+            state.isLoading = true
+            state.product = null
+        })
+        build.addCase(createProduct.pending , (state) => {
             state.isLoading = true
         })
-        build.addCase(createProduct.pending , (state, action) => {
+        build.addCase(fetchSingleProduct.pending , (state) => {
             state.isLoading = true
+            state.product = null
         })
-        build.addCase(fetchSingleProduct.pending , (state, action) => {
-            state.isLoading = true
+        build.addCase(updateProduct.pending , (state) => {
+            state.isLoading = true            
         })
         /** fulfilled */
         build.addCase(fetchAllProducts.fulfilled, (state, action) => {
-            if(action.payload != undefined) {
-                const {data, status} = action.payload                                  
-                if(status === 400 || status === 404 || status === 500) {
-                    state.isLoading = false
-                    state.error = true             
-                }
-                state.isLoading = false
-                state.products = data
-                console.log(current(state));
-            } else {
-                state.isLoading = false
-                state.error = true  
-            }
-            
-        })
-        build.addCase(fetchSingleProduct.fulfilled, (state, action) => {
-            if(action.payload != undefined) {
-                const {data, status} = action.payload as AxiosResponse<any, any>    
-                if(status === 400 || status === 404 || status === 500) {
-                    state.isLoading = false
-                    state.error = true             
-                }
-                state.isLoading = false
-                state.product = data                
-            } else {
-                state.isLoading = false
-                state.error = true  
-            }                 
-        })
-        build.addCase(deleteProduct.fulfilled, (state, action) => {
-            const {data, status} = action.payload as AxiosResponse<any, any>                          
-            if(status === 400 || status === 404 || status === 500) {
-                state.isLoading = false
-                state.error = true             
-            }
+            const { payload } = action
             state.isLoading = false
-            state.product = null                    
+            state.products = payload    
         })
-        build.addCase(createProduct.fulfilled, (state, action) => {            
-            state.isLoading = false
-            if(action.payload === null) {
-                state.error = true             
-            }
+        build.addCase(fetchSingleProduct.fulfilled, (state, action) => {            
             state.isLoading = false
             state.product = action.payload
         })
-        build.addCase(updateProduct.fulfilled, (state, action) => {
-            const {data, status} = action.payload as AxiosResponse<any, any>                          
-            if(status === 400 || status === 404 || status === 500) {
-                state.isLoading = false
-                state.error = true             
+        build.addCase(deleteProduct.fulfilled, (state, action) => {                                   
+            state.isLoading = false
+            if(action.payload !== undefined) {     
+                state.products = state.products.filter(item => item.id != action.payload)                           
+                state.product = null                    
             }
-            state.isLoading = false
-            state.product = data
-            console.log(current(state));
-            
         })
-        /** rejected */
-        build.addCase(fetchAllProducts.rejected, (state, action) => {
+        build.addCase(createProduct.fulfilled, (state, action) => {            
             state.isLoading = false
-            state.error = true
+            if(action.payload !== null) {
+                state.error = true       
+                state.product = action.payload
+            }            
+        })
+        build.addCase(updateProduct.fulfilled, (state, action) => {
+            state.isLoading = false            
+            if(action.payload != null) {
+                state.product = action.payload
+            }
         })
     }
 });

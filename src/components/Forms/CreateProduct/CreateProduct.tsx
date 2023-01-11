@@ -1,11 +1,13 @@
 import { useState } from 'react';
+import { useAppDispatch, useAppSelector } from '../../../hooks';
 import { Category, IProductPost, Product } from '../../../models';
 import { createProduct } from '../../../services';
 import { StyledCreateProduct } from "./styled-component/createProduct-styled"
+import { useEffect } from 'react';
 
 interface ICreateProductProps {
   categories: Category[]
-  productCreated: (newProduct: IProductPost) => void
+  productCreated: (id: number) => void
 }
 
 export const CreateProduct = ({
@@ -13,10 +15,19 @@ export const CreateProduct = ({
   productCreated
 }: ICreateProductProps) => {
 
+  const dispatch = useAppDispatch()
   const [title, setTitle] = useState("")
   const [description, setDescription] = useState("")
   const [category, setCategory] = useState(categories[0].id)
   const [price, setPrice] = useState(1)
+  const productState = useAppSelector(state => state.products)
+  const { product } = productState
+
+  useEffect(() => {
+    if(product !== null) {
+      productCreated(product.id)
+    }
+  }, [product])
 
   function submitForm(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
@@ -26,7 +37,7 @@ export const CreateProduct = ({
       price: price,
       categoryId: category
     }
-    productCreated(newProduct)
+    dispatch(createProduct(newProduct))    
   }
 
   function checkUserInputs(): boolean {

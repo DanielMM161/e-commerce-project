@@ -30,17 +30,11 @@ export const fetchUserProfile = createAsyncThunk('fetchUserProfile',
 
 export const fetchUserSession = createAsyncThunk('fetchUserSession',
   async (_, thunkAPI) => {
-  try {
-    const token = localStorage.getItem('access_token')
-    if(token != null) {
-      thunkAPI.dispatch(fetchUserProfile(JSON.parse(token)))     
-    }
-    return null
-  } catch (error: any) {    
-    return null
+  const token = localStorage.getItem('access_token')
+  if(token != null) {
+    thunkAPI.dispatch(fetchUserProfile(JSON.parse(token)))     
   }
 })
-
 
 export const createUser = createAsyncThunk('createUser',
   async (userRegistration: IUserRegister, thunkAPI) => {

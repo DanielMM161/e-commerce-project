@@ -34,7 +34,7 @@ export interface StateProductSlice {
     error: any
 }
 
-export const initialState: StateProductSlice = {
+export const productsInitialState: StateProductSlice = {
     products: [],
     product: null,
     isLoading: false,

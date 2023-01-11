@@ -1,44 +1,63 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios, { AxiosInstance } from "axios";
-import { IProductPost, IProductUpdate, Product } from "../models";
+import { IProductPost, IProductUpdate } from "../models";
 import { showNotification } from "../redux/slices";
 import { BASE_URL } from "../utilities/constants";
+import { CREATE_PRODUCT_MESSAGE, DELETE_PRODUCT_MESSAGE, UPDATE_PRODUCT_MESSAGE } from "../utilities/products.actions.messages";
 
 const products: AxiosInstance = axios.create({
   baseURL: BASE_URL
 });
 
 export const fetchAllProducts = createAsyncThunk('fetchAllProducts',
-  async (offset: number, thunkAPI) => {
+  async (offset: number) => {
   try {
       const response = await products.get(`/products?offset=0&limit=${offset}`);
-      return response
+      if(response.status === 200) {        
+        return response.data
+      }
+      return []
   } catch (error: any) {
-    //SET ERROR AND SET NOTIFICATION ERROR
-      return error.response
+      console.error("Some problems in fetchAllProducts", error.response)
+      return []
   }
 });
 
 export const fetchSingleProduct = createAsyncThunk('fetchSingleProduct',
-  async (productId: string | number, thunkAPI) => {
+  async (productId: string | number) => {
     try {
       const response = await products.get(`/products/${productId}`)
-      return response
-    } catch (error: any) {
-      //SET ERROR AND SET NOTIFICATION ERROR
-      return error.response
+      if(response.status === 200) {
+        return response.data
+      }
+      return null
+    } catch (error: any) {      
+      console.error("Some problems in fetchSingleProduct", error.response)
+      return null
     }
   }
 )
 
 export const deleteProduct = createAsyncThunk('deleteProduct',
-  async (productId: number | string, thunkAPI) => {
+  async (productId: number, thunkAPI) => {
     try {
       const response = await products.delete(`/products/${productId}`)
-      return response
+      if(response.status === 200 && response.data) {
+        thunkAPI.dispatch(showNotification({
+          error: false,
+          message: DELETE_PRODUCT_MESSAGE.success
+        }))
+        return productId
+      }
+      thunkAPI.dispatch(showNotification({
+        error: true,
+        message: DELETE_PRODUCT_MESSAGE.error
+      }))
     } catch (error: any) {
-       //SET ERROR AND SET NOTIFICATION ERROR
-      return error.response
+      thunkAPI.dispatch(showNotification({
+        error: true,
+        message: DELETE_PRODUCT_MESSAGE.error
+      }))    
     }
   }
 )
@@ -58,14 +77,24 @@ export const createProduct = createAsyncThunk('createProduct',
             "https://api.lorem.space/image?w=150&h=180"
           ]
         }
-      )
+      )      
       if(response.status === 201) {
-        thunkAPI.dispatch(showNotification({error: false, message: "Your Product Was Succesfully Created"}))
+        thunkAPI.dispatch(showNotification({
+          error: false, 
+          message: CREATE_PRODUCT_MESSAGE.success
+        }))
         return response.data
       }
+      thunkAPI.dispatch(showNotification({
+        error: true, 
+        message: CREATE_PRODUCT_MESSAGE.error
+      }))
       return null
     } catch (error: any) {
-       //SET ERROR AND SET NOTIFICATION ERROR
+      thunkAPI.dispatch(showNotification({
+        error: true, 
+        message: CREATE_PRODUCT_MESSAGE.error
+      }))
       return null
     }
   }
@@ -80,11 +109,25 @@ export const updateProduct = createAsyncThunk('updateProduct',
           price: product.price,
           description: product.description
         }
-      )
-      return response
+      )      
+      if(response.status === 201 || response.status === 200) {
+        thunkAPI.dispatch(showNotification({
+          error: false, 
+          message: UPDATE_PRODUCT_MESSAGE.success
+        }))
+        return response.data
+      }
+      thunkAPI.dispatch(showNotification({
+        error: true, 
+        message: UPDATE_PRODUCT_MESSAGE.error
+      }))
+      return null
     } catch (error: any) {
-      //SET ERROR AND SET NOTIFICATION ERROR      
-       return error.response
+      thunkAPI.dispatch(showNotification({
+        error: true, 
+        message: UPDATE_PRODUCT_MESSAGE.error
+      }))    
+      return null
     }
   }
 )

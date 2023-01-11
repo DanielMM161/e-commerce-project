@@ -23,10 +23,12 @@ import {
 } from "../../components"
 import { fetchAllProducts, fetchAllCategories, createProduct} from "../../services"
 import { LoadingPulsating } from "../../components/LoadingPulsating/LoadingPulsating"
+import { useNavigate } from 'react-router';
 
 const ProductsPage = () => {
     
     const dispatch = useAppDispatch()
+    const navigate = useNavigate()
     const productState = useAppSelector(state => state.products)
     const { products, isLoading } = productState
     const categoriesState = useAppSelector(state => state.categories)
@@ -44,10 +46,10 @@ const ProductsPage = () => {
     useEffect(() => {     
           dispatch(fetchAllProducts(pagination))
     }, [pagination])
-
-    function handleCreateProduct(product: IProductPost) {
-        dispatch(createProduct(product))
+    
+    function handleCreateProduct(id: number) {
         toggle()
+        navigate(`/product/${id}`)
     }
         
     function filterProducts(products: Product[], filter: IFilter) {

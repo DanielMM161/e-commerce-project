@@ -1,7 +1,7 @@
 import { EditProduct, Modal } from "../../../../components"
 import { UseModal } from "../../../../hooks"
 import { Product } from "../../../../models"
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { deleteProduct, updateProduct } from "../../../../services";
 import { useNavigate } from "react-router";
 import { useAppDispatch } from './../../../../hooks/redux.hook';
@@ -48,7 +48,7 @@ const UserAdmin = ({
   }
 
   function handleDeleteProduct() {
-    navigate("/products")
+    navigate("/products") 
     dispatch(deleteProduct(product.id))
   }
 

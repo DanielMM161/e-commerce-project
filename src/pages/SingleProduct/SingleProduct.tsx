@@ -45,14 +45,13 @@ const SingleProductPage = () => {
                     ) : null}
 
                     <StyledUserAdmin>
-                        <UserAdmin product={product} />
-                    </StyledUserAdmin>
+                            <UserAdmin product={product} />
+                        </StyledUserAdmin>
 
                     <StyledSingleProduct>
                         <SingleComponentCard product={product} addToCart={(item) => handleAddCartItem(item)} />
                     </StyledSingleProduct>                 
                 </>
-
             ) : null}
             <LoadingPulsating show={isLoading}/>
         </>

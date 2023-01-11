@@ -39,9 +39,8 @@ export const userSlice = createSlice({
         build.addCase(loginUser.fulfilled, (state) => {            
             state.isLoading = false        
         })
-        build.addCase(fetchUserSession.fulfilled, (state, action) => {            
+        build.addCase(fetchUserSession.fulfilled, (state) => {            
             state.isLoading = false
-            state.user = action.payload  
         })
     }
 });
