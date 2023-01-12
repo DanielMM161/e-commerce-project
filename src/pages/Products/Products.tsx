@@ -1,11 +1,8 @@
 import { useEffect, useState } from "react"
+import { useNavigate } from 'react-router';
 import { BreadCrumbs } from "../../components/BreadCrumbs"
-import { StyledButtonContainer, StyledProducts } from "./styled-component/products.styled.component"
-import { IProductPost, Product } from "../../models"
-import { 
-    addCartItem, 
-    addNewItem,
-} from "../../redux/slices"
+import { Product } from "../../models"
+import { addCartItem } from "../../redux/slices"
 import { 
     useAppDispatch, 
     useAppSelector, 
@@ -23,8 +20,9 @@ import {
 } from "../../components"
 import { fetchAllProducts, fetchAllCategories, createProduct} from "../../services"
 import { LoadingPulsating } from "../../components/LoadingPulsating/LoadingPulsating"
-import { useNavigate } from 'react-router';
 import { NoProductFound } from "../../components/NoProductFound"
+
+import { StyledButtonContainer, StyledProducts } from "./styled-component/products.styled.component"
 
 const ProductsPage = () => {
     

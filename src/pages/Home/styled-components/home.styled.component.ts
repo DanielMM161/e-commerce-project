@@ -2,6 +2,7 @@
 import styled from 'styled-components';
 
 export const StyleHomePage = styled.div`
+  padding-bottom: 1rem;
 
   .main-image {
     padding-top: 1rem;

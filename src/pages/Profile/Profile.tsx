@@ -1,8 +1,8 @@
 import { BreadCrumbs } from "../../components"
 import { useAppDispatch, useAppSelector } from "../../hooks"
-import { IUpdateUser } from "../../models"
 import { logOut } from "../../redux/slices"
 import { updateUser } from "../../services"
+
 import { Info } from "./components"
 import { StyledProfile } from "./styled-component/profile.styled"
 

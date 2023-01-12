@@ -2,13 +2,14 @@ import { useEffect } from 'react';
 import { useParams } from "react-router"
 import { BreadCrumbs } from '../../components';
 import { useAppDispatch, useAppSelector} from "../../hooks";
-import { StyledSingleProduct } from './styled-component/singleProduct.styled.component';
 import { fetchSingleProduct } from "../../services";
 import { ROLE_ADMIN } from '../../utilities/constants';
-import { SingleComponentCard, UserAdmin } from './components';
 import { addCartItem } from '../../redux/slices';
 import { LoadingPulsating } from '../../components/LoadingPulsating/LoadingPulsating';
 import { IAddCart } from '../../models/cart.model';
+
+import { SingleComponentCard, UserAdmin } from './components';
+import { StyledSingleProduct } from './styled-component/singleProduct.styled.component';
 import { SimilarProduct } from './components/SimilarProduct/SimilarProduct';
 import { fetchProductsByCategory } from './../../services/products.service';
 

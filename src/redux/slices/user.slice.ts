@@ -1,12 +1,14 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { userEmptyState } from "../../models";
+import { createSlice, current } from "@reduxjs/toolkit";
+
+import { userInitialState } from "../../models";
 import { createUser, fetchUserProfile, loginUser, updateUser, fetchUserSession } from "../../services";
 
 export const userSlice = createSlice({
     name: 'user',
-    initialState: userEmptyState,
+    initialState: userInitialState,
     reducers: {
         logOut: (state) => {
+            localStorage.removeItem('user')
             localStorage.removeItem('access_token')
             state.user = null
         }
@@ -33,8 +35,12 @@ export const userSlice = createSlice({
         build.addCase(createUser.fulfilled, (state) => {
             state.isLoading = false        
         })
-        build.addCase(updateUser.fulfilled, (state) => {
-            state.isLoading = false          
+        build.addCase(updateUser.fulfilled, (state, action) => {
+            state.isLoading = false
+            if(action.payload !== null ) {
+                state.user = action.payload
+                console.log("state ", current(state))
+            }          
         })
         build.addCase(loginUser.fulfilled, (state) => {            
             state.isLoading = false        

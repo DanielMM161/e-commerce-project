@@ -1,23 +1,22 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
+
 import { IUpdateUser, IUserAuth, IUserRegister } from "../models";
 import { showNotification } from "../redux/slices";
-import { BASE_URL, CREATE_USER_MESSAGE, LOGIN_USER_MESSAGE, UPDATE_USER_MESSAGE } from "../utilities/constants";
+import { CREATE_USER_MESSAGE, LOGIN_USER_MESSAGE, UPDATE_USER_MESSAGE } from "../utilities/constants";
 
-const userServices = axios.create({
-  baseURL: BASE_URL
-})
+import { axiosInstance } from "./service-instance.service";
 
 export const fetchUserProfile = createAsyncThunk('fetchUserProfile',
   async (token: string, thunkAPI) => {
   try {      
-      const response = await userServices.get('/auth/profile', {
+      const response = await axiosInstance.get('/auth/profile', {
         headers: {
             Authorization : `Bearer ${token}`
         }
     })
     if(response.status === 200) {
       thunkAPI.dispatch(showNotification({error: false, message: LOGIN_USER_MESSAGE.success}))
+      localStorage.setItem('user', JSON.stringify(response.data))
       return response.data
     }
     thunkAPI.dispatch(showNotification({error: true, message: LOGIN_USER_MESSAGE.error}))
@@ -39,7 +38,7 @@ export const fetchUserSession = createAsyncThunk('fetchUserSession',
 export const createUser = createAsyncThunk('createUser',
   async (userRegistration: IUserRegister, thunkAPI) => {
   try {      
-    const response = await userServices.post('/users', {
+    const response = await axiosInstance.post('/users', {
       name: userRegistration.name,
       email: userRegistration.email,
       password: userRegistration.password,
@@ -61,7 +60,7 @@ export const createUser = createAsyncThunk('createUser',
 export const loginUser = createAsyncThunk('loginUser',
   async (userLogin: IUserAuth, thunkAPI) => {
   try {      
-    const response = await userServices.post('/auth/login', {
+    const response = await axiosInstance.post('/auth/login', {
       email: userLogin.email,
       password: userLogin.password
     })
@@ -80,18 +79,20 @@ export const loginUser = createAsyncThunk('loginUser',
 export const updateUser = createAsyncThunk('updateUser',
   async (newFields: IUpdateUser, thunkAPI) => {
     try {
-      const response = await userServices.put(`/users/${newFields.id}`, {
+      const response = await axiosInstance.put(`/users/${newFields.id}`, {
         email: newFields.email,
         name: newFields.fullName,
       })
       if(response.status == 200) {
         thunkAPI.dispatch(showNotification({error: false, message:  UPDATE_USER_MESSAGE.success}))
-        thunkAPI.dispatch(fetchUserSession())        
-      } else {
-        thunkAPI.dispatch(showNotification({error: false, message: UPDATE_USER_MESSAGE.error}))
-      }  
+        localStorage.setItem('user', JSON.stringify(response.data))
+        return response.data    
+      } 
+      thunkAPI.dispatch(showNotification({error: false, message: UPDATE_USER_MESSAGE.error}))   
+      return null     
     } catch (error: any) {
-      thunkAPI.dispatch(showNotification({error: true, message:  UPDATE_USER_MESSAGE.error}))      
+      thunkAPI.dispatch(showNotification({error: true, message:  UPDATE_USER_MESSAGE.error}))
+      return null   
     }
   }
 )

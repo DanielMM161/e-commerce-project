@@ -1,7 +1,7 @@
-import React from 'react'
 import { Provider } from 'react-redux'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import { NavBar } from './components'
+
+import { Footer, NavBar } from './components'
 import { store } from './redux/store'
 import GlobalStyle from './styled-component/global.styled.component'
 import { AppContainer } from './styled-component/layout.styled.component'
@@ -10,7 +10,6 @@ import { UserValidation } from './components/UserValidation/UserValidation';
 
 const App = () => {
   return (
-    <React.StrictMode>
       <Provider store={store}>
         <BrowserRouter>
             <NavBar />
@@ -24,16 +23,15 @@ const App = () => {
                 <Route path="/products" element={<Products />} />
                 <Route path="/product/:id" element={<SingleProduct />} />
                 <Route path="/category/:categoryId" element={<CategoryProduct />} />
-                /** Private Route */
                 <Route element={<UserValidation />}>
                   <Route path="/profile" element={<Profile />} /> 
                 </Route>             
               </Routes>          
             </AppContainer>
             
+            <Footer />
           </BrowserRouter>        
       </Provider>
-    </React.StrictMode>
   )
 }
 

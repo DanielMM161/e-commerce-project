@@ -1,10 +1,11 @@
-import { StyledCategoryProduct } from "./styled-component/categoryProduct.styled"
-import { useAppDispatch, useAppSelector } from "../../hooks";
-import { useParams } from 'react-router';
 import { useEffect, useState } from 'react';
+import { useParams } from 'react-router';
+import { useAppDispatch, useAppSelector } from "../../hooks";
 import { fetchProductsByCategory } from "../../services";
 import { BreadCrumbs, ButtonLoader, CardProduct, LoadingPulsating } from "../../components";
 import { addCartItem } from "../../redux/slices";
+
+import { StyledCategoryProduct } from "./styled-component/categoryProduct.styled"
 
 const CategoryProductPage = () => {
 

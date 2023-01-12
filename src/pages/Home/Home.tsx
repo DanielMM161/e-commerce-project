@@ -1,13 +1,12 @@
 import { useEffect } from "react"
+
 import { LoadingPulsating, ProductSlider } from "../../components"
 import { useAppDispatch, useAppSelector } from "../../hooks"
-import { Category } from "../../models"
 import { fetchAllProducts, fetchAllCategories } from "../../services"
+
 import { TopCategories } from "./components"
 import { StyleHomePage } from "./styled-components/home.styled.component"
 
-
-import { MainImage } from "./styled-components/main-image.styled.component"
 
 const HomePage = () => {
 

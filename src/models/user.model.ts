@@ -30,8 +30,11 @@ interface IUserSliceState {
     isError: boolean
 }
   
-export const userEmptyState: IUserSliceState = {
-    user: null,
-    isLoading: false,
-    isError: false
-}
+export const userInitialState: IUserSliceState = (() => {
+    const data = JSON.parse(localStorage.getItem('user') ?? 'null')
+    return {
+        user: data,
+        isLoading: false,
+        isError: false
+    }
+})()

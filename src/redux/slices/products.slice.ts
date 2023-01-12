@@ -1,5 +1,4 @@
 import {createSlice, current } from "@reduxjs/toolkit";
-import { AxiosResponse } from "axios";
 import { productsInitialState, Product } from "../../models";
 import { 
     fetchAllProducts, 

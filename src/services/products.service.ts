@@ -1,18 +1,15 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import axios, { AxiosInstance } from "axios";
+
 import { IFetchProductCategoryProps, IProductPost, IProductUpdate } from "../models";
 import { showNotification } from "../redux/slices";
-import { BASE_URL } from "../utilities/constants";
 import { CREATE_PRODUCT_MESSAGE, DELETE_PRODUCT_MESSAGE, UPDATE_PRODUCT_MESSAGE } from "../utilities/products.actions.messages";
 
-const products: AxiosInstance = axios.create({
-  baseURL: BASE_URL
-});
+import { axiosInstance } from "./service-instance.service";
 
 export const fetchProductsByCategory = createAsyncThunk('fetchProductByCategory',
   async (props: IFetchProductCategoryProps) => {
-  try {
-      const response = await products.get(`/categories/${props.categoryId}/products?offset=0&limit=${props.limit}`);
+  try {    
+      const response = await axiosInstance.get(`/categories/${props.categoryId}/products?offset=0&limit=${props.limit}`);
       if(response.status === 200) {        
         return response.data
       }
@@ -26,7 +23,7 @@ export const fetchProductsByCategory = createAsyncThunk('fetchProductByCategory'
 export const fetchAllProducts = createAsyncThunk('fetchAllProducts',
   async (limit: number) => {
   try {
-      const response = await products.get(`/products?offset=0&limit=${limit}`);
+      const response = await axiosInstance.get(`/products?offset=0&limit=${limit}`);
       if(response.status === 200) {        
         return response.data
       }
@@ -40,7 +37,7 @@ export const fetchAllProducts = createAsyncThunk('fetchAllProducts',
 export const fetchSingleProduct = createAsyncThunk('fetchSingleProduct',
   async (productId: string | number) => {
     try {
-      const response = await products.get(`/products/${productId}`)
+      const response = await axiosInstance.get(`/products/${productId}`)
       if(response.status === 200) {
         return response.data
       }
@@ -55,7 +52,7 @@ export const fetchSingleProduct = createAsyncThunk('fetchSingleProduct',
 export const deleteProduct = createAsyncThunk('deleteProduct',
   async (productId: number, thunkAPI) => {
     try {
-      const response = await products.delete(`/products/${productId}`)
+      const response = await axiosInstance.delete(`/products/${productId}`)
       if(response.status === 200 && response.data) {
         thunkAPI.dispatch(showNotification({
           error: false,
@@ -79,7 +76,7 @@ export const deleteProduct = createAsyncThunk('deleteProduct',
 export const createProduct = createAsyncThunk('createProduct',
   async (product: IProductPost, thunkAPI) => {
     try {
-      const response = await products.post('/products/', 
+      const response = await axiosInstance.post('/products/', 
         {
           title: product.title,
           price: product.price,
@@ -117,7 +114,7 @@ export const createProduct = createAsyncThunk('createProduct',
 export const updateProduct = createAsyncThunk('updateProduct',
   async (product: IProductUpdate, thunkAPI) => {
     try {
-      const response = await products.put(`/products/${product.id}`, 
+      const response = await axiosInstance.put(`/products/${product.id}`, 
         {
           title: product.title,
           price: product.price,

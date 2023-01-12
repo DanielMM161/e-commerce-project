@@ -1,4 +1,5 @@
-  import { createSlice, current } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
+
 import { cartEmptyState, IAddCart } from "../../models/cart.model";
 
 export const cartSlice = createSlice({

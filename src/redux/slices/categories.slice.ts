@@ -1,4 +1,5 @@
-import { createSlice, current } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
+
 import { emptyState } from "../../models";
 import { fetchAllCategories } from "../../services";
 

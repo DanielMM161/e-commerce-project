@@ -1,15 +1,18 @@
-import { Logo, StyledNavBar } from "./styled-component/navBar.styled.component"
 import { Link } from "react-router-dom";
-import { useAppDispatch, useAppSelector, UseModal, useSideBar } from "../../hooks";
-import { SideBar, Cart, Register, Login, Modal } from '../index'
+import { useEffect, useState } from "react";
+
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import PersonIcon from '@mui/icons-material/Person';
 import ListAltIcon from '@mui/icons-material/ListAlt';
 import LoginIcon from '@mui/icons-material/Login';
-import { useEffect, useState } from "react";
+
+import { useAppDispatch, useAppSelector, UseModal, useSideBar } from "../../hooks";
+import { SideBar, Cart, Register, Login, Modal } from '../index'
 import { fetchUserSession } from './../../services/user.service';
 import { LoadingPulsating } from "../LoadingPulsating/LoadingPulsating";
 import { SnackBar } from "../SnackBar/SnackBar";
+
+import { Logo, StyledNavBar } from "./styled-component/navBar.styled.component"
 
 const NavBar = () => {
 
@@ -24,8 +27,8 @@ const NavBar = () => {
     const notificationState = useAppSelector(state => state.notifications)
     const {show, message, error} = notificationState
 
-    useEffect(() => {        
-        dispatch(fetchUserSession())        
+    useEffect(() => {              
+       //dispatch(fetchUserSession())        
     }, [])
     
     return (
