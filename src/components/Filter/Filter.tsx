@@ -50,9 +50,7 @@ export const Filter = ({
     const [clickCategory, setClickCategory] = useState<boolean[]>([])
     const [clickPrice, setClickPrice] = useState<boolean[]>([])
         
-    useEffect(() => {
-        console.log("prevFilterState --->", prevFilterState);
-          
+    useEffect(() => {          
         if(prevFilterState != null) {
             categories.forEach((value, index) => {
                 if(prevFilterState.ids.includes(value.id)) {

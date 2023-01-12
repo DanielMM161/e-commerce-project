@@ -97,8 +97,7 @@ const Register = ({
           />
         </div>
 
-        <button className='main-button' onClick={() => {console.log("hey");
-        } } disabled={checkUserInputs()}>Register</button>
+        <button className='main-button' type="submit" disabled={checkUserInputs()}>Register</button>
 
         <span onClick={() => goLogin()}>Already have an account? -- Login to your account</span>
       </StyledRegister>

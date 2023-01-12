@@ -2,14 +2,15 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 
 import { IUpdateUser, IUserAuth, IUserRegister } from "../models";
 import { showNotification } from "../redux/slices";
-import { CREATE_USER_MESSAGE, LOGIN_USER_MESSAGE, UPDATE_USER_MESSAGE } from "../utilities/constants";
+import { BASE_URL, CREATE_USER_MESSAGE, LOGIN_USER_MESSAGE, UPDATE_USER_MESSAGE } from "../utilities/constants";
 
-import { axiosInstance } from "./service-instance.service";
+import axios from 'axios';
+
 
 export const fetchUserProfile = createAsyncThunk('fetchUserProfile',
   async (token: string, thunkAPI) => {
   try {      
-      const response = await axiosInstance.get('/auth/profile', {
+      const response = await axios.get(`${BASE_URL}/auth/profile`, {
         headers: {
             Authorization : `Bearer ${token}`
         }
@@ -38,7 +39,7 @@ export const fetchUserSession = createAsyncThunk('fetchUserSession',
 export const createUser = createAsyncThunk('createUser',
   async (userRegistration: IUserRegister, thunkAPI) => {
   try {      
-    const response = await axiosInstance.post('/users', {
+    const response = await axios.post(`${BASE_URL}/users`, {
       name: userRegistration.name,
       email: userRegistration.email,
       password: userRegistration.password,
@@ -60,7 +61,7 @@ export const createUser = createAsyncThunk('createUser',
 export const loginUser = createAsyncThunk('loginUser',
   async (userLogin: IUserAuth, thunkAPI) => {
   try {      
-    const response = await axiosInstance.post('/auth/login', {
+    const response = await axios.post(`${BASE_URL}/auth/login`, {
       email: userLogin.email,
       password: userLogin.password
     })
@@ -79,7 +80,7 @@ export const loginUser = createAsyncThunk('loginUser',
 export const updateUser = createAsyncThunk('updateUser',
   async (newFields: IUpdateUser, thunkAPI) => {
     try {
-      const response = await axiosInstance.put(`/users/${newFields.id}`, {
+      const response = await axios.put(`${BASE_URL}/users/${newFields.id}`, {
         email: newFields.email,
         name: newFields.fullName,
       })

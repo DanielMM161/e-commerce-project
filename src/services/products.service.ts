@@ -3,13 +3,16 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { IFetchProductCategoryProps, IProductPost, IProductUpdate } from "../models";
 import { showNotification } from "../redux/slices";
 import { CREATE_PRODUCT_MESSAGE, DELETE_PRODUCT_MESSAGE, UPDATE_PRODUCT_MESSAGE } from "../utilities/products.actions.messages";
+import { BASE_URL } from "../utilities";
 
-import { axiosInstance } from "./service-instance.service";
+import axios, { AxiosError } from 'axios';
+
+
 
 export const fetchProductsByCategory = createAsyncThunk('fetchProductByCategory',
   async (props: IFetchProductCategoryProps) => {
   try {    
-      const response = await axiosInstance.get(`/categories/${props.categoryId}/products?offset=0&limit=${props.limit}`);
+      const response = await axios.get(`${BASE_URL}/categories/${props.categoryId}/products?offset=0&limit=${props.limit}`);
       if(response.status === 200) {        
         return response.data
       }
@@ -23,7 +26,7 @@ export const fetchProductsByCategory = createAsyncThunk('fetchProductByCategory'
 export const fetchAllProducts = createAsyncThunk('fetchAllProducts',
   async (limit: number) => {
   try {
-      const response = await axiosInstance.get(`/products?offset=0&limit=${limit}`);
+      const response = await axios.get(`${BASE_URL}/products?offset=0&limit=${limit}`);
       if(response.status === 200) {        
         return response.data
       }
@@ -37,13 +40,14 @@ export const fetchAllProducts = createAsyncThunk('fetchAllProducts',
 export const fetchSingleProduct = createAsyncThunk('fetchSingleProduct',
   async (productId: string | number) => {
     try {
-      const response = await axiosInstance.get(`/products/${productId}`)
+      const response = await axios.get(`${BASE_URL}/products/${productId}`)
       if(response.status === 200) {
         return response.data
       }
       return null
-    } catch (error: any) {      
-      console.error("Some problems in fetchSingleProduct", error.response)
+    } catch (error) {      
+      const err = error as AxiosError
+      console.error("Some problems in fetchSingleProduct", err)
       return null
     }
   }
@@ -52,23 +56,27 @@ export const fetchSingleProduct = createAsyncThunk('fetchSingleProduct',
 export const deleteProduct = createAsyncThunk('deleteProduct',
   async (productId: number, thunkAPI) => {
     try {
-      const response = await axiosInstance.delete(`/products/${productId}`)
+      const response = await axios.delete(`${BASE_URL}/products/${productId}`)
       if(response.status === 200 && response.data) {
         thunkAPI.dispatch(showNotification({
           error: false,
           message: DELETE_PRODUCT_MESSAGE.success
         }))
-        return productId
+        return true
       }
       thunkAPI.dispatch(showNotification({
         error: true,
         message: DELETE_PRODUCT_MESSAGE.error
       }))
+      return null
     } catch (error: any) {
       thunkAPI.dispatch(showNotification({
         error: true,
         message: DELETE_PRODUCT_MESSAGE.error
-      }))    
+      }))
+      const err = error as AxiosError
+      console.error("Error in deleteProduct", err)
+      return null
     }
   }
 )
@@ -76,7 +84,7 @@ export const deleteProduct = createAsyncThunk('deleteProduct',
 export const createProduct = createAsyncThunk('createProduct',
   async (product: IProductPost, thunkAPI) => {
     try {
-      const response = await axiosInstance.post('/products/', 
+      const response = await axios.post(`${BASE_URL}/products/`, 
         {
           title: product.title,
           price: product.price,
@@ -114,7 +122,7 @@ export const createProduct = createAsyncThunk('createProduct',
 export const updateProduct = createAsyncThunk('updateProduct',
   async (product: IProductUpdate, thunkAPI) => {
     try {
-      const response = await axiosInstance.put(`/products/${product.id}`, 
+      const response = await axios.put(`${BASE_URL}/products/${product.id}`, 
         {
           title: product.title,
           price: product.price,

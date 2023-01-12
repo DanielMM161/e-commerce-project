@@ -49,8 +49,12 @@ const UserAdmin = ({
   }
 
   function handleDeleteProduct() {
-    navigate("/products") 
     dispatch(deleteProduct(product.id))
+      .then(value => {              
+        if(value.payload) {
+          navigate("/products") 
+        }
+      })
   }
 
   return (

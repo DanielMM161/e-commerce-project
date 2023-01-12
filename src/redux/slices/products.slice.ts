@@ -13,12 +13,6 @@ export const productsSlice = createSlice({
     name: 'products',
     initialState: productsInitialState,
     reducers: {
-        addNewItem: (state, action) => {            
-            return {
-                ...state,
-                products: [...state.products, action.payload]
-            }
-        }
     },
     extraReducers: (build) => {
          /** pending */
@@ -36,7 +30,10 @@ export const productsSlice = createSlice({
         build.addCase(updateProduct.pending , (state) => {
             state.isLoading = true            
         })
-        build.addCase(fetchProductsByCategory.pending, (state, action) => {
+        build.addCase(fetchProductsByCategory.pending, (state) => {
+            state.isLoading = true
+        })
+        build.addCase(deleteProduct.pending, (state) => {                                   
             state.isLoading = true
         })
         /** fulfilled */
@@ -48,12 +45,8 @@ export const productsSlice = createSlice({
             state.isLoading = false
             state.product = action.payload
         })
-        build.addCase(deleteProduct.fulfilled, (state, action) => {                                   
+        build.addCase(deleteProduct.fulfilled, (state) => {                                   
             state.isLoading = false
-            if(action.payload !== undefined) {     
-                state.products = state.products.filter(item => item.id != action.payload)                           
-                state.product = null                    
-            }
         })
         build.addCase(createProduct.fulfilled, (state, action) => {            
             state.isLoading = false
@@ -74,7 +67,5 @@ export const productsSlice = createSlice({
         })
     }
 });
-
-export const { addNewItem } = productsSlice.actions
 
 export default productsSlice.reducer
