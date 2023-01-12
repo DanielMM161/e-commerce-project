@@ -1,8 +1,9 @@
 import { store } from './../../redux/store';
-import { deleteProduct, fetchProductsByCategory, fetchSingleProduct } from './../../services/products.service';
+import { deleteProduct, fetchProductsByCategory, fetchSingleProduct, createProduct } from './../../services/products.service';
 
 import { fetchAllProducts } from "../../services";
 import { productServer } from "../servers";
+import { IProductPost } from '../../models';
 
 beforeAll(() => {
   productServer.listen()
@@ -32,21 +33,40 @@ describe('Product Service tests', () => {
     expect(store.getState().products.products.length).toBe(7);
   })
 
-  test('fetch single product', async () => {
-    await store.dispatch(fetchSingleProduct(-1))
-    expect(store.getState().products.product).toBeNull()
-
-    await store.dispatch(fetchSingleProduct(90))
-    expect(store.getState().products.product?.id).toBe(90)
-
-  })
-
   test('delete product', async () => {
     let value = await store.dispatch(deleteProduct(95))    
     expect(value.payload).toBe(true)
 
     value = await store.dispatch(deleteProduct(-1))
     expect(value.payload).toBeNull
+  })
+
+  test('create new product', async () => {
+    let newProduct: IProductPost = {
+      title: "new Product",
+      description: "new description",
+      price: 200,
+      categoryId: 1
+    }    
+    let value = await store.dispatch(createProduct(newProduct))
+    expect(value.payload.title).toBe(newProduct.title)
+
+    newProduct = {
+      title: "new Product",
+      description: "new description",
+      price: -1,
+      categoryId: 1
+    }    
+    value = await store.dispatch(createProduct(newProduct))
+    expect(value.payload).toBeNull()
+  })
+
+  test('fetch single product', async () => {
+    await store.dispatch(fetchSingleProduct(-1))
+    expect(store.getState().products.product).toBeNull()
+
+    await store.dispatch(fetchSingleProduct(90))
+    expect(store.getState().products.product?.id).toBe(90)
   })
 
 })

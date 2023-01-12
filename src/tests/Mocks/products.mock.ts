@@ -1,4 +1,26 @@
 
+export const newProduct = {
+    "id": 300,
+    "title": "new Product",
+    "price": 800,
+    "description": "new Description",
+    "images": [
+        "https://api.lorem.space/image/watch?w=640&h=480&r=2829",
+        "https://api.lorem.space/image/watch?w=640&h=480&r=5170",
+        "https://api.lorem.space/image/watch?w=640&h=480&r=9140"
+    ],
+    "creationAt": "2023-01-12T00:47:59.000Z",
+    "updatedAt": "2023-01-12T00:47:59.000Z",
+    "category": {
+        "id": 2,
+        "name": "Electronics",
+        "image": "https://api.lorem.space/image/watch?w=640&h=480&r=5692",
+        "creationAt": "2023-01-12T00:47:59.000Z",
+        "updatedAt": "2023-01-12T00:47:59.000Z"
+    }
+}
+
+
 export const productsMocks = [
     {
         "id": 28,

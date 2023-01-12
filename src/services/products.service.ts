@@ -96,18 +96,21 @@ export const createProduct = createAsyncThunk('createProduct',
             "https://api.lorem.space/image?w=150&h=180"
           ]
         }
-      )      
-      if(response.status === 201) {
+      )
+     
+      if(response.status === 201 || response.status === 200) {
         thunkAPI.dispatch(showNotification({
           error: false, 
           message: CREATE_PRODUCT_MESSAGE.success
         }))
         return response.data
       }
+
       thunkAPI.dispatch(showNotification({
         error: true, 
         message: CREATE_PRODUCT_MESSAGE.error
       }))
+      
       return null
     } catch (error: any) {
       thunkAPI.dispatch(showNotification({

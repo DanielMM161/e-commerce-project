@@ -34,7 +34,7 @@ export const CreateProduct = ({
     const newProduct: IProductPost = {
       title: title,
       description: description,
-      price: price,
+      price: -1,
       categoryId: category
     }
     dispatch(createProduct(newProduct))    

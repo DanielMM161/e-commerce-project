@@ -51,7 +51,7 @@ export const productsSlice = createSlice({
         build.addCase(createProduct.fulfilled, (state, action) => {            
             state.isLoading = false
             if(action.payload !== null) {
-                state.error = true       
+                state.error = true                   
                 state.product = action.payload
             }            
         })
