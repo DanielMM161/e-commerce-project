@@ -18,7 +18,7 @@ export const fetchProductsByCategory = createAsyncThunk('fetchProductByCategory'
       }
       return []
   } catch (error: any) {
-      console.error("Some problems in fetchAllProducts", error.response)
+      //console.error("Some problems in fetchAllProducts", error.response)
       return []
   }
 });
@@ -32,7 +32,7 @@ export const fetchAllProducts = createAsyncThunk('fetchAllProducts',
       }
       return []
   } catch (error: any) {
-      console.error("Some problems in fetchAllProducts", error.response)
+      //console.error("Some problems in fetchAllProducts", error.response)
       return []
   }
 });
@@ -47,7 +47,7 @@ export const fetchSingleProduct = createAsyncThunk('fetchSingleProduct',
       return null
     } catch (error) {      
       const err = error as AxiosError
-      console.error("Some problems in fetchSingleProduct", err)
+      //console.error("Some problems in fetchSingleProduct", err)
       return null
     }
   }
@@ -75,7 +75,7 @@ export const deleteProduct = createAsyncThunk('deleteProduct',
         message: DELETE_PRODUCT_MESSAGE.error
       }))
       const err = error as AxiosError
-      console.error("Error in deleteProduct", err)
+      //console.error("Error in deleteProduct", err)
       return null
     }
   }

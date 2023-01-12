@@ -1,10 +1,8 @@
-import { AnyAction, ThunkMiddleware } from "@reduxjs/toolkit";
-import { ToolkitStore } from "@reduxjs/toolkit/dist/configureStore";
-import { RootState } from "../../redux/store";
-import { fetchAllProducts } from "../../services";
-import { productServer } from "../servers";
 import { store } from './../../redux/store';
 import { deleteProduct, fetchProductsByCategory, fetchSingleProduct } from './../../services/products.service';
+
+import { fetchAllProducts } from "../../services";
+import { productServer } from "../servers";
 
 beforeAll(() => {
   productServer.listen()

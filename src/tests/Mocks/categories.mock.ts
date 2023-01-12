@@ -1,4 +1,4 @@
-export const categoriesFake = [
+export const categoriesMock = [
   {
       "id": 1,
       "name": "Clothes",

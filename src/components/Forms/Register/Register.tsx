@@ -44,7 +44,7 @@ const Register = ({
   }
 
   function checkUserInputs(): boolean {
-    if(email.trim() != "" && firstName.trim() != "" && secondName.trim() != "" && password.trim() != "" && repeatPass.trim() != "") {
+    if(email.trim() !== "" && firstName.trim() !== "" && secondName.trim() !== "" && password.trim() !== "" && repeatPass.trim() != "") {
       return false
     }
     return true

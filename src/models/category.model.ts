@@ -8,6 +8,6 @@ interface ICategoryState {
     categories: Category[]
 }
 
-export const emptyState: ICategoryState = {
+export const categoriesEmptyState: ICategoryState = {
     categories: []
 }
