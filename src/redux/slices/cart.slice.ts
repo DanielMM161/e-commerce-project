@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, current } from "@reduxjs/toolkit";
 
 import { cartEmptyState, IAddCart } from "../../models/cart.model";
 
@@ -28,13 +28,9 @@ export const cartSlice = createSlice({
     },
     updateQuantity: (state, action: {payload: {newQuantity: number, idProduct: number}, type: string}) => {
       const {newQuantity, idProduct} = action.payload
-      state = state.map(item => {
-        if(item.product.id !== idProduct) {
-          return item
-        }
-        return {
-          ...item,
-          quantity: newQuantity
+      state.forEach(item => {
+        if(item.product.id === idProduct) {
+          item.quantity = newQuantity
         }
       })      
       localStorage.setItem('cart', JSON.stringify(state))      

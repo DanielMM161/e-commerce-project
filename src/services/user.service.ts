@@ -8,73 +8,69 @@ import axios from 'axios';
 
 
 export const fetchUserProfile = createAsyncThunk('fetchUserProfile',
-  async (token: string, thunkAPI) => {
-  try {      
-      const response = await axios.get(`${BASE_URL}/auth/profile`, {
-        headers: {
-            Authorization : `Bearer ${token}`
-        }
-    })
-    if(response.status === 200) {
-      thunkAPI.dispatch(showNotification({error: false, message: LOGIN_USER_MESSAGE.success}))
-      localStorage.setItem('user', JSON.stringify(response.data))
-      return response.data
+  async (token: string, thunkAPI) => {   
+
+  const response = await axios.get(`${BASE_URL}/auth/profile`, {
+    headers: {
+        Authorization : `Bearer ${token}`
     }
+  })
+
+  if(response.status === 200) {
+    thunkAPI.dispatch(showNotification({error: false, message: LOGIN_USER_MESSAGE.success}))
+    localStorage.setItem('user', JSON.stringify(response.data))
+    return response.data
+  } else {
     thunkAPI.dispatch(showNotification({error: true, message: LOGIN_USER_MESSAGE.error}))
-    return null
-  } catch (error: any) {    
-    thunkAPI.dispatch(showNotification({error: true, message: LOGIN_USER_MESSAGE.error}))
-    return null
+    thunkAPI.rejectWithValue(null)
   }
 })
 
 export const fetchUserSession = createAsyncThunk('fetchUserSession',
   async (_, thunkAPI) => {
-  const token = localStorage.getItem('access_token')
+  const token = localStorage.getItem('access_token')  
   if(token != null) {
     thunkAPI.dispatch(fetchUserProfile(JSON.parse(token)))     
+  } else {
+    thunkAPI.rejectWithValue(null)
   }
 })
 
 export const createUser = createAsyncThunk('createUser',
   async (userRegistration: IUserRegister, thunkAPI) => {
-  try {      
-    const response = await axios.post(`${BASE_URL}/users`, {
-      name: userRegistration.name,
-      email: userRegistration.email,
-      password: userRegistration.password,
-      avatar: "https://api.lorem.space/image/face?w=640&h=480&r=867",
-    })
-    if(response.status === 201) {
-      thunkAPI.dispatch(loginUser({
-        email: userRegistration.email,
-        password: userRegistration.password
-      }))
-    } else {
-      thunkAPI.dispatch(showNotification({error: true, message: CREATE_USER_MESSAGE.error}))
-    }
-  } catch (error: any) {
+    
+  const response = await axios.post(`${BASE_URL}/users`, {
+    name: userRegistration.name,
+    email: userRegistration.email,
+    password: userRegistration.password,
+    avatar: "https://api.lorem.space/image/face?w=640&h=480&r=867",
+  })
+
+  if(response.status === 201 || response.status === 200) {
+    return response.data
+  } else {
     thunkAPI.dispatch(showNotification({error: true, message: CREATE_USER_MESSAGE.error}))
-  }
+    thunkAPI.rejectWithValue(null)
+  }  
 })
 
 export const loginUser = createAsyncThunk('loginUser',
   async (userLogin: IUserAuth, thunkAPI) => {
-  try {      
-    const response = await axios.post(`${BASE_URL}/auth/login`, {
-      email: userLogin.email,
-      password: userLogin.password
-    })
-    if (response.status === 201) {
-      const value = response.data
-      localStorage.setItem('access_token', JSON.stringify(value['access_token']))
-      thunkAPI.dispatch(fetchUserSession())
-    } else {
-      thunkAPI.dispatch(showNotification({error: true, message: LOGIN_USER_MESSAGE.error}))
-    }    
-  } catch (error: any) {
-    thunkAPI.dispatch(showNotification({error: true, message: LOGIN_USER_MESSAGE.error}))    
-  }
+   
+  const response = await axios.post(`${BASE_URL}/auth/login`, {
+    email: userLogin.email,
+    password: userLogin.password
+  })
+  
+  if (response.status === 201) {
+    const value = response.data
+    localStorage.setItem('access_token', JSON.stringify(value['access_token']))
+    thunkAPI.dispatch(fetchUserSession())
+    return value
+  } else {
+    thunkAPI.dispatch(showNotification({error: true, message: LOGIN_USER_MESSAGE.error}))
+    thunkAPI.rejectWithValue(null)
+  }    
 })
 
 export const updateUser = createAsyncThunk('updateUser',
@@ -84,6 +80,7 @@ export const updateUser = createAsyncThunk('updateUser',
         email: newFields.email,
         name: newFields.fullName,
       })
+
       if(response.status == 200) {
         thunkAPI.dispatch(showNotification({error: false, message:  UPDATE_USER_MESSAGE.success}))
         localStorage.setItem('user', JSON.stringify(response.data))
@@ -92,6 +89,8 @@ export const updateUser = createAsyncThunk('updateUser',
       thunkAPI.dispatch(showNotification({error: false, message: UPDATE_USER_MESSAGE.error}))   
       return null     
     } catch (error: any) {
+      console.log("entro en error");
+      
       thunkAPI.dispatch(showNotification({error: true, message:  UPDATE_USER_MESSAGE.error}))
       return null   
     }

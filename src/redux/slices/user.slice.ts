@@ -32,20 +32,24 @@ export const userSlice = createSlice({
             state.isLoading = false     
             state.user = action.payload            
         })
-        build.addCase(createUser.fulfilled, (state) => {
-            state.isLoading = false        
-        })
         build.addCase(updateUser.fulfilled, (state, action) => {
             state.isLoading = false
             if(action.payload !== null ) {
                 state.user = action.payload
             }          
         })
-        build.addCase(loginUser.fulfilled, (state) => {            
+        /** rejected */
+        build.addCase(createUser.rejected, (state) => {            
             state.isLoading = false        
         })
-        build.addCase(fetchUserSession.fulfilled, (state) => {            
-            state.isLoading = false
+        build.addCase(loginUser.rejected, (state) => {            
+            state.isLoading = false        
+        })
+        build.addCase(fetchUserSession.rejected, (state) => {            
+            state.isLoading = false        
+        })
+        build.addCase(fetchUserProfile.rejected, (state) => {            
+            state.isLoading = false        
         })
     }
 });

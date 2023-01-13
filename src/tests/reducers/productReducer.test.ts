@@ -2,8 +2,9 @@ import { store } from './../../redux/store';
 import { deleteProduct, fetchProductsByCategory, fetchSingleProduct, createProduct } from './../../services/products.service';
 
 import { fetchAllProducts } from "../../services";
-import { productServer } from "../servers";
 import { IProductPost } from '../../models';
+import productServer from '../servers/products.server';
+
 
 beforeAll(() => {
   productServer.listen()

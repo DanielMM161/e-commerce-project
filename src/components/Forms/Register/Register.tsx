@@ -1,8 +1,8 @@
 import { StyledRegister } from "./styled-component/register.styled.component"
 import { useState } from 'react';
 import { useAppDispatch, useAppSelector } from './../../../hooks/redux.hook';
-import { createUser } from "../../../services";
-import { IUserRegister } from "../../../models";
+import { createUser, loginUser } from "../../../services";
+import { IUserRegister, User } from "../../../models";
 import { useEffect } from 'react';
 
 interface IRegisterProps {
@@ -40,7 +40,16 @@ const Register = ({
       password: password
     }
 
-    dispatch(createUser(userRegistration))    
+    dispatch(createUser(userRegistration))
+      .then(value => {
+
+        if(value.payload != null) {      
+          dispatch(loginUser({
+            email: userRegistration.email,
+            password: userRegistration.password
+          }))
+        }
+      })
   }
 
   function checkUserInputs(): boolean {
