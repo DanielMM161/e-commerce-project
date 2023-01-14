@@ -31,7 +31,7 @@ const NavBar = () => {
 
     return (
         <StyledNavBar>
-            <div className="container">
+            <div className="navbar-container">
                 <Link to="/" >
                     LOGO HERE
                 </Link>

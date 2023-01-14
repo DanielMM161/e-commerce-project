@@ -1,6 +1,6 @@
-import { StyledSideBar } from "./styled-component/sideBar.styled.component"
+import { StyledSideBar } from "./styles"
 
-interface ISideBar {
+interface ISideBarProps {
     title: string
     isOpen: boolean
     isLeftSide?: boolean
@@ -14,7 +14,7 @@ const SideBar = ({
     isLeftSide = true,
     closeSideBar,
     children
-}: ISideBar) => {
+}: ISideBarProps) => {
     
     return (
         <>

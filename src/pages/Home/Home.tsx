@@ -1,11 +1,15 @@
 import { useEffect } from "react"
 
 import { LoadingPulsating, ProductSlider } from "../../components"
+import { HeroImage } from "../../components/HeroImage"
 import { useAppDispatch, useAppSelector } from "../../hooks"
 import { fetchAllProducts, fetchAllCategories } from "../../services"
+import hero from '../../assets/banner.jpg'
 
 import { TopCategories } from "./components"
-import { StyleHomePage } from "./styled-components/home.styled.component"
+import { StyleHomePage } from "./styles"
+
+
 
 
 const HomePage = () => {
@@ -24,14 +28,15 @@ const HomePage = () => {
     
     return (
         <StyleHomePage>
-                        
-            <img className="main-image" height={640} src="../../assets/banner.jpg"/>
-
-            <TopCategories categories={categories.slice(0,4)} />
-
-            <ProductSlider topProducts={products.slice(0,10)}/>
+            <HeroImage height={640} path={hero} />
             
-            <LoadingPulsating show={isLoading} />      
+            <div className="container">
+                <TopCategories categories={categories.slice(0,4)} />
+
+                <ProductSlider topProducts={products.slice(0,10)}/>
+
+                <LoadingPulsating show={isLoading} />      
+            </div>                    
         </StyleHomePage>
     )
 }

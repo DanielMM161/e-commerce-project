@@ -6,7 +6,9 @@ import electronic from '../../../../assets/electronics/electronics.jpg'
 import furniture from '../../../../assets/furniture/furniture.jpg'
 import shoes from '../../../../assets/shoes/shoes.jpg'
 
-import { StyledTopCategories } from "./styled-component/topCategories.styled.component"
+import { StyledTopCategories } from "./styles"
+
+
 
 interface ITopCategories {
     categories: Category[]

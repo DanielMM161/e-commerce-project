@@ -3,7 +3,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 
 import { Footer, NavBar } from './components'
 import { store } from './redux/store'
-import GlobalStyle from './styled/global.styled.component'
+import GlobalStyle from './styled/global'
 import {Home, Products, Profile, SingleProduct, CategoryProduct} from './pages'
 import { UserValidation } from './components/UserValidation/UserValidation';
 import { StyledApp } from './styled/app';

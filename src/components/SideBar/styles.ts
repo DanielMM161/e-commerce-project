@@ -1,11 +1,13 @@
 import styled from "styled-components";
+import { medias } from "../../styled";
+
 
 export const StyledSideBar = styled.div`
-    position: absolute;
-    background-color: white;
-    color: black;
+    position: fixed;
+    background-color: ${(p) => p.theme.body};
+    color: ${(p) => p.theme.title};;
     top: 0;
-    height: 100vh;
+    height: 100%;
     width: 460px;    
     transition: all 0.4s;
     z-index: 1;
@@ -58,5 +60,10 @@ export const StyledSideBar = styled.div`
 
     .close-icon:after {
         transform: rotate(-45deg)
+    }
+        
+    /**When is mobile */
+    @media (max-width: ${medias.md}px) {
+        width: 300px;    
     }
 `

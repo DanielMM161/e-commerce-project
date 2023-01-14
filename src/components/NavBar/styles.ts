@@ -6,9 +6,9 @@ export const StyledNavBar = styled.header`
   background-color: #252530;
   width: 100%;
   color: ${props => props.theme.title};
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.28);  
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.28);
   
-  .container {                
+  .navbar-container {                
     width: 100%;
     margin: 0 auto;
     display: flex;

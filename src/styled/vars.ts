@@ -3,7 +3,7 @@
 
 const light_text_color = '#000000'
 const light_subtitle_color = '#b6b6b6'
-const light_background_color = '#EDEDED'
+const light_background_color = '#fff'
 
 const dark_text_color = '#fff'
 const dark_background_color = '#060606'
@@ -27,5 +27,6 @@ export const medias = {
   md: 768,
   lg: 992, 
   xl: 1200,
-  xxl: 1400
+  xxl: 1400,
+  xxxl: 2400
 }

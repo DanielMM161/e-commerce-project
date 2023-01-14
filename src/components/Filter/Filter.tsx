@@ -1,6 +1,11 @@
 import { useEffect, useState } from "react"
+
+import CheckIcon from '@mui/icons-material/Check';
+
 import { Category } from "../../models"
-import { StyledFilter } from "./styled-component/filter.styled.component"
+
+import { StyledFilter } from "./styles"
+
 
 interface IFilterProps {
     categories: Category[],
@@ -8,14 +13,14 @@ interface IFilterProps {
     prevFilterState: IFilter | null
 }
 
-interface IFilterPrices {
+export interface IFilterPrices {
     min: number
     max: number
 }
 
 export interface IFilter {
     ids: number[],
-    prices: IFilterPrices | null
+    prices: IFilterPrices[]
 }
 
 const filterPrices: IFilterPrices[] = [
@@ -53,7 +58,7 @@ export const Filter = ({
     useEffect(() => {          
         if(prevFilterState != null) {
             categories.forEach((value, index) => {
-                if(prevFilterState.ids.includes(value.id)) {
+                if(prevFilterState.ids?.includes(value.id)) {
                     clickCategory[index] = true           
                 } else {
                     clickCategory[index] = false           
@@ -62,7 +67,7 @@ export const Filter = ({
             })
 
             filterPrices.forEach((value, index )=> {
-                if(prevFilterState.prices === value) {
+                if(prevFilterState.prices[0] === value) {
                     clickPrice[index] = true
                 } else {
                     clickPrice[index] = false
@@ -94,11 +99,11 @@ export const Filter = ({
     function checkClicked(pricesClicked: boolean[], categoriesClicked: boolean[]) {
         const filter: IFilter = {
             ids: [],
-            prices: null
+            prices: [{min: 0, max: 0}]
         }
         pricesClicked.forEach((value, index) => {
             if(value) {
-                filter.prices = filterPrices[index]
+                filter.prices[0] = filterPrices[index]
             }
         })
 
@@ -108,7 +113,7 @@ export const Filter = ({
             }
         })
 
-        if(filter.ids.length > 0 || filter.prices != null) {            
+        if(filter.ids.length > 0 || filter.prices.length > 0) {            
             sortProducts(filter)
         }  else {
             sortProducts(null)
@@ -118,7 +123,7 @@ export const Filter = ({
     return (
         <StyledFilter>
             {categories.length > 0 ? (
-                <div className="buttons-container">
+                <div className="buttons-filter_container">
                     <h5>Categories</h5>
                     <div className="buttons-grid">
                         {categories
@@ -138,7 +143,7 @@ export const Filter = ({
                         return (
                             <button onClick={() => clickFilterPrice(index)} className="button-prices">
                                 {price.min} $ - {price.max} $
-                                <i className="check-icon" style={clickPrice[index] ? {visibility: "visible"} : {visibility: "hidden"}}></i>                                                      
+                                <CheckIcon style={clickPrice[index] ? {visibility: "visible"} : {visibility: "hidden"}}/>                                
                             </button>
                         )
                     })

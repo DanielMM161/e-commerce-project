@@ -18,6 +18,7 @@ export const GlobalStyle = createGlobalStyle`
 
     button,
     input[type=submit] {
+        background: transparent;
         cursor: pointer;
         border: none;
     }
