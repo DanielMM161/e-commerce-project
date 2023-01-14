@@ -1,19 +1,21 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { title } from "../../../../../styled/shared";
+import { medias } from "../../../../../styled/vars";
 
 
 export const StyledTopCategories = styled.div`
     display: flex;
     flex-direction: column;
-    padding-bottom: 1rem;
-    padding-top: 1rem;
+    padding-top: 1.5rem;
+    color: ${(props) => props.theme.title};
 
-    h4 {
+    h2 {
+        ${title}
         display: flex;
         width: 100%;
         justify-content: space-between;
-        align-items: center;
-        font-size: 1.25rem;
+        align-items: center;        
         line-height: 1.75rem;
 
         span {
@@ -24,16 +26,43 @@ export const StyledTopCategories = styled.div`
 
     .categories-container {
         display: grid;
-        grid-template-columns: repeat(auto-fill,minmax(min(100%, 15rem), 1fr));        
+        grid-template-columns: repeat(auto-fit,minmax(min(100%, 10rem), 1fr));        
         gap: 10px;
-        margin-top: 2%;
+        padding-top: 1.5rem;
+        max-height: 720px;
     }
 
-    .categories-container div {        
+    .categories-container 
+    .category-item {        
         display: flex;
         flex-direction: column;
+
+        h5 {
+            padding-top: 1rem;
+            font-size: clamp(.5em, 1.5em, 2em);
+            font-weight: 400;
+        }
+        a {
+            max-height: 75%;
+        }
         a img {
             width: 100%;
+            height: 100%;
+        }
+        img {
+            box-shadow: -4px 5px 11px 1px rgb(0 0 0 / 28%);
+        }
+    }
+
+    /**When is mobile */
+    @media (max-width: ${medias.md}px) {
+        .categories-container {
+            grid-template-columns: repeat(auto-fit,minmax(min(100%, 8rem), 1fr));           
+            gap: 30px;
+            max-height: fit-content;
+        }
+        a {
+            height: 100%;
         }
     }
 `

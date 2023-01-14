@@ -3,7 +3,6 @@ import { createSlice } from "@reduxjs/toolkit";
 import { categoriesEmptyState } from "../../models";
 import { fetchAllCategories } from "../../services";
 
-
 export const categoriesSlice = createSlice({
     name: 'categories',
     initialState: categoriesEmptyState,
@@ -11,7 +10,7 @@ export const categoriesSlice = createSlice({
     },
     extraReducers: (build) => {
         build.addCase(fetchAllCategories.fulfilled, (state, action) => {                        
-            state.categories = action.payload           
+            state.categories = action.payload
         })
     }
 })

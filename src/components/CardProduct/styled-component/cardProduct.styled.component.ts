@@ -10,7 +10,8 @@ export const StyledCardProduct = styled.div`
         position: relative;
 
         & img {
-            width: 100%
+            width: 100%;
+            box-shadow: -7px 8px 20px 0px rgb(0 0 0 / 28%);
         }
 
         .icon-container {
@@ -34,6 +35,7 @@ export const StyledCardProduct = styled.div`
     .info-container {
         display: flex;
         flex-direction: column;
+        padding-top: 1rem;
 
         .price {
             font-weight: bold;

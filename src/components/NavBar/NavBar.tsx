@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 
+
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import PersonIcon from '@mui/icons-material/Person';
 import ListAltIcon from '@mui/icons-material/ListAlt';
@@ -8,11 +9,12 @@ import LoginIcon from '@mui/icons-material/Login';
 
 import { useAppDispatch, useAppSelector, UseModal, useSideBar } from "../../hooks";
 import { SideBar, Cart, Register, Login, Modal } from '../index'
-import { fetchUserSession } from './../../services/user.service';
 import { LoadingPulsating } from "../LoadingPulsating/LoadingPulsating";
 import { SnackBar } from "../SnackBar/SnackBar";
+import { StyledNavBar } from "./styles";
 
-import { Logo, StyledNavBar } from "./styled-component/navBar.styled.component"
+
+
 
 const NavBar = () => {
 
@@ -27,43 +29,45 @@ const NavBar = () => {
     const notificationState = useAppSelector(state => state.notifications)
     const {show, message, error} = notificationState
 
-    useEffect(() => {              
-       //dispatch(fetchUserSession())        
-    }, [])
-    
     return (
         <StyledNavBar>
             <div className="container">
-                <Logo to="/" >
+                <Link to="/" >
                     LOGO HERE
-                </Logo>
+                </Link>
                 <nav>
                     <ul className="nav-ul">
                         {user != null ? (
-                            <Link to="/profile">
-                                <PersonIcon />
-                                My Account
-                            </Link>
+                            <li>
+                                <Link to="/profile">
+                                    <PersonIcon />
+                                    <span>My Account</span>
+                                </Link>
+                            </li>
                         ) : (
-                            <span onClick={() => toggle()}>
+                            <li>
                                 <LoginIcon />
-                                Login
-                            </span>
+                               <span>Login</span> 
+                            </li>
                         )}
-                        
-                        <Link to="/products">
-                            <ListAltIcon />
-                            Products
-                        </Link>
 
-                        <span onClick={() => toggleSideBar()}>
+                        <li>
+                            <Link to="/products">
+                                <ListAltIcon />
+                                <span>Shop</span>
+                            </Link>
+                        </li>
+
+                        <li onClick={() => toggleSideBar()}>
                             <ShoppingCartIcon />
-                            Shopping Cart
-                        </span>
+                            <span>Shopping Cart</span>                            
+                        </li>                        
+
                     </ul>
                 </nav>
-            </div>
 
+            </div>
+      
             <SideBar
                 title="Shoping Cart"
                 isLeftSide={false}

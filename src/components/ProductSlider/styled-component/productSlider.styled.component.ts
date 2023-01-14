@@ -1,10 +1,33 @@
 import styled from "styled-components";
+import { title, highlightTitle, subtitle } from "../../../styled/shared";
+import { medias } from "../../../styled/vars";
 
 
 export const StyledProductSlider = styled.div`
-    padding-top: 1rem;
-    max-width: 75vw;
-    position: relative;
+    padding-top: 1.5rem;
+
+    .title-container {
+        display: flex;        
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+
+    .title-container 
+    .title {
+        ${highlightTitle}
+    }
+
+    .title-container
+    .subtitle {
+        ${subtitle}
+    }
+
+    .slider-container {
+        padding-top: 1.5rem;
+        width: 100%;
+        position: relative;
+    }
 
     button {
         background: transparent;
@@ -65,18 +88,26 @@ export const StyledProductSlider = styled.div`
             display: none;
         }
     }
+
+    /**When is mobile */
+    @media (max-width: ${medias.md}px) {
+        .button-carrousel {
+           display: none;
+        }
+        .carrousel-container {
+            gap: 1.5rem;
+        }
+    }
 `
 export const ArrowIcon = styled.i`
-    & {
-        box-sizing: border-box;
-        position: relative;
-        display: block;
-        transform: scale(var(--ggs,1));
-        width: 42px;
-        height: 42px;
-        border: 2px solid transparent;
-        border-radius: 100px
-    }
+    box-sizing: border-box;
+    position: relative;
+    display: block;
+    transform: scale(var(--ggs,1));
+    width: 42px;
+    height: 42px;
+    border: 2px solid transparent;
+    border-radius: 100px;
 
     &:after {
         content: "";
@@ -90,5 +121,17 @@ export const ArrowIcon = styled.i`
         transform: rotate(45deg);
         left: 6px;
         top: 4px
+    }
+
+    /**When is mobile */
+    @media (max-width: ${medias.md}px) {
+        width: 32px;
+        height: 32px;
+        &:after {
+            width: 23px;
+            height: 23px;
+            border-bottom: 4px solid;
+            border-left: 4px solid;
+        }
     }
 `

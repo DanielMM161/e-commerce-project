@@ -36,36 +36,39 @@ const ProductSlider = ({
         setScrollLeft(carousel.current.scrollLeft += carousel.current.offsetWidth)
     }
         
-    return (
-        
+    return (        
         <StyledProductSlider>
-            <div className="carrousel-container" ref={carousel}>
-                {topProducts
-                    .map((product) =>
-                        <CardProduct
-                            id={product.id}
-                            title={product.title}
-                            image={product.images[0]}
-                            price={product.price}
-                            addCart={() => dispatch(addCartItem({quantity: 1, product: product}))}
-                        />
-                    )
-                }
+            <div className="title-container">
+                <h2 className="title">Top Products</h2>   
+                <h4 className="subtitle">New Arrivals For This Season</h4>
             </div>
-            <button 
-                className="button-carrousel left" 
-                onClick={leftClick}
-                style={hideLeftButton ? {visibility: "hidden"} : {visibility: "visible"}}
-            >
-                <ArrowIcon />
-            </button>
-            <button className="button-carrousel right" onClick={rightClick}>
-                <ArrowIcon />
-            </button>               
-        </StyledProductSlider>
-    
+            <div className="slider-container"> 
+                <div className="carrousel-container" ref={carousel}>
+                    {topProducts
+                        .map((product) =>
+                            <CardProduct
+                                id={product.id}
+                                title={product.title}
+                                image={product.images[0]}
+                                price={product.price}
+                                addCart={() => dispatch(addCartItem({quantity: 1, product: product}))}
+                            />
+                        )
+                    }
+                </div>
+                <button 
+                    className="button-carrousel left" 
+                    onClick={leftClick}
+                    style={hideLeftButton ? {visibility: "hidden"} : {visibility: "visible"}}
+                >
+                    <ArrowIcon />
+                </button>
+                <button className="button-carrousel right" onClick={rightClick}>
+                    <ArrowIcon />
+                </button>               
+            </div>
+        </StyledProductSlider>    
     )
-
 }
 
 export default ProductSlider

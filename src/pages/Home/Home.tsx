@@ -23,16 +23,14 @@ const HomePage = () => {
     }, [])
     
     return (
-        <StyleHomePage>                 
-            <img className="main-image" height={640} src="https://api.lorem.space/image/furniture?w=640&h=480&r=3289"/>
+        <StyleHomePage>
+                        
+            <img className="main-image" height={640} src="../../assets/banner.jpg"/>
 
             <TopCategories categories={categories.slice(0,4)} />
 
-            <div className="top-product-container">
-                <h4>Top Products</h4>
-                <ProductSlider topProducts={products.slice(0,10)}/>
-            </div>
-
+            <ProductSlider topProducts={products.slice(0,10)}/>
+            
             <LoadingPulsating show={isLoading} />      
         </StyleHomePage>
     )
