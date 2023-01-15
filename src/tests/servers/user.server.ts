@@ -36,9 +36,7 @@ const handler = [
   }),
 
   /** Login User */
-  rest.post('https://api.escuelajs.co/api/v1/auth/login', async (req, res, ctx) => {
-    console.log("login user --->");
-    
+  rest.post('https://api.escuelajs.co/api/v1/auth/login', async (req, res, ctx) => {    
     return res(
       ctx.json(userMock)
     )

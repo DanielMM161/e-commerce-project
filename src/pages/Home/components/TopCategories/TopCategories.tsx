@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom"
 
 import { Category } from "../../../../models"
+import { changeDimension } from "../../../../utilities/util"
 
 import { StyledTopCategories } from "./styles"
 
@@ -43,7 +44,7 @@ const TopCategories = ({ categories }: ITopCategories) => {
                         <CategoryItem 
                             id={category.id} 
                             name={category.name} 
-                            image={category.image}
+                            image={changeDimension(category.image, 400, 600)}
                             key={category.id}
                         />
                     )

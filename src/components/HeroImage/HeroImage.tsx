@@ -1,14 +1,22 @@
+import { StyleHeroImage } from "./styles"
 
 interface IHeroImageProps {
-  height: number
   path: string
+  title?: string
+  height?: number
 }
 
 export const HeroImage = ({
-  height,
-  path
+  path,
+  title = '',
+  height = 440
 }: IHeroImageProps) => {
   return (
-    <img className="hero-image" height={400} src={path} />
+    <StyleHeroImage>
+      {title.trim() !== '' ? (
+        <h2>{title}</h2>
+      ): null}
+      <img className="hero-image" src={path} height={height} />
+    </StyleHeroImage>
   )
 }

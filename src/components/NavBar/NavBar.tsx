@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 
 import { useAppDispatch, useAppSelector, UseModal, useSideBar } from "../../hooks";
@@ -9,14 +9,15 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import PersonIcon from '@mui/icons-material/Person';
 import ListAltIcon from '@mui/icons-material/ListAlt';
 import LoginIcon from '@mui/icons-material/Login';
+import NightsStayIcon from '@mui/icons-material/NightsStay';
+import Brightness7Icon from '@mui/icons-material/Brightness7';
 
 import { StyledNavBar } from "./styles";
-
-
-
+import { Switch } from "../Switch";
+import { ThemeContext } from "../../context";
 
 const NavBar = () => {
-    
+    const {isDarkTheme, toggleDarkTheme} = useContext(ThemeContext)
     const userState = useAppSelector(state => state.user)
     const { user, isLoading } = userState 
 
@@ -59,9 +60,13 @@ const NavBar = () => {
                         <li onClick={() => toggleSideBar()}>
                             <ShoppingCartIcon />
                             <span>Shopping Cart</span>                            
-                        </li>                        
+                        </li>                 
 
                     </ul>
+                    <Brightness7Icon />
+                    <Switch darkTheme={isDarkTheme} toggle={() => toggleDarkTheme()} />
+                    <NightsStayIcon />
+                    
                 </nav>
 
             </div>

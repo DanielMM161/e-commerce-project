@@ -1,26 +1,21 @@
+import { useState } from 'react'
 import { Provider } from 'react-redux'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 
 import { Footer, NavBar } from './components'
 import { store } from './redux/store'
-import GlobalStyle from './styled/global'
+
 import {Home, Products, Profile, SingleProduct, CategoryProduct} from './pages'
 import { UserValidation } from './components/UserValidation/UserValidation';
-import { StyledApp } from './styled/app';
+import { darkTheme, GlobalStyle, lightTheme, StyledApp } from './styled'
 import { ThemeProvider } from 'styled-components'
-import { useState } from 'react';
-import { darkTheme, lightTheme } from './styled/vars'
 
 const App = () => {
-
   const [theme, setTheme] = useState('light')
   const isDarkTheme = theme === 'dark'
-
   return (
       <Provider store={store}>
         <BrowserRouter>
-
-            <ThemeProvider theme={isDarkTheme ? darkTheme : lightTheme}>
               <NavBar />          
               <GlobalStyle />
               <StyledApp>
@@ -34,8 +29,6 @@ const App = () => {
                   </Route>             
                 </Routes>          
               </StyledApp>
-            </ThemeProvider>
-            
             <Footer />
           </BrowserRouter>        
       </Provider>

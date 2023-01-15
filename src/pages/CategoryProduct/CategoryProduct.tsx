@@ -7,29 +7,41 @@ import { BreadCrumbs, ButtonLoader, CardProduct, LoadingPulsating } from "../../
 import { addCartItem } from "../../redux/slices";
 import { HeroImage } from '../../components/HeroImage';
 import { StyleProductCategoryPage } from './styles';
+import { changeDimension } from '../../utilities/util';
+import { Category, emptyCategory } from '../../models';
 
 const CategoryProductPage = () => {
 
   const { categoryId } = useParams()
   const dispatch = useAppDispatch()
   const productState = useAppSelector(state => state.products)
+  const categoriesState = useAppSelector(state => state.categories)
   const {isLoading, products} = productState
-  const [ pagination, setPagination ] = useState(10)
-  
+  const [pagination, setPagination] = useState(10)
+  const [actualCategory, setActualCategory] = useState<Category>(emptyCategory)
+    
   useEffect(() => {
-    if(categoryId != undefined) {
+    if (categoryId !== undefined) {
+      const id = Number(categoryId)
+      const actualCategory = categoriesState.categories.find(item => item.id === id)
+      setActualCategory(actualCategory ?? emptyCategory)
       dispatch(fetchProductsByCategory({
-        categoryId: Number(categoryId),
+        categoryId: id,
         limit: pagination
-      }))      
+      }))
     }
   }, [pagination])
 
   return (
     <StyleProductCategoryPage>
-        <HeroImage path={"https://api.lorem.space/image/shoes?w=2000&h=2000"} height={540}/>
+      <HeroImage title={actualCategory.name} path={changeDimension(actualCategory.image, 2000, 500)} />
         <div className='container'>
-          <BreadCrumbs links={[{ path: `/category/${categoryId}`, name: "Category" }]} />
+        <BreadCrumbs
+          links={[
+            { path: `/category/${categoryId}`, name: "Category" },
+            { path: `/category/${categoryId}`, name: actualCategory.name }]}
+          
+        />
           <div className="products-container">
             {
                 products.map((product) => {

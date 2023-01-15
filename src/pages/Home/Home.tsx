@@ -14,8 +14,7 @@ const HomePage = () => {
     const productState = useAppSelector(state => state.products)
     const categoriesState = useAppSelector(state => state.categories)
     const {categories} = categoriesState
-    const {products, isLoading} = productState
-
+    const { products, isLoading } = productState
     
     useEffect(() => {        
         dispatch(fetchAllCategories())
@@ -24,7 +23,7 @@ const HomePage = () => {
 
     return (
         <StyleHomePage>            
-            <HeroImage height={640} path={"https://api.lorem.space/image/fashion?w=2000&h=500&r=379"} />            
+            <HeroImage path={"https://api.lorem.space/image/fashion?w=2000&h=500&r=379"} />            
             <div className="container">
                 <TopCategories categories={categories.slice(0,4)} />
                 <ProductSlider title="Top Products" products={products.slice(0,10)}/>

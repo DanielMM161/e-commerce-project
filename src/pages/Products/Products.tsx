@@ -69,8 +69,7 @@ const ProductsPage = () => {
         dispatch(showNotification({
             error: false, 
             message: CART_MESSAGES.success
-        }))        
-        
+        }))          
     }
 
     function handleShowProducts(products: Product[]) {
@@ -130,7 +129,7 @@ const ProductsPage = () => {
     
     return (
         <StyledProductPage>
-            <HeroImage height={640} path={bannerProduct}/>            
+            <HeroImage path={bannerProduct}/>            
             <div className="container">
                 <BreadCrumbs links={[{ path: "/Products", name: "Products" }]} />
                 
