@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react"
 
-import CheckIcon from '@mui/icons-material/Check';
-
 import { Category } from "../../models"
+import CheckIcon from '@mui/icons-material/Check';
 
 import { StyledFilter } from "./styles"
 

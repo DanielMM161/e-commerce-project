@@ -4,13 +4,9 @@ import { LoadingPulsating, ProductSlider } from "../../components"
 import { HeroImage } from "../../components/HeroImage"
 import { useAppDispatch, useAppSelector } from "../../hooks"
 import { fetchAllProducts, fetchAllCategories } from "../../services"
-import hero from '../../assets/banner.jpg'
 
 import { TopCategories } from "./components"
 import { StyleHomePage } from "./styles"
-
-
-
 
 const HomePage = () => {
 
@@ -25,16 +21,13 @@ const HomePage = () => {
         dispatch(fetchAllCategories())
         dispatch(fetchAllProducts(10))
     }, [])
-    
+
     return (
-        <StyleHomePage>
-            <HeroImage height={640} path={hero} />
-            
+        <StyleHomePage>            
+            <HeroImage height={640} path={"https://api.lorem.space/image/fashion?w=2000&h=500&r=379"} />            
             <div className="container">
                 <TopCategories categories={categories.slice(0,4)} />
-
-                <ProductSlider topProducts={products.slice(0,10)}/>
-
+                <ProductSlider title="Top Products" products={products.slice(0,10)}/>
                 <LoadingPulsating show={isLoading} />      
             </div>                    
         </StyleHomePage>

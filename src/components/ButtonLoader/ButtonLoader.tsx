@@ -1,4 +1,4 @@
-import { StyledButtonLoader, StyledButtonWrapper, StyledLoad } from "./styled-components/buttonLoader.styled.component"
+import { StyledButtonLoader, StyledButtonWrapper, StyledLoad } from "./styles"
 
 interface IButtonLoader {
     loading: boolean,

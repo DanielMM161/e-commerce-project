@@ -1,4 +1,4 @@
-import { StyledLoadingPulsating } from "./styled-component/LoadingPulsating.styled"
+import { StyledLoadingPulsating } from "./styles"
 
 interface ILoadingPulsatingProps {
   show: boolean
@@ -10,13 +10,11 @@ export const LoadingPulsating = ({
 
   return (
     <>
-      {show ? (
-        <>          
-          <StyledLoadingPulsating>
-            <div className="pulsating-circle"></div>
-            <span>Plase wait</span>
-          </StyledLoadingPulsating>
-        </>
+      {show ? (              
+        <StyledLoadingPulsating>
+          <div className="pulsating-circle"></div>
+          <span>Plase wait</span>
+        </StyledLoadingPulsating>        
       ) : null}
     </>
   )

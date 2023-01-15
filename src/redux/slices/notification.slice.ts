@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+
 import { INotificationPayload, notificationInitialState } from "../../models/notification.model";
 
 export const notificationSlice = createSlice({

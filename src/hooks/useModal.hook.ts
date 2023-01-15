@@ -1,6 +1,5 @@
 
 import { useState } from 'react';
-import { useEffect } from 'react';
 
 export const UseModal = () => {
 
@@ -14,14 +13,6 @@ export const UseModal = () => {
   function toggleLogin() {
     setShowLogin(!showLogin)
   }
-
-  useEffect(() => {
-    if (showModal) {
-      document.body.style.overflow = 'hidden';
-    } else {
-        document.body.style.overflow = 'unset';
-    }
-  }, [showModal])
 
   return {
     showModal,

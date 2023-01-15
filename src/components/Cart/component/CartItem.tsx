@@ -1,8 +1,9 @@
-import { useAppDispatch, useAppSelector } from "../../../hooks"
+import { useAppDispatch } from "../../../hooks"
 import { Cart } from "../../../models/cart.model"
 import { deleteItem, updateQuantity } from "../../../redux/slices"
-import { StyledCartItem } from './styled-component/cartItem.styled';
 import DeleteIcon from '@mui/icons-material/Delete';
+
+import { StyledCartItem } from "./styles";
 
 interface ICartItemProps {
   cart: Cart

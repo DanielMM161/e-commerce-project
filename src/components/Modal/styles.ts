@@ -1,6 +1,7 @@
 import styled from "styled-components";
+import { medias } from "../../styled";
 
-export const StyledModal = styled.div`
+export const StyleModal = styled.div`
   align-items: center;
   bottom: 0;
   display: flex;
@@ -27,8 +28,6 @@ export const StyledModal = styled.div`
     color: black;
     align-items: center;
     border-bottom: 1px solid #dee2e6;
-    border-top-left-radius: calc(0.5rem - 1px);;
-    border-top-right-radius: calc(0.5rem - 1px);;
     display: flex;
     flex-shrink: 0;
     justify-content: space-between;
@@ -49,5 +48,18 @@ export const StyledModal = styled.div`
     color: black;
     padding: 2rem;
     background-color: white;
+  }
+
+  /**When is mobile */
+  @media (max-width: ${medias.md}px) {
+    .modal {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      height: 100%;
+    }
+    .children-container {
+      height: 100%;
+    }
   }
 `

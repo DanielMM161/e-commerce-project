@@ -1,14 +1,8 @@
 import { Link } from "react-router-dom"
 
 import { Category } from "../../../../models"
-import clothes from '../../../../assets/clothes/clothes.jpg'
-import electronic from '../../../../assets/electronics/electronics.jpg'
-import furniture from '../../../../assets/furniture/furniture.jpg'
-import shoes from '../../../../assets/shoes/shoes.jpg'
 
 import { StyledTopCategories } from "./styles"
-
-
 
 interface ITopCategories {
     categories: Category[]
@@ -29,51 +23,34 @@ const CategoryItem = ({
     return (
         <div className="category-item">
              <Link to={`/category/${id}`} >
-                <img src={image}></img>
+                <img src={image} width="400" height="600" ></img>
              </Link>                
             <h5>
                 <Link to={`/category/${id}`}>{name}</Link>
             </h5>            
         </div>
     )
-
 }
 
 const TopCategories = ({ categories }: ITopCategories) => {
-    
-    const myCategories = [
-        {
-            name: "Clothes",
-            image: clothes
-        },
-        {
-            name: "Electronics",
-            image: electronic
-        },
-        {
-            name: "Furniture",
-            image: furniture
-        },
-        {
-            name: "Shoes",
-            image: shoes
-        }
-    ]
     
     return (
         <StyledTopCategories>
             <h2>Top Categories</h2>
             <div className="categories-container">
-                {myCategories.map((myCategory) => {
-                    const id = categories.find(item => item.name.trim().toLowerCase() === myCategory.name.toLowerCase())?.id
+                {categories.map((category) => {                    
                     return (
-                        <CategoryItem id={id ?? 0} name={myCategory.name} image={myCategory.image}/>
+                        <CategoryItem 
+                            id={category.id} 
+                            name={category.name} 
+                            image={category.image}
+                            key={category.id}
+                        />
                     )
                 })}
             </div>
         </StyledTopCategories>
     )
-
 }
 
 export default TopCategories

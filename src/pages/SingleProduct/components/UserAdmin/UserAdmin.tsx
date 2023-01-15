@@ -1,17 +1,20 @@
+import { useState } from 'react';
+import { useNavigate } from "react-router";
+
 import { EditProduct, Modal } from "../../../../components"
 import { UseModal } from "../../../../hooks"
-import { Product } from "../../../../models"
-import { useState, useEffect } from 'react';
+import { IProductUpdate, Product } from "../../../../models"
 import { deleteProduct, updateProduct } from "../../../../services";
-import { useNavigate } from "react-router";
 import { useAppDispatch } from './../../../../hooks/redux.hook';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { DeleteProduct } from "../../../../components/Forms/DeleteProduct/DeleteProduct";
-import { StyledUserAdmin } from "./styled-component/userAdmin.styled";
+
+import { StyledUserAdmin } from './styles';
 
 interface IUserAdminProps {
-  product: Product
+  product: Product,
+  editProduct: (productEdited: Product) => void
 }
 
 const FORMS = {
@@ -22,6 +25,7 @@ const FORMS = {
 
 const UserAdmin = ({
   product,
+  editProduct
 }: IUserAdminProps) => {
 
   const dispatch = useAppDispatch()
@@ -57,6 +61,16 @@ const UserAdmin = ({
       })
   }
 
+  function handleEditProduct(productEdited: IProductUpdate) {
+    dispatch(updateProduct(productEdited))
+    .then(value => {
+      if(value.payload){
+        editProduct(value.payload as Product)
+      }
+    }) 
+    toggle()
+  }
+
   return (
     <StyledUserAdmin>
       <button className="button-admin" onClick={() => showEditProduct()}>
@@ -77,10 +91,7 @@ const UserAdmin = ({
         {typeForm.forms === FORMS.EDIT_PRODUCT ? (
           <EditProduct 
             product={product} 
-            editProduct={(product) => {
-              dispatch(updateProduct(product))
-              toggle()
-            }}
+            editProduct={(productEdited) => handleEditProduct(productEdited)}
           />
         ) : null}
 

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useState } from "react"
 
 export const useSideBar = () => {
 
@@ -7,14 +7,6 @@ export const useSideBar = () => {
   function toggle() {
     setShowSideBar(!showSideBar)
   }
-
-  useEffect(() => {    
-    if (showSideBar) {
-      document.body.style.overflow = 'hidden';
-    } else {
-        document.body.style.overflow = 'unset';
-    }
-  }, [showSideBar])
 
   return {
     showSideBar,

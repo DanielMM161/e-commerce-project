@@ -1,7 +1,9 @@
 import { useState } from "react"
+
 import { Product } from "../../../models"
-import { StyledEditProduct } from "./styled-component/editProduct-styled"
 import { IProductUpdate } from './../../../models/products.model';
+
+import { StyledEditProduct } from "./styles";
 
 interface IEditProductProps {
   product: Product  

@@ -1,18 +1,18 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams } from "react-router"
-import { BreadCrumbs } from '../../components';
+
+import { BreadCrumbs, ProductSlider } from '../../components';
 import { useAppDispatch, useAppSelector} from "../../hooks";
 import { fetchSingleProduct } from "../../services";
 import { ROLE_ADMIN } from '../../utilities/constants';
 import { addCartItem } from '../../redux/slices';
 import { LoadingPulsating } from '../../components/LoadingPulsating/LoadingPulsating';
 import { IAddCart } from '../../models/cart.model';
-
-import { SingleComponentCard, UserAdmin } from './components';
-import { StyledSingleProduct } from './styled-component/singleProduct.styled.component';
-import { SimilarProduct } from './components/SimilarProduct/SimilarProduct';
 import { fetchProductsByCategory } from './../../services/products.service';
+import { Product } from '../../models';
 
+import { ProductDetail, UserAdmin } from './components';
+import { StyledSingleProductPage } from './styles';
 
 const SingleProductPage = () => {
 
@@ -21,48 +21,50 @@ const SingleProductPage = () => {
 
     const userState = useAppSelector(state => state.user)
     const {user} = userState
-
+    const [product, setProduct] = useState<Product | null>(null)
+    
     const productState = useAppSelector(state => state.products)
-    const {product, isLoading, products} = productState    
+    const {isLoading, products} = productState    
     
     useEffect(() => {        
         if(id != undefined) {
             dispatch(fetchSingleProduct(id))
+                .then(value => {
+                    if(value.payload != null) {
+                        const singleProduct = value.payload as Product
+                        setProduct(singleProduct)
+                        dispatch(fetchProductsByCategory({
+                            categoryId: singleProduct.category.id,
+                            limit: 10
+                        }))
+                    }
+                })
         }
-    }, [id])
+    }, [])
 
-    useEffect(() => {
-        if(product != null) {
-            dispatch(fetchProductsByCategory({
-                categoryId: product.category.id,
-                limit: 10
-            }))
-        }
-    }, [product])
 
     function handleAddCartItem(item: IAddCart) {
         dispatch(addCartItem({quantity: item.quantity, product: item.product}))
     }
 
     return (
-        <>
-            {product != null ? (
-                <>
-                    <BreadCrumbs links={[{ path: "/products", name: "Products" }, { path: `/product/${id}`, name: "Product Detail" }]} />
+        <StyledSingleProductPage>
+            <div className='container'>
+                <BreadCrumbs links={[{ path: "/products", name: "Products" }, { path: `/product/${id}`, name: "Product Detail" }]} />
+                {product != null ? (
+                    <>
+                        {user != null && user.role.toLowerCase() === ROLE_ADMIN ? (
+                            <UserAdmin product={product} editProduct={(productEdited) => setProduct(productEdited)}/>
+                        ) : null}
+                        
+                        <ProductDetail product={product} addToCart={(item) => handleAddCartItem(item)} />                    
 
-                    {user != null && user.role.toLowerCase() === ROLE_ADMIN ? (
-                        <UserAdmin product={product} />
-                    ) : null}
-
-                    <StyledSingleProduct>                        
-                        <SingleComponentCard product={product} addToCart={(item) => handleAddCartItem(item)} />
-                    </StyledSingleProduct>
-
-                    <SimilarProduct products={products}/>        
-                </>
-            ) : null}
+                        <ProductSlider title="Similar Products" products={products}/> 
+                    </>
+                ) : null}
+            </div>
             <LoadingPulsating show={isLoading}/>
-        </>
+        </StyledSingleProductPage>
     )
 }
 

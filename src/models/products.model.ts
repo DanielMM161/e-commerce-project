@@ -33,15 +33,11 @@ export interface IProductPost {
 }
 
 export interface StateProductSlice {
-    products: Product[],
-    product: Product | null
+    products: Product[],    
     isLoading: boolean
-    error: any
 }
 
 export const productsInitialState: StateProductSlice = {
-    products: [],
-    product: null,
+    products: [],    
     isLoading: false,
-    error: null
 }

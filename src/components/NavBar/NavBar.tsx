@@ -1,24 +1,22 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
-import { useEffect, useState } from "react";
-
-
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import PersonIcon from '@mui/icons-material/Person';
-import ListAltIcon from '@mui/icons-material/ListAlt';
-import LoginIcon from '@mui/icons-material/Login';
 
 import { useAppDispatch, useAppSelector, UseModal, useSideBar } from "../../hooks";
 import { SideBar, Cart, Register, Login, Modal } from '../index'
 import { LoadingPulsating } from "../LoadingPulsating/LoadingPulsating";
 import { SnackBar } from "../SnackBar/SnackBar";
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import PersonIcon from '@mui/icons-material/Person';
+import ListAltIcon from '@mui/icons-material/ListAlt';
+import LoginIcon from '@mui/icons-material/Login';
+
 import { StyledNavBar } from "./styles";
 
 
 
 
 const NavBar = () => {
-
-    const dispatch = useAppDispatch()
+    
     const userState = useAppSelector(state => state.user)
     const { user, isLoading } = userState 
 
@@ -45,7 +43,7 @@ const NavBar = () => {
                                 </Link>
                             </li>
                         ) : (
-                            <li>
+                            <li onClick={() => toggle()}>
                                 <LoginIcon />
                                <span>Login</span> 
                             </li>
@@ -78,8 +76,9 @@ const NavBar = () => {
             </SideBar>
 
             <Modal 
-                title={titleModal} 
-                closeDialog={() => toggle()} showModal={showModal} 
+                title={titleModal}
+                showModal={showModal} 
+                closeDialog={() => toggle()}
             >
                 {showLogin ? (
                     <Login goRegister={() => {

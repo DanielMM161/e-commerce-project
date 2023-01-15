@@ -1,6 +1,8 @@
-import ShoppingCart from "@mui/icons-material/ShoppingCart"
 import { Link } from "react-router-dom"
-import { StyledCardProduct } from "./styled-component/cardProduct.styled.component"
+
+import ShoppingCart from "@mui/icons-material/ShoppingCart"
+
+import { StyledCardProduct } from "./styles"
 
 interface ICardProduct {
     id: number

@@ -4,7 +4,7 @@ import { logOut } from "../../redux/slices"
 import { updateUser } from "../../services"
 
 import { Info } from "./components"
-import { StyledProfile } from "./styled-component/profile.styled"
+import { StyledProfile } from "./styles"
 
 const ProfilePage = () => {
 

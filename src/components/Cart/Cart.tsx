@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react"
+
 import { useAppDispatch, useAppSelector } from "../../hooks"
 import { getCart } from "../../redux/slices"
+
 import CartItem from "./component/CartItem"
-import { StyledCart } from "./styled-component/cart.styled"
+import { StyledCart } from "./styles"
 
 const Cart = () => {
 

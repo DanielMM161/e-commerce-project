@@ -39,17 +39,11 @@ export const fetchAllProducts = createAsyncThunk('fetchAllProducts',
 
 export const fetchSingleProduct = createAsyncThunk('fetchSingleProduct',
   async (productId: string | number) => {
-    try {
-      const response = await axios.get(`${BASE_URL}/products/${productId}`)
-      if(response.status === 200) {
-        return response.data
-      }
-      return null
-    } catch (error) {      
-      const err = error as AxiosError
-      //console.error("Some problems in fetchSingleProduct", err)
-      return null
+    const response = await axios.get(`${BASE_URL}/products/${productId}`)
+    if(response.status === 200) {
+      return response.data
     }
+    return null    
   }
 )
 
@@ -136,7 +130,7 @@ export const updateProduct = createAsyncThunk('updateProduct',
         thunkAPI.dispatch(showNotification({
           error: false, 
           message: UPDATE_PRODUCT_MESSAGE.success
-        }))
+        }))        
         return response.data
       }
       thunkAPI.dispatch(showNotification({

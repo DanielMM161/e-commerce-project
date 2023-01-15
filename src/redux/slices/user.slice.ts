@@ -1,4 +1,4 @@
-import { createSlice, current } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 
 import { userInitialState } from "../../models";
 import { createUser, fetchUserProfile, loginUser, updateUser, fetchUserSession } from "../../services";

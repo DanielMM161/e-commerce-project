@@ -1,5 +1,5 @@
-import {createSlice, current } from "@reduxjs/toolkit";
-import { productsInitialState, Product } from "../../models";
+import {createSlice } from "@reduxjs/toolkit";
+import { productsInitialState } from "../../models";
 import { 
     fetchAllProducts, 
     fetchSingleProduct, 
@@ -17,15 +17,13 @@ export const productsSlice = createSlice({
     extraReducers: (build) => {
          /** pending */
         build.addCase(fetchAllProducts.pending , (state) => {
-            state.isLoading = true
-            state.product = null
+            state.isLoading = true            
         })
         build.addCase(createProduct.pending , (state) => {
             state.isLoading = true
         })
         build.addCase(fetchSingleProduct.pending , (state) => {
-            state.isLoading = true
-            state.product = null
+            state.isLoading = true            
         })
         build.addCase(updateProduct.pending , (state) => {
             state.isLoading = true            
@@ -36,35 +34,28 @@ export const productsSlice = createSlice({
         build.addCase(deleteProduct.pending, (state) => {                                   
             state.isLoading = true
         })
-        /** fulfilled */
+        /** Fulfilled */
         build.addCase(fetchAllProducts.fulfilled, (state, action) => {            
             state.isLoading = false
             state.products = action.payload    
         })
         build.addCase(fetchSingleProduct.fulfilled, (state, action) => {            
-            state.isLoading = false
-            state.product = action.payload
+            state.isLoading = false            
         })
         build.addCase(deleteProduct.fulfilled, (state) => {                                   
             state.isLoading = false
         })
         build.addCase(createProduct.fulfilled, (state, action) => {            
-            state.isLoading = false
-            if(action.payload !== null) {
-                state.error = true                   
-                state.product = action.payload
-            }            
+            state.isLoading = false         
         })
         build.addCase(updateProduct.fulfilled, (state, action) => {
             state.isLoading = false            
-            if(action.payload != null) {
-                state.product = action.payload
-            }
         })
         build.addCase(fetchProductsByCategory.fulfilled, (state, action) => {
             state.isLoading = false            
             state.products = action.payload
         })
+        /** Rejected*/
     }
 });
 

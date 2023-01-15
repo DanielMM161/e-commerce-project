@@ -1,21 +1,25 @@
 import { MutableRefObject, useEffect, useRef, useState } from "react";
+
 import { Product } from "../../models";
 import { CardProduct } from "../CardProduct";
-import { ArrowIcon, StyledProductSlider } from "./styled-component/productSlider.styled.component";
-import { useDispatch } from 'react-redux';
 import { addCartItem } from "../../redux/slices";
+import { useAppDispatch } from "../../hooks";
+
+import { ArrowIcon, StyledProductSlider } from "./styles";
 
 interface IProductSlider {
-    topProducts: Product[],
+    title: string
+    products: Product[],
 }
 
 const ProductSlider = ({
-    topProducts
+    title,
+    products
 }: IProductSlider) => {
     
     const [hideLeftButton, set] = useState(true)
     const [scrollLeft, setScrollLeft] = useState(0)
-    const dispatch = useDispatch()
+    const dispatch = useAppDispatch()
     const carousel = useRef() as MutableRefObject<HTMLDivElement>;
 
     useEffect(() => {
@@ -39,22 +43,21 @@ const ProductSlider = ({
     return (        
         <StyledProductSlider>
             <div className="title-container">
-                <h2 className="title">Top Products</h2>   
+                <h2 className="title">{title}</h2>   
                 <h4 className="subtitle">New Arrivals For This Season</h4>
             </div>
             <div className="slider-container"> 
                 <div className="carrousel-container" ref={carousel}>
-                    {topProducts
-                        .map((product) =>
-                            <CardProduct
-                                id={product.id}
-                                title={product.title}
-                                image={product.images[0]}
-                                price={product.price}
-                                addCart={() => dispatch(addCartItem({quantity: 1, product: product}))}
-                            />
-                        )
-                    }
+                    {products.map((product) =>
+                        <CardProduct
+                            id={product.id}
+                            title={product.title}
+                            image={product.images[0]}
+                            price={product.price}
+                            addCart={() => dispatch(addCartItem({quantity: 1, product: product}))}
+                            key={product.id}
+                        />
+                    )}
                 </div>
                 <button 
                     className="button-carrousel left" 

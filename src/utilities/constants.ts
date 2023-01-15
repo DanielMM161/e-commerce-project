@@ -15,3 +15,7 @@ export const LOGIN_USER_MESSAGE = {
   error: "Invalid Loggin or Password",
   success: "You are Logged in!"
 }
+
+export const CART_MESSAGES = {
+  success: "Product Has Been Added To The Cart",
+}

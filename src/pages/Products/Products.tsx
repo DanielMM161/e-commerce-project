@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react"
 import { useNavigate } from 'react-router';
+
 import { BreadCrumbs } from "../../components/BreadCrumbs"
 import { Product } from "../../models"
-import { addCartItem } from "../../redux/slices"
+import { addCartItem, showNotification } from "../../redux/slices"
 import { 
     useAppDispatch, 
     useAppSelector, 
@@ -19,17 +20,18 @@ import {
     Modal, 
     SideBar  
 } from "../../components"
-import { fetchAllProducts, fetchAllCategories, createProduct} from "../../services"
+import { fetchAllProducts, fetchAllCategories} from "../../services"
 import { LoadingPulsating } from "../../components/LoadingPulsating/LoadingPulsating"
 import { NoProductFound } from "../../components/NoProductFound"
 import { Button } from "../../components/Button/Button";
 import bannerProduct from '../../assets/banner-product.jpg'
+import { HeroImage } from "../../components/HeroImage";
 
 import FilterListIcon from '@mui/icons-material/FilterList';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 
 import { StyledProductPage } from "./styles";
-import { HeroImage } from "../../components/HeroImage";
+import { CART_MESSAGES } from "../../utilities";
 
 
 const ProductsPage = () => {
@@ -59,10 +61,21 @@ const ProductsPage = () => {
         navigate(`/product/${id}`)
     }
 
-    function showProducts(products: Product[]) {
+    function handleAddCartProduct(product: Product) {
+        dispatch(addCartItem({
+            quantity: 1, 
+            product: product
+        }))
+        dispatch(showNotification({
+            error: false, 
+            message: CART_MESSAGES.success
+        }))        
+        
+    }
+
+    function handleShowProducts(products: Product[]) {
         return (
-            <div className="products-container">
-            {products.map((product) => {
+            products.map((product) => {
                 const { id, title, price, images } = product
                 return (
                     <CardProduct
@@ -70,20 +83,16 @@ const ProductsPage = () => {
                         title={title}
                         price={price}
                         image={images[0]}
-                        addCart={() => dispatch(addCartItem({quantity: 1, product: product}))}
+                        addCart={() => handleAddCartProduct(product)}
+                        key={id}
                     />
                 )
-            })}
-            </div>
+            })
         )
     }
 
-    function handleFilters(ids: number[], prices: IFilterPrices[]): React.ReactNode {        
+    function showProductsFilter(ids: number[], prices: IFilterPrices[]) {        
         let newProducts: Product[] = []
-        const filter: IFilter = {
-            ids,
-            prices
-        }
         
         if(ids.length > 0) {
             ids.forEach(value => {
@@ -105,18 +114,18 @@ const ProductsPage = () => {
         }
 
         if(newProducts.length > 0) {
-            return showProducts(newProducts)
+            return handleShowProducts(newProducts)
         }
 
         return <NoProductFound />    
     }
         
-    function filterProducts() {        
+    function showProducts() {        
         if(filter != null) { 
-           return handleFilters(filter.ids, filter.prices)
+           return showProductsFilter(filter.ids, filter.prices)
         }
 
-        return showProducts(products)             
+        return handleShowProducts(products)             
     }
     
     return (
@@ -135,7 +144,9 @@ const ProductsPage = () => {
                     </Button>
                 </div>
                 
-                {filterProducts()}
+                <div className="products-container">
+                    {showProducts()}
+                </div>
                 
                 <ButtonLoader loading={isLoading} onClick={() => setPagination((prev) => prev + 5)} />
 
@@ -146,7 +157,7 @@ const ProductsPage = () => {
                 >
                     <CreateProduct 
                         categories={categories} 
-                        productCreated={(product) => handleCreateProduct(product)}
+                        productCreated={(id) => handleCreateProduct(id)}
                     />
                 </Modal>
                 

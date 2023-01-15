@@ -1,8 +1,10 @@
 
 import { useState, useEffect } from 'react';
+
 import { useAppDispatch, useAppSelector } from '../../../hooks';
 import { loginUser } from '../../../services';
-import { StyledLogin } from './styled-component/login.styled.component';
+
+import { StyledLogin } from './styles';
 
 interface ILoginProps {
   goRegister: () => void

@@ -1,4 +1,4 @@
-import { IconHouse, StyledBreadCrums, StyledLinks } from "./styled-component/breadCrumbs.styled.component"
+import { IconHouse, StyledBreadCrums, StyledLinks } from "./styles"
 
 interface BreadCrumbs {
     path: string
@@ -18,8 +18,8 @@ const BreadCrumbs = ({ links } : IBreadCrumbsProps) => {
                 links.map((link) => {
                     return (
                         <>
-                            <span>/</span>
-                            <StyledLinks to={link.path}>{link.name}</StyledLinks>                        
+                            <span key={link.path}>/</span>
+                            <StyledLinks  key={link.name} to={link.path}>{link.name}</StyledLinks>                        
                         </>
                     )
                 })

@@ -1,6 +1,8 @@
 import React from "react"
-import { StyledModal } from "./styled-component/modal.styled.component"
+
 import CloseIcon from '@mui/icons-material/Close';
+
+import { StyleModal } from "./styles";
 
 interface IModal {
     title: string
@@ -19,7 +21,7 @@ const Modal = ({
     return (
         <>
             {showModal ? (
-                <StyledModal>
+                <StyleModal>
                     <div className='overlay' onClick={closeDialog}></div>
                     <div className="modal">
                         <header className="modal-header">
@@ -32,7 +34,7 @@ const Modal = ({
                             {children}
                         </div>
                     </div>
-                </StyledModal>   
+                </StyleModal>   
             ) : null}
         </>
     )

@@ -1,5 +1,6 @@
-import { IUpdateUser, User } from "../../../../models"
 import { useState } from 'react';
+
+import { IUpdateUser, User } from "../../../../models"
 
 interface IInfoProps {
   user: User

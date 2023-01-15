@@ -1,6 +1,7 @@
 import styled from "styled-components";
+import { medias } from "../../../styled";
 
-export const StyledCreateProduct = styled.form`
+export const StyleCreateProduct = styled.form`
   display: flex;
   flex-direction: column;
 
@@ -39,5 +40,4 @@ export const StyledCreateProduct = styled.form`
   button {
     margin: 0 auto;
   }
-
 `

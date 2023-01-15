@@ -1,9 +1,10 @@
-import { StyledRegister } from "./styled-component/register.styled.component"
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+
 import { useAppDispatch, useAppSelector } from './../../../hooks/redux.hook';
 import { createUser, loginUser } from "../../../services";
-import { IUserRegister, User } from "../../../models";
-import { useEffect } from 'react';
+import { IUserRegister } from "../../../models";
+
+import { StyledRegister } from './styles';
 
 interface IRegisterProps {
   goLogin: () => void
@@ -53,64 +54,62 @@ const Register = ({
   }
 
   function checkUserInputs(): boolean {
-    if(email.trim() !== "" && firstName.trim() !== "" && secondName.trim() !== "" && password.trim() !== "" && repeatPass.trim() != "") {
+    if(email.trim() !== "" && firstName.trim() !== "" && secondName.trim() !== "" && password.trim() !== "" && repeatPass.trim() !== "") {
       return false
     }
     return true
   }
 
   return(
-    <>
-      <StyledRegister onSubmit={(e) => handleRegister(e)}>
+    <StyledRegister onSubmit={(e) => handleRegister(e)}>
+      <input
+        className="input-email"
+        type="text" 
+        value={email} 
+        onChange={(e) => setEmail(e.target.value)} 
+        placeholder="Email Address"
+      />
+
+      <div className="input-container">
         <input
-          className="input-email"
-          type="text" 
-          value={email} 
-          onChange={(e) => setEmail(e.target.value)} 
-          placeholder="Email Address"
+            className="input"
+            type="text" 
+            value={firstName} 
+            onChange={(e) => setFirstName(e.target.value)}
+            placeholder="First Name"
+          />
+          
+          <input
+            className="input"
+            type="text" 
+            value={secondName} 
+            onChange={(e) => setSecondName(e.target.value)}
+            placeholder="Second Name"
+          />
+      </div>
+
+      <div className="input-container">
+        <input
+          className="input"
+          type="password" 
+          value={password} 
+          onChange={(e) => setPassword(e.target.value)}
+          placeholder="Password"
         />
 
-        <div className="input-container">
-          <input
-              className="input"
-              type="text" 
-              value={firstName} 
-              onChange={(e) => setFirstName(e.target.value)}
-              placeholder="First Name"
-            />
-            
-            <input
-              className="input"
-              type="text" 
-              value={secondName} 
-              onChange={(e) => setSecondName(e.target.value)}
-              placeholder="Second Name"
-            />
-        </div>
+        <input
+          className="input"
+          type="password" 
+          value={repeatPass} 
+          onChange={(e) => setRepeatPass(e.target.value)}
+          placeholder="Repeat Password"
+        />
+      </div>
 
-        <div className="input-container">
-          <input
-            className="input"
-            type="password" 
-            value={password} 
-            onChange={(e) => setPassword(e.target.value)}
-            placeholder="Password"
-          />
+      <button className='main-button' type="submit" disabled={checkUserInputs()}>Register</button>
 
-          <input
-            className="input"
-            type="password" 
-            value={repeatPass} 
-            onChange={(e) => setRepeatPass(e.target.value)}
-            placeholder="Repeat Password"
-          />
-        </div>
-
-        <button className='main-button' type="submit" disabled={checkUserInputs()}>Register</button>
-
-        <span onClick={() => goLogin()}>Already have an account? -- Login to your account</span>
-      </StyledRegister>
-    </>
+      <span onClick={() => goLogin()}>Already have an account? -- Login to your account</span>
+    </StyledRegister>
   )
 }
 

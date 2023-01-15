@@ -1,8 +1,11 @@
-import { StyledSnackBar } from "./styled-component/snackBar.styled"
-import { useState, useEffect } from 'react';
-import { useDispatch } from "react-redux";
+
+import { useEffect } from 'react';
+
 import { hiddeNotification } from "../../redux/slices";
 import { INotification } from "../../models/notification.model";
+import { useAppDispatch } from '../../hooks';
+
+import { StyledSnackBar } from './styles';
 
 export const SnackBar = ({
   show,
@@ -10,7 +13,7 @@ export const SnackBar = ({
   error
 }: INotification) => {
 
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
 
   useEffect(() => {
     if(show) {

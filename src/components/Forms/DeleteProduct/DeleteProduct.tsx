@@ -1,4 +1,4 @@
-import { StyledDeleteProduct } from "./styled-component/deleteProduct.styled"
+import { StyledDeleteProduct } from "./styles"
 
 interface IDeleteProduct {
   deleteProduct: () => void

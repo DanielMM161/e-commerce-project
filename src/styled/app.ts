@@ -12,6 +12,12 @@ export const StyledApp = styled.div`
     object-fit: cover;
   }
 
+  .products-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill,minmax(min(100%, 25rem),1fr));
+    gap: 30px;
+  }
+
   .container {
     width: 100%;
     margin: 0 auto;
@@ -25,6 +31,10 @@ export const StyledApp = styled.div`
     .navbar-container {
       max-width: 80%;
     }
+    .products-container {
+      grid-template-columns: repeat(auto-fill,minmax(min(100%, 15rem),1fr));
+      gap: 25px;
+    }
   }
 
   @media (max-width: ${medias.xl}px) {
@@ -32,7 +42,7 @@ export const StyledApp = styled.div`
       max-width: 90%;
     }
     .navbar-container {
-        max-width: 90%;
+      max-width: 90%;
     }
   }
   
@@ -40,6 +50,10 @@ export const StyledApp = styled.div`
   @media (max-width: ${medias.md}px) {
     .container {
       max-width: 90%;
+    }
+    .products-container {
+      grid-template-columns: repeat(auto-fit,minmax(min(100%,8rem),1fr));
+      gap: 25px;
     }
   }
 
