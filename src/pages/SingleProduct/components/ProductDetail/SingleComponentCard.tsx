@@ -40,7 +40,7 @@ export const ProductDetail = ({
           <h4 id="title">{title}</h4>
           <h2>${price}</h2>
           <input type="number" min={1} value={amount} onChange={(evt) => setAmount(Number(evt.target.value))}/>
-          <button onClick={() => addToCart({quantity: amount, product: product})}>Add to cart</button>
+          <button className="main-button" onClick={() => addToCart({quantity: amount, product: product})}>Add to cart</button>
           {description.trim() !== "" ? (
             <>
               <h4 id="description-title">Product Detail</h4>

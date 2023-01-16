@@ -32,8 +32,6 @@ const Login = ({
     e.preventDefault()
     if (email.trim() != "" && password.trim() != "") {
       dispatch(loginUser({email: email, password: password}))
-    } else {
-      // TODO: SET SHOW ERROR MESSAGE
     }
   }
 

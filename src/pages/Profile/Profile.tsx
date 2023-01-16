@@ -5,12 +5,19 @@ import { updateUser } from "../../services"
 
 import { Info } from "./components"
 import { StyledProfile } from "./styles"
+import { useNavigate } from 'react-router';
 
 const ProfilePage = () => {
 
     const dispatch = useAppDispatch()
+    const navigate = useNavigate()
     const userState = useAppSelector(store => store.user)
     const { user } = userState
+
+    function handleLogOut() {
+        dispatch(logOut())
+        navigate('/')
+    }
 
     return (
         <>
@@ -21,7 +28,7 @@ const ProfilePage = () => {
                         <div className="info-container">
                             <Info 
                                 user={user}
-                                logOut={() => dispatch(logOut())}
+                                logOut={() => handleLogOut()}
                                 updateProfile={(newFields) => dispatch(updateUser(newFields))}
                             />
                         </div>

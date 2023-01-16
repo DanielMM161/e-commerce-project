@@ -43,7 +43,8 @@ const ProductsPage = () => {
     const categoriesState = useAppSelector(state => state.categories)
     const { categories } = categoriesState
     const { showModal, toggle } = UseModal()    
-    const [ pagination, setPagination ] = useState(10) 
+    const [ pagination, setPagination ] = useState(10)
+    
     // Filter
     const { showSideBar, toggle: toggleSideBar } = useSideBar()
     const [ filter, setFilter ] = useState<IFilter | null>(null)

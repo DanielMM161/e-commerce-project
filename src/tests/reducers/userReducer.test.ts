@@ -58,7 +58,5 @@ describe('Test User Service', () => {
   test('login user', async () => {
     await store.dispatch(loginUser({email: 'test', password: 'test'}))
     expect(store.getState().user.user).toHaveProperty('name')
-  })
-
-  
+  })  
 })

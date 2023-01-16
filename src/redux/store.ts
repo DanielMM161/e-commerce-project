@@ -1,4 +1,5 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
+
 import { categoriesSlice, productsSlice, userSlice, cartSlice } from './slices';
 import { notificationSlice } from './slices/notification.slice';
 

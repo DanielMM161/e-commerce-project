@@ -38,11 +38,11 @@ export const userSlice = createSlice({
                 state.user = action.payload
             }          
         })
-        /** rejected */
-        build.addCase(createUser.rejected, (state) => {            
+        build.addCase(loginUser.fulfilled, (state) => {            
             state.isLoading = false        
         })
-        build.addCase(loginUser.rejected, (state) => {            
+        /** rejected */
+        build.addCase(createUser.rejected, (state) => {            
             state.isLoading = false        
         })
         build.addCase(fetchUserSession.rejected, (state) => {            

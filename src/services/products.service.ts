@@ -18,8 +18,9 @@ export const fetchProductsByCategory = createAsyncThunk('fetchProductByCategory'
       }
       return []
   } catch (error: any) {
-      //console.error("Some problems in fetchAllProducts", error.response)
-      return []
+    const err = error as AxiosError    
+    console.error("Some problems in fetchAllProducts", err.response)
+    return []
   }
 });
 
@@ -32,18 +33,27 @@ export const fetchAllProducts = createAsyncThunk('fetchAllProducts',
       }
       return []
   } catch (error: any) {
-      //console.error("Some problems in fetchAllProducts", error.response)
+      const err = error as AxiosError
+      console.error("Some problems in fetchAllProducts", err.response)
       return []
   }
 });
 
 export const fetchSingleProduct = createAsyncThunk('fetchSingleProduct',
   async (productId: string | number) => {
-    const response = await axios.get(`${BASE_URL}/products/${productId}`)
-    if(response.status === 200) {
-      return response.data
+    try {
+      const response = await axios.get(`${BASE_URL}/products/${productId}`)
+      
+      if(response.status === 200) {
+        console.log("response ----> ", response.data);
+        return response.data
+      }
+      return null          
+    } catch (error) {
+      const err = error as AxiosError
+      console.error("Some problems in fetchSingleProduct", err.response)
+      return null
     }
-    return null    
   }
 )
 
@@ -69,7 +79,7 @@ export const deleteProduct = createAsyncThunk('deleteProduct',
         message: DELETE_PRODUCT_MESSAGE.error
       }))
       const err = error as AxiosError
-      //console.error("Error in deleteProduct", err)
+      console.error("Error in deleteProduct", err.message)
       return null
     }
   }
@@ -111,6 +121,8 @@ export const createProduct = createAsyncThunk('createProduct',
         error: true, 
         message: CREATE_PRODUCT_MESSAGE.error
       }))
+      const err = error as AxiosError
+      console.error("Error in createProduct", err.message)
       return null
     }
   }
@@ -142,7 +154,9 @@ export const updateProduct = createAsyncThunk('updateProduct',
       thunkAPI.dispatch(showNotification({
         error: true, 
         message: UPDATE_PRODUCT_MESSAGE.error
-      }))    
+      }))
+      const err = error as AxiosError
+      console.error("Error in updateProduct", err.message)
       return null
     }
   }

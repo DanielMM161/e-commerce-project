@@ -4,7 +4,7 @@ import { IUpdateUser, IUserAuth, IUserRegister } from "../models";
 import { showNotification } from "../redux/slices";
 import { BASE_URL, CREATE_USER_MESSAGE, LOGIN_USER_MESSAGE, UPDATE_USER_MESSAGE } from "../utilities/constants";
 
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 
 
 export const fetchUserProfile = createAsyncThunk('fetchUserProfile',
@@ -56,21 +56,26 @@ export const createUser = createAsyncThunk('createUser',
 
 export const loginUser = createAsyncThunk('loginUser',
   async (userLogin: IUserAuth, thunkAPI) => {
+
+    try {
+      
+      const response = await axios.post(`${BASE_URL}/auth/login`, {
+        email: userLogin.email,
+        password: userLogin.password
+      })
+
+      if (response.status === 201) {
+        const value = response.data
+        localStorage.setItem('access_token', JSON.stringify(value['access_token']))
+        thunkAPI.dispatch(fetchUserSession())
+        return value
+      } else {
+        thunkAPI.dispatch(showNotification({error: true, message: LOGIN_USER_MESSAGE.error}))
+      }    
+    } catch (error: unknown) {      
+      thunkAPI.dispatch(showNotification({error: true, message: LOGIN_USER_MESSAGE.error}))
+    }
    
-  const response = await axios.post(`${BASE_URL}/auth/login`, {
-    email: userLogin.email,
-    password: userLogin.password
-  })
-  
-  if (response.status === 201) {
-    const value = response.data
-    localStorage.setItem('access_token', JSON.stringify(value['access_token']))
-    thunkAPI.dispatch(fetchUserSession())
-    return value
-  } else {
-    thunkAPI.dispatch(showNotification({error: true, message: LOGIN_USER_MESSAGE.error}))
-    thunkAPI.rejectWithValue(null)
-  }    
 })
 
 export const updateUser = createAsyncThunk('updateUser',
@@ -88,8 +93,10 @@ export const updateUser = createAsyncThunk('updateUser',
       } 
       thunkAPI.dispatch(showNotification({error: false, message: UPDATE_USER_MESSAGE.error}))   
       return null     
-    } catch (error: any) {      
+    } catch (error: any) {
       thunkAPI.dispatch(showNotification({error: true, message:  UPDATE_USER_MESSAGE.error}))
+      const err = error as AxiosError
+      console.error("Error in updateUser -> ", err.message)
       return null   
     }
   }

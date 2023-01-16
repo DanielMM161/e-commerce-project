@@ -15,7 +15,7 @@ export const fetchAllCategories = createAsyncThunk('fetchAllCategories',
         return []
     } catch (error) {
         const err = error as AxiosError
-        //console.error('Error in fetchAllCategories', err.message)
+        console.error('Error in fetchAllCategories', err.message)
         return []
         
     }

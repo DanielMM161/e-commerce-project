@@ -2,7 +2,7 @@ import { store } from './../../redux/store';
 import { deleteProduct, fetchProductsByCategory, fetchSingleProduct, createProduct } from './../../services/products.service';
 
 import { fetchAllProducts } from "../../services";
-import { IProductPost } from '../../models';
+import { IProductPost, Product } from '../../models';
 import productServer from '../servers/products.server';
 
 
@@ -63,11 +63,12 @@ describe('Product Service tests', () => {
   })
 
   test('fetch single product', async () => {
-    // await store.dispatch(fetchSingleProduct(-1))
-    // expect(store.getState().products.product).toBeNull()
+    let result = await store.dispatch(fetchSingleProduct(-1))
+    expect(result.payload).toBeNull()
 
-    // await store.dispatch(fetchSingleProduct(90))
-    // expect(store.getState().products.product?.id).toBe(90)
+    result = await store.dispatch(fetchSingleProduct(30))
+    const product = result.payload as Product    
+    expect(product.id).toBe(30)
   })
 
 })
