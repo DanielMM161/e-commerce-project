@@ -1,5 +1,7 @@
 import styled from "styled-components";
-import { medias, title } from "../../../../styled";
+import { medias, textOpacity, title } from "../../../../styled";
+
+const { high, medium, low} = textOpacity
 
 
 export const StyledTopCategories = styled.div`
@@ -14,6 +16,7 @@ export const StyledTopCategories = styled.div`
       justify-content: space-between;
       align-items: center;        
       line-height: 1.75rem;
+      opacity: ${high};
 
       span {
         font-size: .75rem;
@@ -38,6 +41,7 @@ export const StyledTopCategories = styled.div`
           padding-top: 1rem;
           font-size: clamp(.5em, 1.5em, 2em);
           font-weight: 400;
+          opacity: ${medium};
       }
       a {
           max-height: 75%;
@@ -47,7 +51,7 @@ export const StyledTopCategories = styled.div`
           height: 100%;
       }
       img {
-          box-shadow: -4px 5px 11px 1px rgb(0 0 0 / 28%);
+          box-shadow: -4px 5px 11px 1px rgb(${p => p.theme.shadowColor} / 28%);
       }
     }
 

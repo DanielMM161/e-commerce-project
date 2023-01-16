@@ -13,7 +13,7 @@ const BreadCrumbs = ({ links } : IBreadCrumbsProps) => {
     
     return (
         <StyledBreadCrums>
-            <IconHouse  to={"/home"}/>
+            <IconHouse  to={"/"}/>
             {
                 links.map((link) => {
                     return (

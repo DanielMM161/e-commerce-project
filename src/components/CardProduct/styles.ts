@@ -1,5 +1,7 @@
-import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { textOpacity } from './../../styled';
+
+const {high, medium, low} = textOpacity
 
 export const StyledCardProduct = styled.div`
   height: 100%;
@@ -11,7 +13,7 @@ export const StyledCardProduct = styled.div`
 
     & img {
         width: 100%;
-        box-shadow: -7px 8px 20px 0px rgb(0 0 0 / 28%);
+        box-shadow: -7px 8px 20px 0px rgb(${p => p.theme.shadowColor} / 28%);
     }
 
     .icon-container {
@@ -39,6 +41,11 @@ export const StyledCardProduct = styled.div`
 
     .price {
         font-weight: bold;
+        opacity: ${high};
+    }
+
+    .title {
+      opacity: ${medium};
     }
   }
 `

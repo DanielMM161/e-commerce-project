@@ -27,18 +27,18 @@ export const StyledFilter = styled.div`
 
   .button-category {
       padding: 0.5rem;
-      border: 1px solid;
+      border: 1px solid ${p =>  p.theme.title};
       font-size: 0.8rem;
-      background: transparent;
+      background: transparent;      
+      color:  ${p => p.theme.title};
   }
 
   .button-clicked {
       padding: 0.5rem;
       border: 1px solid;
       font-size: 0.8rem;
-      background: transparent;
-      background-color: black;
-      color: white;
+      background-color: ${p =>  p.theme.title};
+      color:  ${p => p.theme.body};
   }
 
   .prices-container {
@@ -55,6 +55,8 @@ export const StyledFilter = styled.div`
       background: transparent;
       display: flex;
       justify-content: space-between;
+      background: transparent;      
+      color:  ${p => p.theme.title};
   }
 `
 

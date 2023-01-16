@@ -88,9 +88,7 @@ export const updateUser = createAsyncThunk('updateUser',
       } 
       thunkAPI.dispatch(showNotification({error: false, message: UPDATE_USER_MESSAGE.error}))   
       return null     
-    } catch (error: any) {
-      console.log("entro en error");
-      
+    } catch (error: any) {      
       thunkAPI.dispatch(showNotification({error: true, message:  UPDATE_USER_MESSAGE.error}))
       return null   
     }

@@ -15,9 +15,9 @@ const ProfilePage = () => {
     return (
         <>
             {user != null ? (
-                <>
-                    <BreadCrumbs links={[{ path: "/profile", name: "Profile" }]} />
-                    <StyledProfile>
+                <StyledProfile>
+                    <div className="container">
+                        <BreadCrumbs links={[{ path: "/profile", name: "Profile" }]} />                        
                         <div className="info-container">
                             <Info 
                                 user={user}
@@ -25,8 +25,8 @@ const ProfilePage = () => {
                                 updateProfile={(newFields) => dispatch(updateUser(newFields))}
                             />
                         </div>
-                    </StyledProfile>
-                </>
+                    </div>
+                </StyledProfile>
             ) : null}
         </>
     )

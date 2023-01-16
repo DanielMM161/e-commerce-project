@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 
-import { useAppDispatch, useAppSelector, UseModal, useSideBar } from "../../hooks";
+import { useAppSelector, UseModal, useSideBar } from "../../hooks";
 import { SideBar, Cart, Register, Login, Modal } from '../index'
 import { LoadingPulsating } from "../LoadingPulsating/LoadingPulsating";
 import { SnackBar } from "../SnackBar/SnackBar";
@@ -31,8 +31,8 @@ const NavBar = () => {
     return (
         <StyledNavBar>
             <div className="navbar-container">
-                <Link to="/" >
-                    LOGO HERE
+                <Link className="logo" to="/" >
+                    ECOMMERCE
                 </Link>
                 <nav>
                     <ul className="nav-ul">

@@ -18,11 +18,9 @@ const SingleProductPage = () => {
 
     const { id } = useParams()    
     const dispatch = useAppDispatch()    
-
     const userState = useAppSelector(state => state.user)
     const {user} = userState
     const [product, setProduct] = useState<Product | null>(null)
-    
     const productState = useAppSelector(state => state.products)
     const {isLoading, products} = productState    
     

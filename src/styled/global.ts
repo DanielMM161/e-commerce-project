@@ -21,10 +21,12 @@ export const GlobalStyle = createGlobalStyle`
         background: transparent;
         cursor: pointer;
         border: none;
+        
     }
 
     input, 
     textarea {
+        border-width: 1px;
         outline: 0;
     }
 

@@ -14,12 +14,13 @@ export const StyledDeleteProduct = styled.div`
     padding-right: 1rem;
     border-radius: 0.125rem;
     background: transparent;
-    color: black;
+  
     min-height: 2.5rem;
+    color: ${p => p.theme.title}
   }
 
   .delete-button {
-    background: black;
+    background: red;
     color: rgb(255 255 255 / 1);
   }
 `

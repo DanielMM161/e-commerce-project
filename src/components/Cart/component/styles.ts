@@ -37,5 +37,9 @@ export const StyledCartItem = styled.div`
         width: 15%;
       }
     }
+
+    svg {
+      color: ${p => p.theme.title}
+    }
   }
 `

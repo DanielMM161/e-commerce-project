@@ -14,9 +14,7 @@ export const DeleteProduct = ({
     <StyledDeleteProduct>
       <p className="informative">Are you're sure that want to delete this product ?</p>
       <button className="delete-button" onClick={() => deleteProduct()}>DELETE</button>
-      <button onClick={() =>  cancel()}>CANCEL</button>
-      <div className="button-container">
-      </div>
+      <button className="cancel-button" onClick={() =>  cancel()}>CANCEL</button>
     </StyledDeleteProduct>
   )
 }

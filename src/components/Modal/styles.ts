@@ -13,7 +13,7 @@ export const StyleModal = styled.div`
   top: 0;
   z-index: 1;
 
-  .modal {
+  .modal {    
     margin: 0 auto;
     max-height: 100vh;
     max-width: 100vw;
@@ -35,6 +35,7 @@ export const StyleModal = styled.div`
 
     .button-close {
       background: transparent;
+      color: ${p => p.theme.title};
     }
   }
 
@@ -44,7 +45,7 @@ export const StyleModal = styled.div`
     padding: 2rem;
   }
 
-  .children-container {
+  .children-container {    
     background-color: ${p => p.theme.modal};
     color: ${p => p.theme.title};
     padding: 2rem;

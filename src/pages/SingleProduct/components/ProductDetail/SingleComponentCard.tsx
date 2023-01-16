@@ -43,7 +43,7 @@ export const ProductDetail = ({
           <button onClick={() => addToCart({quantity: amount, product: product})}>Add to cart</button>
           {description.trim() !== "" ? (
             <>
-              <h4>Product Detail</h4>
+              <h4 id="description-title">Product Detail</h4>
               <span id="description">{description}</span>
             </>
           ) : null}

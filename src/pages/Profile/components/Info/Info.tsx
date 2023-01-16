@@ -45,7 +45,7 @@ export const Info = ({
         </div>
         <div>
           <h5>Role *</h5>
-          <input disabled={true} value={user.password}/>
+          <input disabled={true} value={user.role}/>
         </div>
         <div>
           <h5>Created at*</h5>

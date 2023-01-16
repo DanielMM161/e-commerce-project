@@ -1,4 +1,5 @@
 import styled, { keyframes } from "styled-components";
+import { medias } from "../../styled";
 
 const loadAnimation = keyframes`
     0% { transform rotate(0deg) }
@@ -22,7 +23,13 @@ export const StyledButtonLoader = styled.button`
     text-transform: uppercase;
     width: 30%;
     min-height: 2.5rem;
-    border: 1px solid;
+    border: 1px solid ${p => p.theme.title};
+    color: ${p => p.theme.title};
+
+    /**When is mobile */
+    @media (max-width: ${medias.md}px) {
+        width: 100%;
+    }
 `
 
 export const StyledLoad = styled.span`
@@ -33,5 +40,6 @@ export const StyledLoad = styled.span`
 	border-radius: 100%;
     border-top: 5px solid transparent;
 	animation: ${loadAnimation} infinite linear 1s;
+    color: ${p => p.theme.title}
 `
 

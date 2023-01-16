@@ -3,20 +3,26 @@ import styled  from 'styled-components';
 import { medias } from '../../styled/vars';
 
 export const StyledNavBar = styled.header`
-  background-color: #252530;
+  background-color: rgb(97, 17, 34);
   width: 100%;
-  color: ${p => p.theme.title};
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.28);
+  color: white;
+  box-shadow: 0 5px 15px rgba(${p => p.theme.shadowColor}, 0.28);
+
+  .logo {
+    font-weight: bold;
+    letter-spacing: 6px;
+  }
   
-  .navbar-container {                
+  .navbar-container {           
     width: 100%;
     margin: 0 auto;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 80px;    
+    margin: 0 auto;
+    max-width: 70%;
   }
-  
   
   nav {
     display: flex;
@@ -34,10 +40,10 @@ export const StyledNavBar = styled.header`
     }
 
     .nav-ul {
-        align-items: center;
-        display: flex;
-        padding-left: 10px;
-        padding-right: 10px;
+      align-items: center;
+      display: flex;
+      padding-left: 10px;
+      padding-right: 10px;        
     }
 
     a {
@@ -49,22 +55,24 @@ export const StyledNavBar = styled.header`
     }
   }
 
-  @media (min-width: ${medias.xxl}px) {
-    .container {
-      max-width: 80%;
-    }
-  }
-  
-  @media (min-width: ${medias.xl}px) {    
-    .container {
-      max-width: 90%;
-    }
-  }
-
   /**When is mobile */
   @media (max-width: ${medias.md}px) {
     li span {
       display: none
+    }
+
+    .nav-ul {
+      gap: 0px;
+    }
+  }
+
+  /**When is mobile */
+  @media (min-width: ${medias.md}px) {
+    .nav-ul {
+      gap: 60px;
+    }
+    .logo {
+      font-size: .8rem;
     }
   }
 `

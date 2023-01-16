@@ -1,5 +1,7 @@
 import styled from "styled-components";
-import { medias } from "../../../../styled";
+import { medias, textOpacity } from "../../../../styled";
+
+const {high, medium} = textOpacity
 
 export const StylesProductDetail = styled.div`
   display: flex;
@@ -21,12 +23,12 @@ export const StylesProductDetail = styled.div`
   }
 
   .main-img {
-    box-shadow: 7px 5px 18px 0px rgb(0 0 0 / 28%);
+    box-shadow: 7px 5px 18px 0px rgb(${p => p.theme.shadowColor} / 28%);
   }
 
   .small-img-col
   img {
-    box-shadow: -3px 8px 18px 0px rgb(0 0 0 / 28%);
+    box-shadow: -3px 8px 18px 0px rgb(${p => p.theme.shadowColor} / 28%);
   }
 
   .single-detail {
@@ -42,16 +44,25 @@ export const StylesProductDetail = styled.div`
   .single-detail
   #title {
     font-size: clamp(1em, 2em, 2.5em);
+    opacity: ${high}
   }
 
   .single-detail
   #category {
     font-size: clamp(.5rem, 1.2rem, 1.7rem);
+    opacity: ${medium}
+  }
+
+  .single-detail
+  #description-title {
+    font-size: clamp(.4em, 1.5em, 1.8em);
+    opacity: ${high}
   }
 
   .single-detail
   #description {
     font-size: clamp(.4em, 1.5em, 1.8em);
+    opacity: ${high}
   }
 
   .single-detail

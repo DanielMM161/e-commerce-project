@@ -1,7 +1,8 @@
 import styled from "styled-components";
-import { highlightTitle, medias, subtitle } from "../../styled";
+import { highlightTitle, medias, subtitle, textOpacity } from "../../styled";
 
 
+const { high, medium, low } = textOpacity
 
 export const StyledProductSlider = styled.div`
   padding-top: 1.5rem;
@@ -16,11 +17,13 @@ export const StyledProductSlider = styled.div`
   .title-container 
   .title {
     ${highlightTitle}
+    opacity: ${high}
   }
 
   .title-container
   .subtitle {
     ${subtitle}
+    opacity: ${medium}
   }
 
   .slider-container {

@@ -8,7 +8,11 @@ export const StyleSwitch = styled.label`
     margin: 0 0.75rem;
 
     &input[type="checkbox"] {
-        display: none;
+        display: none;        
+    }
+
+    input {
+        visibility: hidden;
     }
 
     .switch {

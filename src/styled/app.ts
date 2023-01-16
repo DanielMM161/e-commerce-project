@@ -9,7 +9,7 @@ export const StyledApp = styled.div`
 
   .hero-image {
     width: 100%;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.28);
+    box-shadow: 0 5px 15px rgba(${p => p.theme.shadowColor}, 0.28);
     object-fit: cover;
   }
 
@@ -25,12 +25,17 @@ export const StyledApp = styled.div`
     max-width: 70%;
   }
 
-  @media (max-width: ${medias.xxl}px) {
+  input ,textarea, select {
+    background-color: ${p => p.theme.backgroundInpt};
+    color: ${p => p.theme.title};
+  }
+
+  @media (min-width: ${medias.xxl}px) {
     .container {
-       max-width: 80%;
+      // max-width: 80%;
     }
     .navbar-container {
-      max-width: 80%;
+     // max-width: 80%;
     }
     .products-container {
       grid-template-columns: repeat(auto-fill,minmax(min(100%, 15rem),1fr));
@@ -38,19 +43,19 @@ export const StyledApp = styled.div`
     }
   }
 
-  @media (max-width: ${medias.xl}px) {
+  @media (min-width: ${medias.xl}px) {
     .container {
-      max-width: 90%;
+     // max-width: 90%;
     }
     .navbar-container {
-      max-width: 90%;
+     // max-width: 90%;
     }
   }
   
   /**When is mobile */
   @media (max-width: ${medias.md}px) {
     .container {
-      max-width: 90%;
+      //max-width: 90%;
     }
     .products-container {
       grid-template-columns: repeat(auto-fit,minmax(min(100%,8rem),1fr));
