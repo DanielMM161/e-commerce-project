@@ -1,51 +1,99 @@
-# Front-end Project
+# Front End Project
+Front End Project is a project that uses a fake API to fetch data from the service and emulate the behavior of an e-commerce website without payment gateways.
 
-![React](https://img.shields.io/badge/React-v.18-blue)
-![Redux toolkit](https://img.shields.io/badge/Redux-v.1.9-purple)
-![TypeScript](https://img.shields.io/badge/TypeScript-v.4.9-green)
-![SASS](https://img.shields.io/badge/SASS-v.4.9-hotpink)
+# Functioning
+* All non-login users can do these things::
+    * See All Products
+    * See Products By Categories
+    * Sort Products By category and prices
+    * See info about Single Product
+    * Create a Specific Product
+    * Add/Delete item to the Shopping Cart
+    * Login/Register
+*All registered users can do the same, but if your role is administrator, you can do the following::
+    * Delete a Specific Product
+    * Edit Info Product
 
-This project requires implementation of TypeScript and SASS.
+## 🛠 Tech stack & Open-source libraries
+- [React](https://github.com/facebook/react) - version 18.2.0
+- [TypeScript](https://github.com/Microsoft/TypeScript) - version 4.9.4
+- [React Router](https://github.com/remix-run/react-router#readme) - Routes App
+- [Redux](https://github.com/reduxjs/redux) - Global State
+- [Styled Components](https://github.com/styled-components/styled-components) - Styles App version 5.3.6
+- [Axios](https://github.com/axios/axios) - Construct the REST APIs  version 1.2.1
+- [Jest](https://github.com/facebook/jest) - Testing 
 
-## Requirement
+## Project Structure
+<details>
+<summary>Open Project Structure</summary>
+``` bash
+└───src
+    ├───assets
+    ├───components
+    │   ├───BreadCrumbs
+    │   ├───Button
+    │   ├───ButtonLoader
+    │   ├───CardProduct
+    │   ├───Cart
+    │   │   └───component
+    │   ├───Filter
+    │   ├───Footer
+    │   ├───Forms
+    │   │   ├───CreateProduct
+    │   │   ├───DeleteProduct
+    │   │   ├───EditProduct
+    │   │   ├───Login
+    │   │   └───Register
+    │   ├───HeroImage
+    │   ├───LoadingPulsating
+    │   ├───Modal
+    │   ├───NavBar
+    │   ├───NoProductFound
+    │   ├───ProductSlider
+    │   ├───SideBar
+    │   ├───SnackBar
+    │   ├───Switch
+    │   └───UserValidation
+    ├───context
+    ├───hooks
+    ├───models
+    ├───pages
+    │   ├───CategoryProduct
+    │   ├───Home
+    │   │   └───components
+    │   │       └───TopCategories
+    │   ├───Products
+    │   ├───Profile
+    │   │   └───components
+    │   │       └───Info
+    │   └───SingleProduct
+    │       └───components
+    │           ├───ProductDetail
+    │           └───UserAdmin
+    ├───redux
+    │   └───slices
+    ├───services
+    ├───styled
+    ├───tests
+    │   ├───Mocks
+    │   ├───reducers
+    │   └───servers
+    └───utilities
+```
+</details>
 
-1. Use the API endpoint [https://fakeapi.platzi.com/](https://fakeapi.platzi.com/) to create an e-commerce website. Read the documentation and learn how to use the different endpoints.
-2. Create at lease 4 pages (can be more if you want): Home page, product page,
-profile page (only available if user logins), and cart page (cart could be a page or a modal)
-3. Create Redux store for following features:
-    - product reducer: get all products, find a single products, sort products by
-    categories, sort products by price. Create, update and delete a product (enable update & delete features only for admin of the webapp. For example, you can check if user is your admin account before let them delete product)
-    - user reducer: Register and Login
-    - cart reducer: add product to cart, remove products, update products's quantity in cart
-4. When adding routers to your application, programatically set certain routes to be private. For example, route to user profile page should not be accessible if user has not logged in.
-5. Deploy the application and rewrite README file.
+## Open Api
+Front End Project use the [Platzi Fake Api](https://fakeapi.platzi.com/)
 
-## Bonus
+Platzi Fake Store API can be used with any type of project that needs products, users, categories, authentication, and users in JSON format. You can use this API for prototyping e-commerce and learning about how to connect to an API with the best practices.
 
-1. Use context API to switch theme
-2. Implement unit testing for the reducers
+[Check The Documentation Here](https://fakeapi.platzi.com/en/rest/introduction)
 
-## Instruction to start the project
+## Take a Look
+[Take a Look](https://bespoke-crepe-7013a1.netlify.app/)
 
-In the project directory, you can run:
+## Deploy it
+Clone the repository from github:  [Here](https://github.com/DanielMM161/e-commerce-project/archive/refs/heads/main.zip) 
 
-### `npm install`
-
-Install all the dependencies
-
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+ - npm install
+ - npm run start
