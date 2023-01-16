@@ -5,7 +5,7 @@ import { medias } from '../../styled/vars';
 export const StyledNavBar = styled.header`
   background-color: #252530;
   width: 100%;
-  color: ${props => props.theme.title};
+  color: ${p => p.theme.title};
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.28);
   
   .navbar-container {                

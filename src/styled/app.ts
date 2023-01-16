@@ -4,7 +4,8 @@ import { medias } from './vars';
 export const StyledApp = styled.div`
   display: flex;
   flex-direction: column;
-  background-color: transparent;
+  background-color: ${p => p.theme.body};
+  color: ${p => p.theme.title};
 
   .hero-image {
     width: 100%;

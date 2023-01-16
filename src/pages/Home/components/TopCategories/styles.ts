@@ -6,8 +6,7 @@ export const StyledTopCategories = styled.div`
     display: flex;
     flex-direction: column;
     padding-top: 1.5rem;
-    color: ${(props) => props.theme.title};
-
+   
     h2 {
       ${title}
       display: flex;

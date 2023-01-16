@@ -3,7 +3,7 @@ import { medias } from "../../styled";
 
 export const StyleModal = styled.div`
   align-items: center;
-  bottom: 0;
+  bottom: 0;  
   display: flex;
   justify-content: center;
   left: 0;
@@ -24,8 +24,8 @@ export const StyleModal = styled.div`
   }
 
   .modal-header {
-    background: white;
-    color: black;
+    background-color: ${p => p.theme.modal};
+    color: ${p => p.theme.title};
     align-items: center;
     border-bottom: 1px solid #dee2e6;
     display: flex;
@@ -45,9 +45,9 @@ export const StyleModal = styled.div`
   }
 
   .children-container {
-    color: black;
+    background-color: ${p => p.theme.modal};
+    color: ${p => p.theme.title};
     padding: 2rem;
-    background-color: white;
   }
 
   /**When is mobile */
