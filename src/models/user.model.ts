@@ -27,14 +27,12 @@ export interface IUserRegister extends IUserAuth {
 interface IUserSliceState {
     user: User | null
     isLoading: boolean
-    isError: boolean
 }
   
 export const userInitialState: IUserSliceState = (() => {
     const data = JSON.parse(localStorage.getItem('user') ?? 'null')
     return {
         user: data,
-        isLoading: false,
-        isError: false
+        isLoading: false
     }
 })()

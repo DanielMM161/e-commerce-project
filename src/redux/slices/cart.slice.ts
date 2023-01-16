@@ -23,7 +23,7 @@ export const cartSlice = createSlice({
     },
     deleteItem: (state, action) => {      
       const newState = state.filter(element => element.product.id !== action.payload)
-     // localStorage.setItem('cart', JSON.stringify(newState))
+      localStorage.setItem('cart', JSON.stringify(newState))
       return newState   
     },
     updateQuantity: (state, action: {payload: {newQuantity: number, idProduct: number}, type: string}) => {
@@ -33,14 +33,14 @@ export const cartSlice = createSlice({
           item.quantity = newQuantity
         }
       })      
-     // localStorage.setItem('cart', JSON.stringify(state))      
+      localStorage.setItem('cart', JSON.stringify(state))      
     },
     getCart: (state) => {
-      // const newState = JSON.parse(localStorage.getItem('cart') ?? "null")
-      // if(newState != null) {
-      //   return newState
-      // }
-      // return state     
+      const newState = JSON.parse(localStorage.getItem('cart') ?? "null")
+      if(newState != null) {
+        return newState
+      }
+      return state     
     }
   }
 })
