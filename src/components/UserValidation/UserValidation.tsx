@@ -5,5 +5,5 @@ import { useAuth } from '../../hooks/useAuth.hook';
 
 export const UserValidation = () => {
   const isAuth = useAuth()
-  return isAuth ? <Outlet /> : <Navigate to={'/home'}/>
+  return isAuth ? <Outlet /> : <Navigate to={'/'}/>
 }

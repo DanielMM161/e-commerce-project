@@ -15,4 +15,8 @@ export const StyleHeroImage = styled.div`
         font-style: italic;
         text-transform: uppercase;
     }
+
+    .hero-image {
+        box-shadow: -1px 6px 20px 3px rgb(${p => p.theme.shadowColor} / 58%);
+    }
 `

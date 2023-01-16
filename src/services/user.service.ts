@@ -86,7 +86,7 @@ export const updateUser = createAsyncThunk('updateUser',
         name: newFields.fullName,
       })
 
-      if(response.status == 200) {
+      if(response.status === 200) {
         thunkAPI.dispatch(showNotification({error: false, message:  UPDATE_USER_MESSAGE.success}))
         localStorage.setItem('user', JSON.stringify(response.data))
         return response.data    
